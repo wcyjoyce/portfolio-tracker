@@ -12,7 +12,7 @@
       </tr>
       <% @portfolio.stocks.each do |stock| %>
         <tr>
-          <td><%= StockQuote::Stock.quote(stock.ticker).company_name %></td>
+          <td><%= stock.name(stock.ticker) %></td>
           <td><%= stock.ticker %></td>
           <td><%= stock.shares %></td>
           <td><%= stock.price %></td>
