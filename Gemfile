@@ -18,7 +18,14 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 
+# Stock Quotes
 gem 'stock_quote'
+
+# Charts
+gem 'chartkick'
+gem 'highcharts-rails'
+gem 'groupdate'
+gem 'active_median'
 
 group :development do
   gem 'web-console', '>= 3.3.0'
