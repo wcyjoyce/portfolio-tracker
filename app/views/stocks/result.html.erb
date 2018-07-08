@@ -1,0 +1,13 @@
+<div class="wrapper">
+  <div>
+    <p>Your search: <%= @query %></p>
+  </div>
+
+  <div>
+    <p><%= @result.company_name %> (<%= @result.symbol %>)</p>
+    <p>Latest Price: <%= number_with_delimiter(@result.close) %></p>
+    <p>Tags: <%= @tags %></p>
+  </div>
+
+  <%= link_to "New Search", root_path, class: "btn" %>
+</div>
