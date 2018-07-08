@@ -1,3 +1,7 @@
+<div>
+  <strong><%= @stock.name(@stock.ticker) unless @stock.ticker.empty? %></strong>
+</div>
+
 <%= simple_form_for(@stock) do |s| %>
   <%= s.input :ticker %>
   <%= s.input :shares %>
