@@ -8,6 +8,12 @@
         <th>Ticker</th>
         <th>No. of Shares</th>
         <th>Cost</th>
+        <th>Current Price</th>
+        <th>Total Cost</th>
+        <th>Market Value</th>
+        <th>P&L ($)</th>
+        <th>Return</th>
+        <th>Date Added</th>
         <th>Action</th>
       </tr>
       <% @portfolio.stocks.each do |stock| %>
@@ -16,6 +22,12 @@
           <td><%= stock.ticker %></td>
           <td><%= stock.shares %></td>
           <td><%= stock.price %></td>
+          <td><%= stock.current_price(stock.ticker) %></td>
+          <td><%= number_with_delimiter(stock.total_cost) %></td>
+          <td><%= number_with_delimiter(stock.market_value) %></td>
+          <td><%= number_with_delimiter(stock.profit_amount) %></td>
+          <td><%= stock.profit_pct.round(2) %>%</td>
+          <td><%= stock.added.strftime("%d %b %Y") %></td>
           <td><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %></td>
         </tr>
       <% end %>
