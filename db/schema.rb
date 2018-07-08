@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180708173917) do
+ActiveRecord::Schema.define(version: 20180708185313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,25 +26,11 @@ ActiveRecord::Schema.define(version: 20180708173917) do
   create_table "stocks", force: :cascade do |t|
     t.string "name"
     t.string "ticker"
+    t.integer "shares"
+    t.date "added"
     t.decimal "price"
-    t.string "country"
-    t.string "sector"
-    t.decimal "ytd"
-    t.decimal "return"
-    t.string "market"
-    t.string "market_status"
-    t.decimal "open"
-    t.decimal "close"
-    t.decimal "high"
-    t.decimal "low"
-    t.decimal "high_52"
-    t.decimal "low_52"
-    t.decimal "dividend"
-    t.decimal "earnings"
-    t.decimal "volatility"
-    t.decimal "pe_ratio"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "portfolio_id"
+    t.index ["portfolio_id"], name: "index_stocks_on_portfolio_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -65,4 +51,5 @@ ActiveRecord::Schema.define(version: 20180708173917) do
   end
 
   add_foreign_key "portfolios", "users"
+  add_foreign_key "stocks", "portfolios"
 end
