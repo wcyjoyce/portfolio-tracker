@@ -88,7 +88,7 @@ class StocksController < ApplicationController
     params.require(:stock).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
   end
 
-  def set_stock
+  def set_portfolio
     @portfolio = Portfolio.find(params[:portfolio_id])
   end
 
