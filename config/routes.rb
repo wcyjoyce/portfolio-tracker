@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :portfolios
-  resources :stocks, except: [:index]
+  resources :stocks, except: [:index, :show]
 
   get "search", to: "stocks#search"
   get "result", to: "stocks#result"
