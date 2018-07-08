@@ -3,6 +3,8 @@ require "open-uri"
 
 class StocksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:search, :result]
+  # before_action :set_portfolio, only: [:new, :create, :show, :edit, :update, :destroy]
+  before_action :set_stock, only: [:show, :edit, :update, :destroy]
 
   def result
     @query = params[:stock]
@@ -44,5 +46,57 @@ class StocksController < ApplicationController
   end
 
   def search
+  end
+
+  def new
+    @stock = Stock.new
+    # authorize @stock
+  end
+
+  def create
+    @stock = Stock.new(stock_params)
+    # authorize @stock
+    if @stock.save
+      redirect_to portfolios_path
+    else
+      render :new
+    end
+  end
+
+  def edit
+    # authorize @stock
+  end
+
+  def update
+    # authorize @stock
+    if @stock.update(stock_params)
+      redirect_to portfolio_path(@stock.portfolio)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    # authorize @stock
+    @stock.destroy
+    redirect_to portfolios_path
+  end
+
+  private
+
+  def stock_params
+    params.require(:stock).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
+  end
+
+  def set_stock
+    @portfolio = Portfolio.find(params[:portfolio_id])
+  end
+
+  def set_stock
+    @stock = Stock.find(params[:id])
+  end
+
+  def set_user
+    @user = current_user
   end
 end
