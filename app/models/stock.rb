@@ -1,16 +1,8 @@
 class Stock < ApplicationRecord
   belongs_to :portfolio
-
   validates :ticker, :shares, :added, :price, presence: true
 
-  # def self.find_by_ticker(ticker_symbol)
-  #   where(ticker: ticker_symbol).first
-  # end
-
-  # def self.new_from_lookup(ticker_symbol)
-  #   looked_up_stock = StockQuote::Stock.quote(ticker_symbol)
-  #   return nil unless looked_up_stock.name
-  #   new_stock = new(ticker: looked_up_stock.symbol, name: looked_up_stock.name)
-  #   new_stock
-  # end
+  def name(ticker)
+    StockQuote::Stock.quote(ticker).company_name
+  end
 end
