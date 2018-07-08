@@ -43,7 +43,7 @@ class PortfoliosController < ApplicationController
   def destroy
     # authorize @portfolio
     @portfolio.destroy
-    redirect_to root_path
+    redirect_to portfolios_path
   end
 
   private
