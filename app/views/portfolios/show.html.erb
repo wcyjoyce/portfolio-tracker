@@ -1,0 +1,11 @@
+<%= @portfolio.name %>
+<p>hi!</p>
+
+
+<div>
+  <%= link_to "Edit", edit_portfolio_path(@portfolio) %>
+</div>
+
+<div>
+  <%= link_to "Delete", portfolio_path(@portfolio), method: :delete, data: { confirm: "Are you sure you want to delete?" } %>
+</div>
