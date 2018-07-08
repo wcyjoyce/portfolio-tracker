@@ -2,7 +2,7 @@
 
 <div>
   <ul>
-    <% @portfolios.each do |portfolio| %>
+    <% @portfolios.order(created_at: :asc).each do |portfolio| %>
       <li><%= link_to portfolio.name, portfolio_path(portfolio) %></li>
     <% end %>
   </ul>
