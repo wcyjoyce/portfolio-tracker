@@ -1,4 +1,8 @@
 class Stock < ApplicationRecord
+  belongs_to :portfolio
+
+  validates :ticker, :shares, :added, :price, presence: true
+
   # def self.find_by_ticker(ticker_symbol)
   #   where(ticker: ticker_symbol).first
   # end
@@ -9,7 +13,4 @@ class Stock < ApplicationRecord
   #   new_stock = new(ticker: looked_up_stock.symbol, name: looked_up_stock.name)
   #   new_stock
   # end
-
-  has_many :portfolios
-  has_many :users, through: :portfolios
 end
