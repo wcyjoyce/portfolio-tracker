@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <div>
+    <p>Your search: <%= @query %></p>
+  </div>
+
+  <div>
+    <p><%= @result.company_name %></p>
+  </div>
+
+  <%= link_to "New Search", root_path, class: "btn" %>
+</div>
