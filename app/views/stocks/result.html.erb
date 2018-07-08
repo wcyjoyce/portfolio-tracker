@@ -1,13 +1,26 @@
-<div class="wrapper">
-  <div>
-    <p>Your search: <%= @query %></p>
-  </div>
-
-  <div>
-    <p><%= @result.company_name %> (<%= @result.symbol %>)</p>
-    <p>Latest Price: <%= number_with_delimiter(@result.close) %></p>
-    <p>Tags: <%= @tags %></p>
-  </div>
-
-  <%= link_to "New Search", root_path, class: "btn" %>
+<div>
+  <p>Your search: <%= @query.upcase %></p>
 </div>
+
+<div class="results">
+  <p><strong><%= @name %> (<%= @symbol %>)</strong></p>
+  <p><%= @description %></p>
+  <p><strong>As of:</strong> <%= @update %></p>
+  <p><strong>Exchange:</strong> <%= @exchange %></p>
+  <p><strong>Latest Price:</strong> <%= number_with_delimiter(@price) %></p>
+  <p><strong>Market Cap:</strong> <%= number_with_delimiter(@market_cap) %></p>
+  <p>
+    <strong>Open/Close:</strong> <%= @open %> / <%= @close %>
+    <strong>High/Low:</strong> <%= @high %> / <%= @low %>
+  </p>
+  <p><strong>Sector:</strong> <%= @sector %></p>
+
+  <strong><u>Stats</u></strong>
+  <p><strong>52-week range:</strong> <%= @high_52 %> / <%= @low_52 %></p>
+  <p><strong>Beta:</strong> <%= @beta %></p>
+  <p><strong>ROE:</strong> <%= @roe %></p>
+  <p><strong>EPS:</strong> <%= @eps %></p>
+  <p><strong>Dividend Yield:</strong> <%= @dividend_yield %></p>
+</div>
+
+<%= link_to "New Search", root_path, class: "btn" %>
