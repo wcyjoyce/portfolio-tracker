@@ -9,4 +9,7 @@ class Stock < ApplicationRecord
   #   new_stock = new(ticker: looked_up_stock.symbol, name: looked_up_stock.name)
   #   new_stock
   # end
+
+  has_many :portfolios
+  has_many :users, through: :portfolios
 end
