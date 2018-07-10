@@ -9,6 +9,5 @@ Rails.application.routes.draw do
 
   get "users/:id/dashboard", to: "user#dashboard", as: "dashboard"
 
-  # root to: "pages#home"
-  root to: "stocks#search"
+  root to: "pages#home"
 end
