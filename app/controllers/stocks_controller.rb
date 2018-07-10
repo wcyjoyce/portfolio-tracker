@@ -58,9 +58,9 @@ class StocksController < ApplicationController
     @stock = Stock.new(stock_params)
     # authorize @stock
     if @stock.save
-      redirect_to portfolios_path
+      redirect_to portfolio_path(@stock.portfolio), notice: "#{@stock.shares} shares of #{@stock.ticker} added to #{@stock.portfolio.name}!"
     else
-      render :new
+      render :new, alert: "something wrong!"
     end
   end
 
