@@ -43,6 +43,7 @@ class StocksController < ApplicationController
       @dividend_yield = "#{stats['dividendYield']}"
       @eps = "#{stats['latestEPS']}"
       @roe = "#{stats['returnOnEquity']}"
+      @eps_date = "#{stats['latestEPSDate']}"
   end
 
   def search
@@ -97,6 +98,7 @@ class StocksController < ApplicationController
       @dividend_yield = "#{stats['dividendYield']}"
       @eps = "#{stats['latestEPS']}"
       @roe = "#{stats['returnOnEquity']}"
+      @eps_date = "#{stats['latestEPSDate']}"
 
     render :result
   end
