@@ -58,7 +58,8 @@ class StocksController < ApplicationController
     @stock = Stock.new(stock_params)
     # authorize @stock
     if @stock.save
-      redirect_to portfolio_path(@stock.portfolio), notice: "#{@stock.shares} shares of #{@stock.ticker} added to #{@stock.portfolio.name}!"
+      redirect_to portfolio_path(@stock.portfolio),
+      notice: "#{@stock.shares} shares of #{@stock.ticker} added to #{@stock.portfolio.name}!"
     else
       render :new, alert: "something wrong!"
     end
@@ -110,7 +111,8 @@ class StocksController < ApplicationController
   def update
     # authorize @stock
     if @stock.update(stock_params)
-      redirect_to portfolio_path(@stock.portfolio)
+      redirect_to portfolio_path(@stock.portfolio),
+      notice: "edited!"
     else
       render :edit
     end
@@ -119,7 +121,8 @@ class StocksController < ApplicationController
   def destroy
     # authorize @stock
     @stock.destroy
-    redirect_to portfolios_path
+    redirect_to portfolio_path(@stock.portfolio),
+    notice: "#{@stock.shares} shares of #{@stock.ticker} removed from #{@stock.portfolio.name}!"
   end
 
   private
