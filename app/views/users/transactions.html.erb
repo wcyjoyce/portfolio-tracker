@@ -1,1 +1,7 @@
 Transactions
+
+<ul>
+  <% @user.stocks.each do |stock| %>
+    <li><%= stock.updated_at %> - <%= stock.name(stock.ticker) %> (<%= stock.ticker %>)</li>
+  <% end %>
+</ul>
