@@ -104,8 +104,19 @@ class StocksController < ApplicationController
       @market_cap = "#{book['quote']['marketCap']}"
       @pe_ratio = "#{book['quote']['peRatio']}"
 
-    historical_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/5y"
-      historical = JSON.parse(open(historical_url).read)
+      historical_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/5y"
+        historical = JSON.parse(open(historical_url).read)
+        @chart = historical.collect { |historical| [historical['date'], historical['close']] }
+        @library_options = {
+          xAxis: {
+            crosshair: true,
+            title: {text: "date"}
+          },
+          yAxis: {
+            crosshair: true,
+            title: {text: "price"},
+          }
+        }
 
     stats_url = "https://api.iextrading.com/1.0/stock/#{@query}/stats"
       stats = JSON.parse(open(stats_url).read)
@@ -117,8 +128,8 @@ class StocksController < ApplicationController
       @roe = "#{stats['returnOnEquity']}"
       @eps_date = "#{stats['latestEPSDate']}"
 
-    peers_url = "https://api.iextrading.com/1.0/stock/#{query}/peers"
-      peers = JSON.parse(open(peers_url).read)
+    comps_url = "https://api.iextrading.com/1.0/stock/#{@query}/peers"
+      @comps = JSON.parse(open(comps_url).read)
 
     render :result
   end
