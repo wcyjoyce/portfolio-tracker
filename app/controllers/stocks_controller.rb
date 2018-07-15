@@ -34,6 +34,17 @@ class StocksController < ApplicationController
 
     historical_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/5y"
       historical = JSON.parse(open(historical_url).read)
+      @chart = historical.collect { |historical| [historical['date'], historical['close']] }
+      @library_options = {
+        xAxis: {
+          crosshair: true,
+          title: {text: "date"}
+        },
+        yAxis: {
+          crosshair: true,
+          title: {text: "price"},
+        }
+      }
 
     stats_url = "https://api.iextrading.com/1.0/stock/#{@query}/stats"
       stats = JSON.parse(open(stats_url).read)
@@ -47,7 +58,6 @@ class StocksController < ApplicationController
 
     comps_url = "https://api.iextrading.com/1.0/stock/#{@query}/peers"
       @comps = JSON.parse(open(comps_url).read)
-
   end
 
   def search
