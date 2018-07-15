@@ -130,8 +130,6 @@ class StocksController < ApplicationController
 
     comps_url = "https://api.iextrading.com/1.0/stock/#{@query}/peers"
       @comps = JSON.parse(open(comps_url).read)
-
-    # render :result
   end
 
   def edit
