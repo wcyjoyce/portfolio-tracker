@@ -31,10 +31,12 @@
     </div>
   </div>
 
-  <%= link_to "Add to Portfolio", new_stock_path %>
-  <%= link_to "Back", :back %>
+  <p><%= link_to "Add to Portfolio", new_stock_path if user_signed_in? %></p>
+  <p><%= link_to "Back", :back %></p>
 <% else %>
   <div>
     Search by entering a ticker.
   </div>
 <% end %>
+
+
