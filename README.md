@@ -2,7 +2,7 @@
 
 This portfolio tracker is created to allow me to track my investments in exactly the way I want, as I have yet to find an app that is satisfactory for my needs. This project is written in pure Ruby without any frameworks or testing libraries, and is my first attempt in interacting with an API. It can only support US stocks at the moment but I hope to be able to add Hong Kong stocks in the future.
 
-It will be deployed onto Heroku once I can think of a name that doesn't sound too generic.
+It will be deployed onto Heroku as soon as I think of a name that doesn't sound too generic.
 
 ## Built With
 
