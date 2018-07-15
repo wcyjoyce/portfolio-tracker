@@ -1,9 +1,14 @@
 <p><strong>Name:</strong> <%= @stock.name(@stock.ticker) %></p>
 <p><strong>Ticker</strong> <%= @stock.ticker %></p>
-<p><strong>No. of Shares:</strong> <%= @stock.shares %></p>
+
+<% @user.stocks.each do |stock| %>
+  <%= link_to stock.portfolio.name, portfolio_path(stock.portfolio) if stock.ticker == @stock.ticker %>
+<% end %>
+
+<p><strong>No. of Shares:</strong> <%= number_with_delimiter(@stock.shares) %></p>
 <p><strong>Current Price:</strong> <%= @stock.current_price(@stock.ticker) %></p>
 <p><strong>Market Value:</strong> <%= number_with_delimiter("%.2f" % @stock.market_value) %></p>
 <p><strong>Total Cost:</strong> <%= number_with_delimiter("%.2f" % @stock.total_cost) %></p>
 <p><strong>Profit:</strong> $<%= number_with_delimiter("%.2f" % @stock.profit_amount) %> (<%= @stock.profit_pct.round(2) %>%)</p>
 
-<%= render "result" %>
+<%= render "info" %>
