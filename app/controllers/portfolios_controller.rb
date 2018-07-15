@@ -3,19 +3,18 @@ class PortfoliosController < ApplicationController
   before_action :set_portfolio, only: [:show, :edit, :update, :destroy]
 
   def index
-    @portfolios = Portfolio.all
-    # @portfolios = policy_scope(Portfolio).order(name: :asc)
+    @portfolios = policy_scope(Portfolio).order(created_at: :asc)
   end
 
   def new
     @portfolio = Portfolio.new
-    # authorize @portfolio
+    authorize @portfolio
   end
 
   def create
     @portfolio = Portfolio.new(portfolio_params)
     @portfolio.user = current_user
-    # authorize @portfolio
+    authorize @portfolio
     if @portfolio.save
       redirect_to portfolio_path(@portfolio)
     else
@@ -24,15 +23,15 @@ class PortfoliosController < ApplicationController
   end
 
   def show
-    # authorize @portfolio
+    authorize @portfolio
   end
 
   def edit
-    # authorize @portfolio
+    authorize @portfolio
   end
 
   def update
-    # authorize @portfolio
+    authorize @portfolio
     if @portfolio.update(portfolio_params)
       redirect_to portfolio_path(@portfolio)
     else
@@ -41,7 +40,7 @@ class PortfoliosController < ApplicationController
   end
 
   def destroy
-    # authorize @portfolio
+    authorize @portfolio
     @portfolio.destroy
     redirect_to portfolios_path
   end
