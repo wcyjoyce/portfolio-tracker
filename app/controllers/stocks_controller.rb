@@ -3,7 +3,6 @@ require "open-uri"
 
 class StocksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:search, :result]
-  # before_action :set_portfolio, only: [:new, :create, :show, :edit, :update, :destroy]
   before_action :set_stock, only: [:show, :edit, :update, :destroy]
 
   def result
@@ -83,6 +82,7 @@ class StocksController < ApplicationController
 
   def show
     # authorize @stock
+    @user = @stock.portfolio.user
     @query = @stock.ticker
 
     company_url = "https://api.iextrading.com/1.0/stock/#{@query}/company"
@@ -161,15 +161,7 @@ class StocksController < ApplicationController
     params.require(:stock).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
   end
 
-  def set_portfolio
-    @portfolio = Portfolio.find(params[:portfolio_id])
-  end
-
   def set_stock
     @stock = Stock.find(params[:id])
-  end
-
-  def set_user
-    @user = current_user
   end
 end
