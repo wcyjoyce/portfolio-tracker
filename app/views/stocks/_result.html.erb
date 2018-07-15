@@ -1,0 +1,39 @@
+<% unless @query.empty? || @query.nil? %>
+  <div class="results">
+
+    <p><strong>Description:</strong> <%= @description %></p>
+    <p><strong>As of:</strong> <%= @update %></p>
+    <p><strong>Exchange:</strong> <%= @exchange %></p>
+    <p><strong>Latest Price:</strong> <%= number_with_delimiter(@price) %></p>
+    <p><strong>Market Cap:</strong> <%= number_with_delimiter(@market_cap) %></p>
+    <p>
+      <strong>Open/Close:</strong> <%= @open %> / <%= @close %>
+      <strong>High/Low:</strong> <%= @high %> / <%= @low %>
+    </p>
+    <p><strong>Sector:</strong> <%= @sector %></p>
+
+    <strong><u>Performance</u></strong>
+    <%= line_chart @chart, messages: {empty: "No data"}, library: @library_options %>
+
+    <strong><u>Stats</u></strong>
+    <p><strong>52-week range:</strong> <%= @high_52 %> / <%= @low_52 %></p>
+    <p><strong>Beta:</strong> <%= @beta.to_f.round(3) %></p>
+    <p><strong>ROE:</strong> <%= @roe %></p>
+    <p><strong>EPS:</strong> <%= @eps %> (as of <%= @eps_date %>)</p>
+    <p><strong>Dividend Yield:</strong> <%= @dividend_yield %></p>
+
+    <div class="comps">
+      <%= render "comp" unless @query.nil? || @query.empty? %>
+    </div>
+  </div>
+
+  <p><%= link_to "Add to Portfolio", new_stock_path if user_signed_in? %></p>
+  <p><%= link_to "Back", :back %></p>
+
+<% else %>
+  <div>
+    Search by entering a ticker.
+  </div>
+<% end %>
+
+
