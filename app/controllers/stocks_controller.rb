@@ -44,6 +44,10 @@ class StocksController < ApplicationController
       @eps = "#{stats['latestEPS']}"
       @roe = "#{stats['returnOnEquity']}"
       @eps_date = "#{stats['latestEPSDate']}"
+
+    comps_url = "https://api.iextrading.com/1.0/stock/#{@query}/peers"
+      @comps = JSON.parse(open(comps_url).read)
+
   end
 
   def search
@@ -100,6 +104,9 @@ class StocksController < ApplicationController
       @eps = "#{stats['latestEPS']}"
       @roe = "#{stats['returnOnEquity']}"
       @eps_date = "#{stats['latestEPSDate']}"
+
+    peers_url = "https://api.iextrading.com/1.0/stock/#{query}/peers"
+      peers = JSON.parse(open(peers_url).read)
 
     render :result
   end
