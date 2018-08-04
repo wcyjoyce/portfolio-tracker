@@ -22,7 +22,7 @@
       <td><%= stock.current_price(stock.ticker) %></td>
       <td><%= number_with_delimiter("%.2f" % stock.total_cost) %></td>
       <td><%= number_with_delimiter("%.2f" % stock.market_value) %></td>
-      <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) + "%" %></td>
+      <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
       <td><%= number_with_delimiter("%.2f" % stock.profit_amount) %></td>
       <td><%= stock.profit_pct.round(2) %>%</td>
       <td><%= stock.added.strftime("%d %b %Y") %></td>
