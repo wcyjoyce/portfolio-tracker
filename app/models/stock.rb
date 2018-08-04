@@ -25,4 +25,8 @@ class Stock < ApplicationRecord
   def profit_pct
     profit_amount / total_cost * 100
   end
+
+  def ytd(ticker)
+    StockQuote::Stock.quote(ticker).ytd_change
+  end
 end
