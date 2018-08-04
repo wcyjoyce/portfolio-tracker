@@ -1,4 +1,14 @@
-<strong><%= @portfolio.name.capitalize %></strong>
+<div class="title">
+  <strong><%= @portfolio.name.capitalize %></strong>
+</div>
+
+<div>
+  <p>Inception Date: <%= @portfolio.inception %></p>
+  <p>Total Return: <%= @portfolio.profit_pct.round(2) %>%</p>
+  <%# if incepted_days > 365 %>
+    <p>Annualised Return: <%= @portfolio.annualised %>%</p>
+  <%# end %>
+</div>
 
 <div>
   <strong>Portfolio Settings:</strong>
@@ -18,6 +28,6 @@
 <br>
 
 <div>
-  <%= link_to "add new stock", new_stock_path %>
-  <%= link_to "your portfolios", portfolios_path %>
+  <p><%= link_to "add new stock", new_stock_path %></p>
+  <p><%= link_to "your portfolios", portfolios_path %></p>
 </div>
