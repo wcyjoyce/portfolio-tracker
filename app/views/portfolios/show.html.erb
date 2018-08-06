@@ -4,6 +4,7 @@
 
 <% unless @portfolio.stocks.empty? %>
   <div>
+    As of: ***[ADD ME]***
     <p>Inception Date: <%= @portfolio.inception %></p>
     <p>Total Return: <%= @portfolio.profit_pct.round(2) %>%</p>
     <%# if incepted_days > 365 %>
@@ -20,7 +21,34 @@
 
 <div>
   <% unless @portfolio.stocks.empty? %>
-    <%#= @portfolio.duplicates %>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Ticker</th>
+          <th>Quantity</th>
+          <th>Cost</th>
+          <th>Current Price</th>
+          <th>Total Cost</th>
+          <th>Market Value</th>
+          <th>YTD (%)</th>
+          <th>P&L ($)</th>
+          <th>Return (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @portfolio.duplicates.each do |x| %>
+          <tr>
+            <% x.each do |attr| %>
+              <td><%= attr %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+    <br>
     <%= render "holdings" %>
   <% else %>
     <p>There are no stocks in <%= @portfolio.name.capitalize %>.</p>
