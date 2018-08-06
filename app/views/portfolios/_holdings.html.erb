@@ -5,7 +5,7 @@
       <th>Name</th>
       <th>Ticker</th>
       <th>Quantity</th>
-      <th>Cost</th>
+      <th>Average Cost</th>
       <th>Current Price</th>
       <th>Total Cost</th>
       <th>Market Value</th>
@@ -21,7 +21,7 @@
         <% stock.each do |detail| %>
           <td><%= detail %></td>
         <% end %>
-        <td>More details</td>
+        <td>transactions</td>
       </tr>
     <% end %>
     <tr><strong>
@@ -65,13 +65,13 @@
         <td><%= stock.name(stock.ticker) %></td>
         <td><%= stock.ticker %></td>
         <td><%= number_with_delimiter(stock.shares) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.price) %></td>
-        <td><%= stock.current_price(stock.ticker) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.total_cost) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.market_value) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
-        <td><%= number_with_delimiter("%.2f" % stock.profit_amount) %></td>
-        <td><%= stock.profit_pct.round(2) %>%</td>
+        <td><%= number_with_delimiter("%.2f" % stock.price.to_f) %></td>
+        <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
+        <td><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></td>
+        <td><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></td>
+        <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker).to_f) %>%</td>
+        <td><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></td>
+        <td><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</td>
         <td><%= stock.added.strftime("%d %b %Y") %></td>
         <td><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></td>
       </tr>
@@ -86,7 +86,7 @@
       <th><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></th> <!-- Market Value -->
       <th></th> <!-- YTD -->
       <th><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></th><!-- P&L ($) -->
-      <th><%= @portfolio.profit_pct.round(2) %>%</th><!-- P&L (%) -->
+      <th><%= number_with_delimiter("%.2f" % @portfolio.profit_pct) %>%</th><!-- P&L (%) -->
     </strong></tr>
   </tbody>
 </table>
