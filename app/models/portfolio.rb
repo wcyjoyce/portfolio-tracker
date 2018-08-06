@@ -39,14 +39,33 @@ class Portfolio < ApplicationRecord
   end
 
   def duplicates
-    tickers = stocks.map { |stock| stock.ticker }.uniq
-      # array = stocks.select { |stock| ticker == stock.ticker }
-  #     # .map do |dummy, qty, price|
-  #     #   [qty, (price * qty)]
-  #     # end
-  #     # total_qty = selected_array.sum{ |ele| ele.ticker }
-  #     # total_price = selected_array.sum{ |ele| ele.price }
-  #     # [ticker, total_qty,total_price / total_qty]
-    # end
+    array = stocks.to_a
+    cache = Hash.new { |h, k| h[k] = {count: 0, total_cost: 0, cumulative_shares: 0} }
+
+    array.each do |stock|
+      stock_ticker = stock.ticker
+      stock_shares = stock.shares
+      stock_cost = stock.price
+      cache[stock_ticker][:count] += 1
+      cache[stock_ticker][:cumulative_shares] += stock_shares
+      cache[stock_ticker][:total_cost] += (stock_cost * stock_shares)
+    end
+
+    table_body = cache.keys.map do |stock_ticker|
+      [
+        StockQuote::Stock.quote(stock_ticker).company_name,
+        stock_ticker,
+        cache[stock_ticker][:cumulative_shares].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        sprintf("%.2f", cache[stock_ticker][:total_cost] / cache[stock_ticker][:cumulative_shares]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        stock_price = sprintf("%.2f", StockQuote::Stock.quote(stock_ticker).latest_price).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        total_cost = sprintf("%.2f", cache[stock_ticker][:total_cost]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        market_value = sprintf("%.2f", cache[stock_ticker][:cumulative_shares] * stock_price.to_f).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        (StockQuote::Stock.quote(stock_ticker).ytd_change).round(2).to_s + "%",
+        profit_amount = sprintf("%.2f", (cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        ((((cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]) / cache[stock_ticker][:total_cost]) * 100).round(2).to_s + "%"
+      ]
+    end
+
+    # table = table_body.map { |r| r.join(", ") }.join("\n")
   end
 end
