@@ -40,7 +40,7 @@ class Portfolio < ApplicationRecord
 
   def duplicates
     array = stocks.to_a
-    cache = Hash.new { |h, k| h[k] = {count: 0, total_cost: 0, cumulative_shares: 0} }
+    cache = Hash.new { |h, k| h[k] = { count: 0, total_cost: 0, cumulative_shares: 0 } }
 
     array.each do |stock|
       stock_ticker = stock.ticker
@@ -65,7 +65,5 @@ class Portfolio < ApplicationRecord
         ((((cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]) / cache[stock_ticker][:total_cost]) * 100).round(2).to_s + "%"
       ]
     end
-
-    # table = table_body.map { |r| r.join(", ") }.join("\n")
   end
 end
