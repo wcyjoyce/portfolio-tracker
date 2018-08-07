@@ -64,6 +64,7 @@ class Portfolio < ApplicationRecord
         ((((cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]) / cache[stock_ticker][:total_cost]) * 100).round(2).to_s + "%"
       ]
     end
+    duplicates_table.sort!
   end
 
   def sector_allocation
