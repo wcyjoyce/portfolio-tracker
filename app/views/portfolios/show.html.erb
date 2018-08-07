@@ -4,7 +4,7 @@
 
 <% unless @portfolio.stocks.empty? %>
   <div>
-    As of: ***[ADD ME]***
+    As of: <%= Time.now.strftime("%d %b %Y %H:%M %p") %>
     <p>Inception Date: <%= @portfolio.inception %></p>
     <p>Total Return: <%= @portfolio.profit_pct.round(2) %>%</p>
     <%# if incepted_days > 365 %>
