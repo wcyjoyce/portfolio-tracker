@@ -1,5 +1,11 @@
 <!-- Sector Allocation -->
-<%= @portfolio.sector_allocation %>
+<div class="sector-allocation">
+  <strong>Sector Allocation</strong>
+  <%= pie_chart @portfolio.sector_allocation %>
+</div>
 
 <!-- Holdings Allocation -->
-<%= @portfolio.holdings_allocation %>
+<div class="holdings-allocation">
+  <strong>Holdings Allocation</strong>
+  <%= bar_chart @portfolio.holdings_allocation %>
+</div>
