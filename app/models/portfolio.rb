@@ -38,7 +38,7 @@ class Portfolio < ApplicationRecord
 
   def duplicates
     array = stocks.to_a
-    cache = Hash.new { |h, k| h[k] = { total_cost: 0, cumulative_shares: 0 } }
+    cache = Hash.new { |h,k| h[k] = { total_cost: 0, cumulative_shares: 0 } }
 
     array.each do |stock|
       stock_ticker = stock.ticker
@@ -67,7 +67,7 @@ class Portfolio < ApplicationRecord
 
   def sector_allocation
     array = stocks.to_a
-    cache = Hash.new { |h, k| h[k] = { market_value: 0 } }
+    cache = Hash.new { |h,k| h[k] = { market_value: 0 } }
 
     array.each do |stock|
       stock_shares = stock.shares
@@ -83,5 +83,25 @@ class Portfolio < ApplicationRecord
       ]
     end
     sector_table.sort!
+  end
+
+  def holdings_allocation
+    array = stocks.to_a
+    cache = Hash.new { |h,k| h[k] = { market_value: 0 } }
+
+    stocks.each do |stock|
+      stock_ticker = stock.ticker
+      stock_shares = stock.shares
+      stock_price = StockQuote::Stock.quote(stock.ticker).latest_price
+      cache[stock_ticker][:market_value] += stock_shares * stock_price
+    end
+
+    holdings_table = cache.keys.map do |stock_ticker|
+      [
+        stock_ticker,
+        sprintf("%.2f", cache[stock_ticker][:market_value]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+      ]
+    end
+    holdings_table.sort!
   end
 end
