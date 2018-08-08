@@ -29,4 +29,9 @@ class Stock < ApplicationRecord
   def ytd(ticker)
     StockQuote::Stock.quote(ticker).ytd_change
   end
+
+  def market_status(ticker)
+    status = StockQuote::Stock.quote(ticker).latest_source
+    status == "Close" ? "closed" : "open"
+  end
 end
