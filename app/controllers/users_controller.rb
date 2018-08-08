@@ -4,9 +4,6 @@ class UsersController < ApplicationController
   def dashboard
   end
 
-  def transactions
-  end
-
   private
 
   def set_user
