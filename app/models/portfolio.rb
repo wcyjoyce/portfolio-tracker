@@ -36,6 +36,11 @@ class Portfolio < ApplicationRecord
     annualised_return.round(2)
   end
 
+  def market_status
+    status = StockQuote::Stock.quote(stocks.first.ticker).latest_source
+    status == "Close" ? "closed" : "open"
+  end
+
   def duplicates
     array = stocks.to_a
     cache = Hash.new { |h,k| h[k] = { total_cost: 0, cumulative_shares: 0 } }
