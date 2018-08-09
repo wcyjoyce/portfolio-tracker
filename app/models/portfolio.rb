@@ -36,6 +36,17 @@ class Portfolio < ApplicationRecord
     annualised_return.round(2)
   end
 
+  def ytd
+    start_value = 0
+    stocks.each do |stock|
+      stock_quote = StockQuote::Stock.quote(stock.ticker)
+      ytd_price = stock_quote.latest_price / (1 + stock_quote.ytd_change)
+      ytd_value = ytd_price * stock.shares
+      start_value += ytd_value
+    end
+    ((market_value / start_value - 1) * 100).round(2)
+  end
+
   def market_status
     status = StockQuote::Stock.quote(stocks.first.ticker).latest_source
     status == "Close" ? "closed" : "open"
