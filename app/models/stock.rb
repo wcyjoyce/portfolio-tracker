@@ -27,7 +27,7 @@ class Stock < ApplicationRecord
   end
 
   def ytd(ticker)
-    StockQuote::Stock.quote(ticker).ytd_change
+    StockQuote::Stock.quote(ticker).ytd_change * 100
   end
 
   def market_status(ticker)
