@@ -8,6 +8,7 @@
     <p>Market is <%= @portfolio.market_status %></p>
     <p>Inception Date: <%= @portfolio.inception %></p>
     <p>Total Return: <%= @portfolio.profit_pct.round(2) %>%</p>
+    <p>YTD: <%= number_with_delimiter(@portfolio.ytd.round(2)) %>%</p>
     <%# if incepted_days > 365 %>
       <p class="hidden">Annualised Return: <%#= @portfolio.annualised %>%</p>
     <%# end %>
