@@ -34,7 +34,7 @@
       <th><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></th> <!-- Market Value -->
       <th></th> <!-- YTD -->
       <th><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></th><!-- P&L ($) -->
-      <th><%= @portfolio.profit_pct.round(2) %>%</th><!-- P&L (%) -->
+      <th><%= number_with_delimiter("%.2f" % @portfolio.profit_pct.round(2)) %>%</th><!-- P&L (%) -->
     </strong></tr>
   </tbody>
 </table>
@@ -69,7 +69,7 @@
         <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker).to_f) %>%</td>
+        <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
         <td><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</td>
         <td><%= stock.added.strftime("%d %b %Y") %></td>
