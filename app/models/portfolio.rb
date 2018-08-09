@@ -61,8 +61,9 @@ class Portfolio < ApplicationRecord
         sprintf("%.2f", cache[stock_ticker][:total_cost] / cache[stock_ticker][:cumulative_shares]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
         stock_price = sprintf("%.2f", StockQuote::Stock.quote(stock_ticker).latest_price).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
         total_cost = sprintf("%.2f", cache[stock_ticker][:total_cost]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
-        market_value = sprintf("%.2f", cache[stock_ticker][:cumulative_shares] * stock_price.to_f).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
-        (StockQuote::Stock.quote(stock_ticker).ytd_change).round(2).to_s + "%",
+        # market_value = sprintf("%.2f", cache[stock_ticker][:cumulative_shares] * stock_price.to_f).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        market_value = sprintf("%.2f", cache[stock_ticker][:cumulative_shares] * stock_price.to_f),
+        sprintf("%.2f", (StockQuote::Stock.quote(stock_ticker).ytd_change * 100).round(2)).to_s + "%",
         profit_amount = sprintf("%.2f", (cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
         ((((cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]) / cache[stock_ticker][:total_cost]) * 100).round(2).to_s + "%"
       ]
