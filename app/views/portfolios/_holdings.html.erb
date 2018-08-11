@@ -67,6 +67,7 @@
       <tr>
         <td><%= stock.name(stock.ticker) %></td>
         <td><%= stock.ticker %></td>
+        <td><%= stock.sector(stock.ticker) %></td>
         <td><%= number_with_delimiter(stock.shares) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.price.to_f) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
