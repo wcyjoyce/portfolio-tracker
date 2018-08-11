@@ -4,6 +4,7 @@
     <tr>
       <th>Name</th>
       <th>Ticker</th>
+      <th>Sector</th>
       <th>Quantity</th>
       <th>Average Cost</th>
       <th>Current Price</th>
@@ -27,6 +28,7 @@
     <tr><strong>
       <th>Total</th> <!-- Name -->
       <th></th> <!-- Ticker -->
+      <th></th> <!-- Sector -->
       <th></th> <!-- Quantity -->
       <th></th> <!-- Cost -->
       <th></th> <!-- Current Price -->
@@ -47,6 +49,7 @@
     <tr>
       <th>Name</th>
       <th>Ticker</th>
+      <th>Sector</th>
       <th>Quantity</th>
       <th>Cost</th>
       <th>Current Price</th>
@@ -67,6 +70,7 @@
         <td><%= number_with_delimiter(stock.shares) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.price.to_f) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
+        <td><%= stock.sector(stock.ticker) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></td>
         <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
@@ -79,6 +83,7 @@
     <tr><strong>
       <th>Total</th> <!-- Name -->
       <th></th> <!-- Ticker -->
+      <th></th> <!-- Sector -->
       <th></th> <!-- Quantity -->
       <th></th> <!-- Cost -->
       <th></th> <!-- Current Price -->

@@ -66,9 +66,10 @@ class Portfolio < ApplicationRecord
 
     duplicates_table = cache.keys.map do |stock_ticker|
       [
-        StockQuote::Stock.quote(stock_ticker).company_name,
+        StockQuote::Stock.company(stock_ticker).company_name,
         stock_ticker,
         cache[stock_ticker][:cumulative_shares].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        StockQuote::Stock.company(stock_ticker).sector,
         sprintf("%.2f", cache[stock_ticker][:total_cost] / cache[stock_ticker][:cumulative_shares]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
         stock_price = sprintf("%.2f", StockQuote::Stock.quote(stock_ticker).latest_price).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
         total_cost = sprintf("%.2f", cache[stock_ticker][:total_cost]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
