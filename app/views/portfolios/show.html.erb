@@ -4,7 +4,10 @@
 
 <% unless @portfolio.stocks.empty? %>
   <div>
-    <p>As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %>. Quotes are delayed by at least 15 minutes.</p>
+    <p>
+      As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %>.
+      <%= "Quotes are delayed by at least 15 minutes." if @portfolio.market_status == "open" %>
+    </p>
     <p>Market is <%= @portfolio.market_status %></p>
     <p>Inception Date: <%= @portfolio.inception %></p>
     <p>Total Return: <%= @portfolio.profit_pct.round(2) %>%</p>
