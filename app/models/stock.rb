@@ -3,7 +3,12 @@ class Stock < ApplicationRecord
   validates :ticker, :shares, :added, :price, presence: true
 
   def name(ticker)
-    StockQuote::Stock.quote(ticker).company_name
+    StockQuote::Stock.company(ticker).company_name
+  end
+
+  # only used for original holdings table
+  def sector(ticker)
+    StockQuote::Stock.company(ticker).sector
   end
 
   def current_price(ticker)
