@@ -124,7 +124,7 @@ class Portfolio < ApplicationRecord
   end
 
   def self.to_csv
-    headers = ["Portfolio", "Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+    headers = ["Portfolio", "Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L ($)", "Return (%)"]
     CSV.generate(headers: true) do |csv|
       csv << headers
       all.each do |portfolio|
