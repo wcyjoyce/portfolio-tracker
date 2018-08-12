@@ -5,6 +5,20 @@ class PortfoliosController < ApplicationController
   def index
     @portfolios = Portfolio.all
     # @portfolios = policy_scope(Portfolio).order(name: :asc)
+    csv_options = {col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath = "app/views/portfolios/investments.csv"
+
+    CSV.open(filepath, "wb", csv_options) do |csv|
+      csv << ["Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+      @portfolios.each do |portfolio|
+        portfolio.duplicates.each { |duplicate| csv << duplicate }
+      end
+    end
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @portfolios.to_csv, filename: "investments_#{Date.today}.csv"}
+    end
   end
 
   def new
@@ -25,6 +39,18 @@ class PortfoliosController < ApplicationController
 
   def show
     # authorize @portfolio
+    csv_options = {col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath = "app/views/portfolios/portfolio_#{@portfolio.name}.csv"
+
+    CSV.open(filepath, "wb", csv_options) do |csv|
+      csv << ["Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+      @portfolio.duplicates.each { |duplicate| csv << duplicate }
+    end
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data Portfolio.to_csv, filename: "#{@portfolio.name}_#{Date.today}.csv"}
+    end
   end
 
   def edit

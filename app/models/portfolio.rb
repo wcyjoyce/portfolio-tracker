@@ -64,15 +64,15 @@ class Portfolio < ApplicationRecord
       cache[stock_ticker][:total_cost] += stock_cost * stock_shares
     end
 
-    duplicates_table = cache.keys.map do |stock_ticker|
+    @duplicates_table = cache.keys.map do |stock_ticker|
       [
         StockQuote::Stock.company(stock_ticker).company_name,
         stock_ticker,
-        cache[stock_ticker][:cumulative_shares].to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
         StockQuote::Stock.company(stock_ticker).sector,
+        cache[stock_ticker][:cumulative_shares],
         sprintf("%.2f", cache[stock_ticker][:total_cost] / cache[stock_ticker][:cumulative_shares]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
-        stock_price = sprintf("%.2f", StockQuote::Stock.quote(stock_ticker).latest_price).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
-        total_cost = sprintf("%.2f", cache[stock_ticker][:total_cost]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
+        stock_price = sprintf("%.2f", StockQuote::Stock.quote(stock_ticker).latest_price),
+        total_cost = sprintf("%.2f", cache[stock_ticker][:total_cost]),
         # market_value = sprintf("%.2f", cache[stock_ticker][:cumulative_shares] * stock_price.to_f).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
         market_value = sprintf("%.2f", cache[stock_ticker][:cumulative_shares] * stock_price.to_f),
         sprintf("%.2f", (StockQuote::Stock.quote(stock_ticker).ytd_change * 100).round(2)).to_s + "%",
@@ -80,7 +80,7 @@ class Portfolio < ApplicationRecord
         ((((cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]) / cache[stock_ticker][:total_cost]) * 100).round(2).to_s + "%"
       ]
     end
-    duplicates_table.sort!
+    @duplicates_table.sort!
   end
 
   def sector_allocation
@@ -121,5 +121,15 @@ class Portfolio < ApplicationRecord
       ]
     end
     holdings_table.sort!
+  end
+
+  def self.to_csv
+    headers = ["Portfolio", "Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+      all.each do |portfolio|
+        portfolio.duplicates.each { |duplicate| csv << [portfolio[:name], duplicate].flatten }
+      end
+    end
   end
 end
