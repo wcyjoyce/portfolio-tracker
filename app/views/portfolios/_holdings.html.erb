@@ -25,7 +25,7 @@
         <td><a href="#">transactions</a></td>
       </tr>
       <!-- more details -->
-      <div class="stock-transaction" data-stock-id="<%= stock[1] %>">
+      <div class="stock-transaction" id="<%= stock[1] %>">
         <tr>
           <th>Name</th>
           <th>Ticker</th>
@@ -131,3 +131,8 @@
     </strong></tr>
   </tbody>
 </table>
+
+<% content_for(:after_js) do %>
+  <script>
+  </script>
+<% end %>
