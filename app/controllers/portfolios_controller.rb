@@ -9,9 +9,9 @@ class PortfoliosController < ApplicationController
     filepath = "app/views/portfolios/investments.csv"
 
     CSV.open(filepath, "wb", csv_options) do |csv|
-      csv << ["Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+      csv << ["Portfolio", "Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
       @portfolios.each do |portfolio|
-        portfolio.duplicates.each { |duplicate| csv << duplicate }
+        portfolio.duplicates.each { |duplicate| csv << [portfolio[:name], duplicate].flatten }
       end
     end
 
