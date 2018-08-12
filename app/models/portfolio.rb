@@ -128,7 +128,7 @@ class Portfolio < ApplicationRecord
     CSV.generate(headers: true) do |csv|
       csv << headers
       all.each do |portfolio|
-        portfolio.duplicates.each { |duplicate| csv << duplicate }
+        portfolio.duplicates.each { |duplicate| csv << [portfolio[:name], duplicate].flatten }
       end
     end
   end
