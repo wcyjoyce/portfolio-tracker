@@ -64,7 +64,7 @@ class Portfolio < ApplicationRecord
       cache[stock_ticker][:total_cost] += stock_cost * stock_shares
     end
 
-    @duplicates_table = cache.keys.map do |stock_ticker|
+    duplicates_table = cache.keys.map do |stock_ticker|
       [
         StockQuote::Stock.company(stock_ticker).company_name,
         stock_ticker,
@@ -80,7 +80,7 @@ class Portfolio < ApplicationRecord
         ((((cache[stock_ticker][:cumulative_shares] * stock_price.to_f) - cache[stock_ticker][:total_cost]) / cache[stock_ticker][:total_cost]) * 100).round(2).to_s + "%"
       ]
     end
-    @duplicates_table.sort!
+    duplicates_table.sort!
   end
 
   def sector_allocation
