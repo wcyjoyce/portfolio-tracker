@@ -6,8 +6,7 @@ class Stock < ApplicationRecord
     StockQuote::Stock.company(ticker).company_name
   end
 
-  # only used for original holdings table
-  def sector(ticker)
+  def sector(ticker) # only used for original holdings table
     StockQuote::Stock.company(ticker).sector
   end
 
