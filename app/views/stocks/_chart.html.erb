@@ -1,0 +1,16 @@
+<div class="chart-tabs">
+  <a href="#" class="chart-tab" id="tab-5y">5Y</a>
+  <a href="#" class="chart-tab" id="tab-1y">1Y</a>
+  <a href="#" class="chart-tab" id="tab-ytd">YTD</a>
+  <a href="#" class="chart-tab" id="tab-6m">6M</a>
+  <a href="#" class="chart-tab" id="tab-1m">1M</a>
+</div>
+
+<div class="performance-charts">
+  <%= line_chart @chart_5y, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-5y" %>
+  <%= line_chart @chart_1y, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-1y" %>
+  <%= line_chart @chart_ytd, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-ytd" %>
+  <%= line_chart @chart_6m, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-6m" %>
+  <%= line_chart @chart_1m, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-1m" %>
+</div>
+
