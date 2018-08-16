@@ -77,61 +77,6 @@
   </tbody>
 </table>
 
-<br>
-
-<!-- ALL TABLE -->
-<table class="hidden">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Ticker</th>
-      <th>Sector</th>
-      <th>Quantity</th>
-      <th>Cost</th>
-      <th>Current Price</th>
-      <th>Total Cost</th>
-      <th>Market Value</th>
-      <th>YTD (%)</th>
-      <th>P&L ($)</th>
-      <th>Return (%)</th>
-      <th>Date Added</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @portfolio.stocks.order(ticker: :asc).each do |stock| %>
-      <tr>
-        <td><%= stock.name(stock.ticker) %></td>
-        <td><%= stock.ticker %></td>
-        <td><%= stock.sector(stock.ticker) %></td>
-        <td><%= number_with_delimiter(stock.shares) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.price.to_f) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
-        <td><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></td>
-        <td><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</td>
-        <td><%= stock.added.strftime("%d %b %Y") %></td>
-        <td><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></td>
-      </tr>
-    <% end %>
-    <tr><strong>
-      <th>Total</th> <!-- Name -->
-      <th></th> <!-- Ticker -->
-      <th></th> <!-- Sector -->
-      <th></th> <!-- Quantity -->
-      <th></th> <!-- Cost -->
-      <th></th> <!-- Current Price -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></th> <!-- Total Cost -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></th> <!-- Market Value -->
-      <th></th> <!-- YTD -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></th><!-- P&L ($) -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.profit_pct) %>%</th><!-- P&L (%) -->
-    </strong></tr>
-  </tbody>
-</table>
-
 <% content_for(:after_js) do %>
   <script>
     let nvda = document.getElementById("NVDA");
@@ -147,7 +92,5 @@
     setInterval(function() {
       location.reload();
     }, 5 * 60 * 1000);
-
-    // setInterval("location.reload();",60000);
   </script>
 <% end %>
