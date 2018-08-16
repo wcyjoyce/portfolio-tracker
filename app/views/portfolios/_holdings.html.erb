@@ -22,8 +22,44 @@
         <% stock.each do |detail| %>
           <td><%= detail %></td>
         <% end %>
-        <td>transactions</td>
+        <td><a href="#" class="transaction-link" id="<%= stock[1] %>-link">transactions</a></td>
       </tr>
+      <!-- more details -->
+      <table class="stock-transaction" id="<%= stock[1] %>">
+        <tr>
+          <th>Name</th>
+          <th>Ticker</th>
+          <th>Sector</th>
+          <th>Quantity</th>
+          <th>Cost</th>
+          <th>Current Price</th>
+          <th>Total Cost</th>
+          <th>Market Value</th>
+          <th>YTD (%)</th>
+          <th>P&L ($)</th>
+          <th>Return (%)</th>
+          <th>Date Added</th>
+          <th>Action</th>
+        </tr>
+        <% selected_stocks = @portfolio.stocks.select { |x| x.ticker == stock[1] } %>
+        <% selected_stocks.each do |stock| %>
+          <tr>
+            <td><%= stock.name(stock.ticker) %></td>
+            <td><%= stock.ticker %></td>
+            <td><%= stock.sector(stock.ticker) %></td>
+            <td><%= number_with_delimiter(stock.shares) %></td>
+            <td><%= number_with_delimiter("%.2f" % stock.price.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
+            <td><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</td>
+            <td><%= stock.added.strftime("%d %b %Y") %></td>
+            <td><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></td>
+          </tr>
+        <% end %>
+      </table>
     <% end %>
     <tr><strong>
       <th>Total</th> <!-- Name -->
@@ -44,7 +80,7 @@
 <br>
 
 <!-- ALL TABLE -->
-<table>
+<table class="hidden">
   <thead>
     <tr>
       <th>Name</th>
@@ -95,3 +131,17 @@
     </strong></tr>
   </tbody>
 </table>
+
+<% content_for(:after_js) do %>
+  <script>
+    let nvda = document.getElementById("NVDA");
+    document.getElementById("NVDA-link").onclick = function() {
+      event.preventDefault();
+      if (nvda.style.display === "none") {
+        nvda.style.display = "block";
+      } else {
+        nvda.style.display = "none";
+      }
+    }
+  </script>
+<% end %>
