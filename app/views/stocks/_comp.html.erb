@@ -17,7 +17,24 @@
     </tr>
   </thead>
   <tbody>
-    <% @comps.each do |comp| %>
+    <!-- query -->
+    <tr>
+      <td><%= @name %></td>
+      <td><%= @symbol %></td>
+      <td><%= @price %></td>
+      <td><%= (@market_cap.to_f / 1000000).round(1) %>M</td>
+      <td><%= (StockQuote::Stock.quote(@query).change_percent * 100).round(2) %>%</td>
+      <td><%= @high %> / <%= @low %></td>
+      <td><%= (StockQuote::Stock.quote(@query).ytd_change * 100).round(2) %>%</td>
+      <td><%= @pe_ratio %></td>
+      <td><%= @beta %></td>
+      <td><%= @roe %></td>
+      <td><%= @eps %></td>
+      <td><%= @dividend_yield %></td>
+    </tr>
+
+    <!-- comps -->
+    <% @comps.first(5).each do |comp| %>
       <tr>
         <td>
           <%= StockQuote::Stock.quote(comp).company_name %>
@@ -37,6 +54,24 @@
         <td></td> <!-- EPS -->
         <td></td> <!-- dividend yield -->
       </tr>
-    </tbody>
-  <% end %>
+    <% end %>
+
+    <!-- benchmark -->
+    <tr><td><strong>Benchmark</strong></td></tr>
+    <% benchmark = @comps.last %>
+    <tr>
+      <td><%= StockQuote::Stock.quote(benchmark).company_name %></td>
+      <td><%= benchmark %></td>
+      <td><%= StockQuote::Stock.quote(benchmark).latest_price %></td>
+      <td><%= (StockQuote::Stock.quote(benchmark).market_cap / 1000000).round(1) %>M</td>
+      <td><%= (StockQuote::Stock.quote(benchmark).change_percent * 100).round(2) %>%</td>
+      <td><%= StockQuote::Stock.quote(benchmark).high %> / <%= StockQuote::Stock.quote(benchmark).low %></td>
+      <td><%= (StockQuote::Stock.quote(benchmark).ytd_change * 100).round(2) %>%</td>
+      <td><%= StockQuote::Stock.quote(benchmark).pe_ratio %></td>
+      <td></td> <!-- beta -->
+      <td></td> <!-- ROE -->
+      <td></td> <!-- EPS -->
+      <td></td> <!-- dividend yield -->
+    </tr>
+  </tbody>
 </table>
