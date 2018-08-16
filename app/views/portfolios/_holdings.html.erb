@@ -22,10 +22,10 @@
         <% stock.each do |detail| %>
           <td><%= detail %></td>
         <% end %>
-        <td><a href="#">transactions</a></td>
+        <td><a href="#" class="transaction-link" id="<%= stock[1] %>-link">transactions</a></td>
       </tr>
       <!-- more details -->
-      <div class="stock-transaction" id="<%= stock[1] %>">
+      <table class="stock-transaction" id="<%= stock[1] %>">
         <tr>
           <th>Name</th>
           <th>Ticker</th>
@@ -59,7 +59,7 @@
             <td><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></td>
           </tr>
         <% end %>
-      </div>
+      </table>
     <% end %>
     <tr><strong>
       <th>Total</th> <!-- Name -->
@@ -134,5 +134,14 @@
 
 <% content_for(:after_js) do %>
   <script>
+    let nvda = document.getElementById("NVDA");
+    document.getElementById("NVDA-link").onclick = function() {
+      event.preventDefault();
+      if (nvda.style.display === "none") {
+        nvda.style.display = "block";
+      } else {
+        nvda.style.display = "none";
+      }
+    }
   </script>
 <% end %>
