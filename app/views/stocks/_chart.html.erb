@@ -7,9 +7,19 @@
 </div>
 
 <div class="performance-charts">
-  <%= line_chart @chart_5y, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-5y" %>
-  <%= line_chart @chart_1y, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-1y" %>
-  <%= line_chart @chart_ytd, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-ytd" %>
-  <%= line_chart @chart_6m, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, class: "performance-chart", id: "chart-6m" %>
-  <%= line_chart @chart_1m, messages: {empty: "No data"}, library: @library_options, points: false, min: nil, curve: false, class: "performance-chart", id: "chart-1m" %>
+  <div class="performance-chart" id="chart-5y">
+  <%= line_chart @chart_5y, messages: {empty: "No data"}, library: @library_options, points: false, min: nil %>
+  </div>
+  <div class="performance-chart hidden" id="chart-1y">
+  <%= line_chart @chart_1y, messages: {empty: "No data"}, library: @library_options, points: false, min: nil %>
+  </div>
+  <div class="performance-chart hidden" id="chart-ytd">
+  <%= line_chart @chart_ytd, messages: {empty: "No data"}, library: @library_options, points: false, min: nil %>
+  </div>
+  <div class="performance-chart hidden" id="chart-6m">
+  <%= line_chart @chart_6m, messages: {empty: "No data"}, library: @library_options, points: false, min: nil %>
+  </div>
+  <div class="performance-chart hidden" id="chart-1m">
+  <%= line_chart @chart_1m, messages: {empty: "No data"}, library: @library_options, points: false, min: nil %>
+  </div>
 </div>
