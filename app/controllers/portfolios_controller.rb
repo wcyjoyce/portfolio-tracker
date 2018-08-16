@@ -39,18 +39,18 @@ class PortfoliosController < ApplicationController
 
   def show
     # authorize @portfolio
-    csv_options = {col_sep: ',', force_quotes: true, quote_char: '"' }
-    filepath = "app/views/portfolios/portfolio_#{@portfolio.name}.csv"
+    # csv_options = {col_sep: ',', force_quotes: true, quote_char: '"' }
+    # filepath = "app/views/portfolios/portfolio_#{@portfolio.name}.csv"
 
-    CSV.open(filepath, "wb", csv_options) do |csv|
-      csv << ["Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
-      @portfolio.duplicates.each { |duplicate| csv << duplicate }
-    end
+    # CSV.open(filepath, "wb", csv_options) do |csv|
+    #   csv << ["Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+    #   @portfolio.duplicates.each { |duplicate| csv << duplicate }
+    # end
 
-    respond_to do |format|
-      format.html
-      format.csv { send_data Portfolio.to_csv, filename: "#{@portfolio.name}_#{Date.today}.csv"}
-    end
+    # respond_to do |format|
+    #   format.html
+    #   format.csv { send_data Portfolio.to_csv, filename: "#{@portfolio.name}_#{Date.today}.csv"}
+    # end
   end
 
   def edit
