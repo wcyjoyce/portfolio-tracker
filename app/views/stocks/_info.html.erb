@@ -10,18 +10,11 @@
       <strong>Open/Close:</strong> <%= @open %> / <%= @close %>
       <strong>High/Low:</strong> <%= @high %> / <%= @low %>
     </p>
+    <p><strong>52-week range:</strong> <%= @high_52 %> / <%= @low_52 %></p>
     <p><strong>Sector:</strong> <%= @sector %></p>
 
     <strong><u>Performance</u></strong>
     <%= render "chart" unless @query.nil? || @query.empty? %>
-
-    <strong><u>Stats</u></strong>
-    <p><strong>52-week range:</strong> <%= @high_52 %> / <%= @low_52 %></p>
-    <p><strong>Beta:</strong> <%= @beta.to_f.round(3) %></p>
-    <p><strong>PE Ratio:</strong> <%= @pe_ratio %></p>
-    <p><strong>ROE:</strong> <%= @roe %></p>
-    <p><strong>EPS:</strong> <%= @eps %> (as of <%= @eps_date %>)</p>
-    <p><strong>Dividend Yield:</strong> <%= @dividend_yield %></p>
 
     <div class="comps">
       <%= render "comp" unless @query.nil? || @query.empty? %>
