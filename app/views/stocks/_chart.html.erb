@@ -23,3 +23,42 @@
   <%= line_chart @chart_1m, messages: {empty: "No data"}, library: @library_options, points: false, min: nil %>
   </div>
 </div>
+
+<% content_for(:after_js) do %>
+  <script>
+    const chart5y = document.getElementById("tab-5y");
+    chart5y.addEventListener("click", (event) => {
+      event.preventDefault();
+      $(".performance-chart").addClass("hidden")
+      $("#chart-5y").removeClass("hidden")
+    });
+
+    const chart1y = document.getElementById("tab-1y");
+    chart1y.addEventListener("click", (event) => {
+      event.preventDefault();
+      $(".performance-chart").addClass("hidden")
+      $("#chart-1y").removeClass("hidden")
+    });
+
+    const chartYTD = document.getElementById("tab-ytd");
+    chartYTD.addEventListener("click", (event) => {
+      event.preventDefault();
+      $(".performance-chart").addClass("hidden")
+      $("#chart-ytd").removeClass("hidden")
+    });
+
+    const chart6m = document.getElementById("tab-6m");
+    chart6m.addEventListener("click", (event) => {
+      event.preventDefault();
+      $(".performance-chart").addClass("hidden")
+      $("#chart-6m").removeClass("hidden")
+    });
+
+    const chart1m = document.getElementById("tab-1m");
+    chart1m.addEventListener("click", (event) => {
+      event.preventDefault();
+      $(".performance-chart").addClass("hidden")
+      $("#chart-1m").removeClass("hidden")
+    });
+  </script>
+<% end %>
