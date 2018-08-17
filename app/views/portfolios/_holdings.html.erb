@@ -79,6 +79,7 @@
 
 <% content_for(:after_js) do %>
   <script>
+    // Static method of displaying more information for each stock holding
     let nvda = document.getElementById("NVDA");
     document.getElementById("NVDA-link").onclick = function() {
       event.preventDefault();
@@ -89,6 +90,7 @@
       }
     }
 
+    // Auto-refresh at 10-minute intervals
     setInterval(function() {
       location.reload();
     }, 10 * 60 * 1000);
