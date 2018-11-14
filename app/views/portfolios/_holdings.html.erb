@@ -18,6 +18,7 @@
   </thead>
   <tbody>
     <% @portfolio.duplicates.each do |stock| %>
+    <div class="linklink">
       <tr>
         <% stock.each do |detail| %>
           <td><%= detail %></td>
@@ -74,21 +75,40 @@
       <th><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></th><!-- P&L ($) -->
       <th><%= number_with_delimiter("%.2f" % @portfolio.profit_pct.round(2)) %>%</th><!-- P&L (%) -->
     </strong></tr>
+  </div>
   </tbody>
 </table>
 
 <% content_for(:after_js) do %>
   <script>
     // Static method of displaying more information for each stock holding
-    let nvda = document.getElementById("NVDA");
-    document.getElementById("NVDA-link").onclick = function() {
-      event.preventDefault();
-      if (nvda.style.display === "none") {
-        nvda.style.display = "block";
-      } else {
-        nvda.style.display = "none";
+    // let nvda = document.getElementById("NVDA");
+    // document.getElementById("NVDA-link").onclick = function() {
+    //   event.preventDefault();
+    //   if (nvda.style.display === "none") {
+    //     nvda.style.display = "block";
+    //   } else {
+    //     nvda.style.display = "none";
+    //   }
+    // }
+
+    // const links = document.querySelectorAll(".transaction-link");
+    links = document.querySelectorAll(".linklink");
+    links.forEach((item) => {
+      item.onclick = function () {
+        event.preventDefault();
+        linklinklink = item.querySelector(".stock-transaction");
+        if (linklinklink.style.display === "none") {
+          linklinklink.style.display = "block";
+        } else {
+          linklinklink.style.display = "none";
+        }
+
+        // linklink = item.querySelector(".stock-transaction");
+        // console.log(linklink); // comes up as null
       }
-    }
+    })
+
 
     // Auto-refresh at 10-minute intervals
     setInterval(function() {
