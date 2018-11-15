@@ -81,18 +81,6 @@
 
 <% content_for(:after_js) do %>
   <script>
-    // Static method of displaying more information for each stock holding
-    // let nvda = document.getElementById("NVDA");
-    // document.getElementById("NVDA-link").onclick = function() {
-    //   event.preventDefault();
-    //   if (nvda.style.display === "none") {
-    //     nvda.style.display = "block";
-    //   } else {
-    //     nvda.style.display = "none";
-    //   }
-    // }
-
-    // const links = document.querySelectorAll(".transaction-link");
     links = document.querySelectorAll(".linklink");
     links.forEach((item) => {
       item.onclick = function () {
@@ -103,12 +91,8 @@
         } else {
           linklinklink.style.display = "none";
         }
-
-        // linklink = item.querySelector(".stock-transaction");
-        // console.log(linklink); // comes up as null
       }
     })
-
 
     // Auto-refresh at 10-minute intervals
     setInterval(function() {
