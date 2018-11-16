@@ -18,78 +18,78 @@
   </thead>
   <tbody>
     <% @portfolio.duplicates.each do |stock| %>
-    <div class="linklink">
-      <tr>
-        <% stock.each do |detail| %>
-          <td><%= detail %></td>
-        <% end %>
-        <td><a href="#" class="transaction-link" id="<%= stock[1] %>-link">transactions</a></td>
-      </tr>
-      <!-- more details -->
-      <table class="stock-transaction" id="<%= stock[1] %>">
+      <div class="transaction-link">
         <tr>
-          <th>Name</th>
-          <th>Ticker</th>
-          <th>Sector</th>
-          <th>Quantity</th>
-          <th>Cost</th>
-          <th>Current Price</th>
-          <th>Total Cost</th>
-          <th>Market Value</th>
-          <th>YTD (%)</th>
-          <th>P&L ($)</th>
-          <th>Return (%)</th>
-          <th>Date Added</th>
-          <th>Action</th>
+          <% stock.each do |detail| %>
+            <td><%= detail %></td>
+          <% end %>
+          <td><a href="#">transactions</a></td>
         </tr>
-        <% selected_stocks = @portfolio.stocks.select { |x| x.ticker == stock[1] } %>
-        <% selected_stocks.each do |stock| %>
+        <!-- more details -->
+        <table class="stock-transaction">
           <tr>
-            <td><%= stock.name(stock.ticker) %></td>
-            <td><%= stock.ticker %></td>
-            <td><%= stock.sector(stock.ticker) %></td>
-            <td><%= number_with_delimiter(stock.shares) %></td>
-            <td><%= number_with_delimiter("%.2f" % stock.price.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
-            <td><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</td>
-            <td><%= stock.added.strftime("%d %b %Y") %></td>
-            <td><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></td>
+            <th>Name</th>
+            <th>Ticker</th>
+            <th>Sector</th>
+            <th>Quantity</th>
+            <th>Cost</th>
+            <th>Current Price</th>
+            <th>Total Cost</th>
+            <th>Market Value</th>
+            <th>YTD (%)</th>
+            <th>P&L ($)</th>
+            <th>Return (%)</th>
+            <th>Date Added</th>
+            <th>Action</th>
           </tr>
-        <% end %>
-      </table>
-    <% end %>
-    <tr><strong>
-      <th>Total</th> <!-- Name -->
-      <th></th> <!-- Ticker -->
-      <th></th> <!-- Sector -->
-      <th></th> <!-- Quantity -->
-      <th></th> <!-- Cost -->
-      <th></th> <!-- Current Price -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></th> <!-- Total Cost -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></th> <!-- Market Value -->
-      <th></th> <!-- YTD -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></th><!-- P&L ($) -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.profit_pct.round(2)) %>%</th><!-- P&L (%) -->
-    </strong></tr>
-  </div>
+          <% selected_stocks = @portfolio.stocks.select { |x| x.ticker == stock[1] } %>
+          <% selected_stocks.each do |stock| %>
+            <tr>
+              <td><%= stock.name(stock.ticker) %></td>
+              <td><%= stock.ticker %></td>
+              <td><%= stock.sector(stock.ticker) %></td>
+              <td><%= number_with_delimiter(stock.shares) %></td>
+              <td><%= number_with_delimiter("%.2f" % stock.price.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</td>
+              <td><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</td>
+              <td><%= stock.added.strftime("%d %b %Y") %></td>
+              <td><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <% end %>
+      <tr><strong>
+        <th>Total</th> <!-- Name -->
+        <th></th> <!-- Ticker -->
+        <th></th> <!-- Sector -->
+        <th></th> <!-- Quantity -->
+        <th></th> <!-- Cost -->
+        <th></th> <!-- Current Price -->
+        <th><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></th> <!-- Total Cost -->
+        <th><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></th> <!-- Market Value -->
+        <th></th> <!-- YTD -->
+        <th><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></th><!-- P&L ($) -->
+        <th><%= number_with_delimiter("%.2f" % @portfolio.profit_pct.round(2)) %>%</th><!-- P&L (%) -->
+      </strong></tr>
   </tbody>
 </table>
 
 <% content_for(:after_js) do %>
   <script>
-    links = document.querySelectorAll(".linklink");
+    links = document.querySelectorAll(".transaction-link");
     links.forEach((item) => {
       item.onclick = function () {
         event.preventDefault();
-        linklinklink = item.querySelector(".stock-transaction");
-        if (linklinklink.style.display === "none") {
-          linklinklink.style.display = "block";
+        link = item.querySelector(".stock-transaction");
+        if (link.style.display === "none") {
+          link.style.display = "block";
         } else {
-          linklinklink.style.display = "none";
+          link.style.display = "none";
         }
       }
     })
