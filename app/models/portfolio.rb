@@ -44,7 +44,7 @@ class Portfolio < ApplicationRecord
       ytd_value = ytd_price * stock.shares
       start_value += ytd_value
     end
-    ((market_value / start_value - 1) * 100).round(2)
+    "#{((market_value / start_value - 1) * 100).round(2)}%"
   end
 
   def market_status
