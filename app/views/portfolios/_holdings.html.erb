@@ -75,7 +75,7 @@
       <th><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></th> <!-- Market Value -->
       <th></th> <!-- YTD -->
       <th><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></th><!-- P&L ($) -->
-      <th><%= number_with_delimiter("%.2f" % @portfolio.profit_pct.round(2)) %>%</th><!-- P&L (%) -->
+      <th><%= @portfolio.profit_pct %></th><!-- P&L (%) -->
     </strong></tr>
   </tbody>
 
