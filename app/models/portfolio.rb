@@ -22,7 +22,7 @@ class Portfolio < ApplicationRecord
   end
 
   def profit_pct
-    profit_amount / total_cost * 100
+    "#{(profit_amount / total_cost * 100).round(2)}%"
   end
 
   def inception
