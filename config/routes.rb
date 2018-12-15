@@ -13,5 +13,5 @@ Rails.application.routes.draw do
   get "pages/home", to: "pages#home", as: "home"
   get "pages/about", to: "pages#about", as: "about"
 
-  root to: "pages#home"
+  root to: "portfolios#index"
 end
