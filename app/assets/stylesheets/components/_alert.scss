@@ -1,15 +1,26 @@
 /* -------------------------------------
- * Your CSS code for flash notices and alerts
+ * Flash notices and alerts
 * ------------------------------------- */
 
 .alert {
-  margin: 0;
+  margin-bottom: 10px;
   text-align: center;
   color: white;
+  padding: 5px 35px 5px 10px;
+  font-size: 14px;
+  text-transform: uppercase;
 }
+
 .alert-info {
   background: $green;
+  border: 1px solid $green;
 }
-.alert-warning {
+
+.alert-warning, .alert-danger {
   background: $red;
+  border: 1px solid $red;
+}
+
+.close {
+  font-size: 25px;
 }
