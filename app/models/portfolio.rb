@@ -94,12 +94,7 @@ class Portfolio < ApplicationRecord
       cache[stock_sector][:market_value] += stock_shares * stock_price
     end
 
-    sector_table = cache.keys.map do |stock_sector|
-      [
-        stock_sector,
-        sprintf("%.2f", cache[stock_sector][:market_value]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
-      ]
-    end
+    sector_table = cache.keys.map { |stock_sector| [ stock_sector,cache[stock_sector][:market_value].to_i ] }
     sector_table.sort!
   end
 
@@ -114,12 +109,7 @@ class Portfolio < ApplicationRecord
       cache[stock_ticker][:market_value] += stock_shares * stock_price
     end
 
-    holdings_table = cache.keys.map do |stock_ticker|
-      [
-        stock_ticker,
-        sprintf("%.2f", cache[stock_ticker][:market_value]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
-      ]
-    end
+    holdings_table = cache.keys.map { |stock_ticker| [ stock_ticker, cache[stock_ticker][:market_value].to_i ] }
     holdings_table.sort!
   end
 
