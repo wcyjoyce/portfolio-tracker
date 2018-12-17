@@ -1,7 +1,7 @@
-<div>
-  <p>Your search: <%= @query.upcase %></p>
-</div>
+<h1><%= @name %></h1>
+<h5><%= @symbol %>:<%= @exchange %></h5>
 
-<p><strong><%= @name %> (<%= @symbol %>)</strong></p>
-
+<%= render "transactions" %>
 <%= render "info" %>
+
+<%= content_for(:title, @name) %>
