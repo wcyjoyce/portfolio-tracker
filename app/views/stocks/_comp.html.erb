@@ -54,19 +54,21 @@
     <!-- benchmark -->
     <tr><td><strong>Benchmark</strong></td></tr>
     <% benchmark = @comps.last %>
-    <tr>
-      <td><%= StockQuote::Stock.quote(benchmark).company_name %></td>
-      <td><%= benchmark %></td>
-      <td><%= StockQuote::Stock.quote(benchmark).latest_price %></td>
-      <td><%= (StockQuote::Stock.quote(benchmark).market_cap / 1000000).round(1) %>M</td>
-      <td><%= (StockQuote::Stock.quote(benchmark).change_percent * 100).round(2) %>%</td>
-      <td><%= StockQuote::Stock.quote(benchmark).high %> / <%= StockQuote::Stock.quote(benchmark).low %></td>
-      <td><%= (StockQuote::Stock.quote(benchmark).ytd_change * 100).round(2) %>%</td>
-      <td><%= StockQuote::Stock.quote(benchmark).pe_ratio %></td>
-      <td></td> <!-- beta -->
-      <td></td> <!-- ROE -->
-      <td></td> <!-- EPS -->
-      <td></td> <!-- dividend yield -->
-    </tr>
+    <% unless benchmark.nil? %>
+      <tr>
+        <td><%= StockQuote::Stock.quote(benchmark).company_name %></td>
+        <td><%= benchmark %></td>
+        <td><%= StockQuote::Stock.quote(benchmark).latest_price %></td>
+        <td><%= (StockQuote::Stock.quote(benchmark).market_cap / 1000000).round(1) %>M</td>
+        <td><%= (StockQuote::Stock.quote(benchmark).change_percent * 100).round(2) %>%</td>
+        <td><%= StockQuote::Stock.quote(benchmark).high %> / <%= StockQuote::Stock.quote(benchmark).low %></td>
+        <td><%= (StockQuote::Stock.quote(benchmark).ytd_change * 100).round(2) %>%</td>
+        <td><%= StockQuote::Stock.quote(benchmark).pe_ratio %></td>
+        <td></td> <!-- beta -->
+        <td></td> <!-- ROE -->
+        <td></td> <!-- EPS -->
+        <td></td> <!-- dividend yield -->
+      </tr>
+    <% end %>
   </tbody>
 </table>
