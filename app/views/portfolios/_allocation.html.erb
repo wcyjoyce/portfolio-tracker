@@ -1,11 +1,30 @@
-<!-- Sector Allocation -->
-<div class="sector-allocation">
-  <strong>Sector Allocation</strong>
-  <%= pie_chart @portfolio.sector_allocation %>
-</div>
+<div class="allocation">
+  <h2>Composition</h2>
+  <!-- Country Allocation -->
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <h5>Country Allocation</h5>
+    <div class="chart"></div>
+  </div>
+  <!-- Sector Allocation -->
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <h5>Sector Allocation</h5>
+    <div class="chart"><%= pie_chart @portfolio.sector_allocation, donut: true,
+    library: {
+      messages: {empty: "No data"},
+      chart: {backgroundColor: nil},
+      plotOptions: {
+        pie: {
+          dataLabels: {enabled: false},
+          showInLegend: true
+        }
+      }
+    }
+    %></div>
+  </div>
 
-<!-- Holdings Allocation -->
-<div class="holdings-allocation">
-  <strong>Holdings Allocation</strong>
-  <%= bar_chart @portfolio.holdings_allocation %>
+  <!-- Holdings Allocation -->
+  <div class="col-xs-12 col-sm-4 col-md-4">
+    <h5>Holdings Allocation</h5>
+    <div class="chart"><%= bar_chart @portfolio.holdings_allocation, messages: {empty: "No data"}, library: { chart: { backgroundColor: nil } } %></div>
+  </div>
 </div>
