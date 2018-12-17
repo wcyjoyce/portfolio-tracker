@@ -1,42 +1,42 @@
-<div class="title">
-  <strong><%= @portfolio.name %></strong>
-</div>
+<h1><%= @portfolio.name %></h1>
 
-<% unless @portfolio.stocks.empty? %>
-  <div>
-    <p>
-      As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %>.
-      <%= "Quotes are delayed by at least 15 minutes." if @portfolio.market_status == "open" %>
-    </p>
-    <p>Market is <%= @portfolio.market_status %></p>
-    <p>Inception Date: <%= @portfolio.inception %></p>
-    <p>Total Return: <%= @portfolio.profit_pct %>%</p>
-    <p>YTD: <%= @portfolio.ytd %>%</p>
-    <%# if incepted_days > 365 %>
-      <p class="hidden">Annualised Return: <%#= @portfolio.annualised %>%</p>
-    <%# end %>
-  </div>
-<% end %>
-
-<div>
-  <strong>Portfolio Settings:</strong>
-  <%= link_to "Edit", edit_portfolio_path(@portfolio) %>
-  <%= link_to "Delete", portfolio_path(@portfolio), method: :delete, data: { confirm: "Are you sure you want to delete?" } %>
-</div>
-
-<div>
+<div class="stats">
   <% unless @portfolio.stocks.empty? %>
-    <%= render "holdings" %>
-  <% else %>
-    <p>There are no stocks in <%= @portfolio.name.capitalize %>.</p>
+    <div class="stat">
+      <div class="stat-header"><h5>Market Value</h5></div>
+      <div class="stat-content"><%= @portfolio.market_value.to_i %></div>
+    </div>
+    <div class="stat">
+      <div class="stat-header"><h5>Total Return</h5></div>
+      <div class="stat-content"><%= @portfolio.profit_amount %> (<%= @portfolio.profit_pct %>)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-header"><h5>YTD</h5></div>
+      <div class="stat-content"><%= @portfolio.ytd %></div>
+    </div>
   <% end %>
 </div>
 
-<div>
-  <p><%= link_to "add new stock", new_stock_path %></p>
-  <p><%= link_to "your portfolios", portfolios_path %></p>
+<div class="flex">
+  <% unless @portfolio.stocks.empty? %>
+    <div>
+      <h5>Inception Date: <%= @portfolio.inception %></h5>
+      <h5>As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %>. Quotes are delayed by at least 15 minutes.</h5>
+    </div>
+  <% else %>
+    <p>There are no stocks in <%= @portfolio.name %>.</p>
+  <% end %>
+  <div class="action">
+    <%= link_to "Add Transaction", new_stock_path, class: "button" %>
+    <a href="#" class="button">Export</a>
+    <%= link_to "Edit", edit_portfolio_path(@portfolio), class: "button" %>
+    <%= link_to "Delete", portfolio_path(@portfolio), class: "button", method: :delete, data: { confirm: "Are you sure you want to delete?" } %>
+  </div>
 </div>
 
-<div class="allocation">
+<% unless @portfolio.stocks.empty? %>
+  <%= render "holdings" %>
   <%= render "allocation" %>
-</div>
+<% end %>
+
+<%= content_for(:title, "Portfolio | " + @portfolio.name) %>
