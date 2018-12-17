@@ -24,7 +24,7 @@
     <% selected_stocks.each do |stock| %>
       <div class="collapse <%= stock.ticker %>">
         <div class="cell"><%= stock.name(stock.ticker) %></div>
-        <div class="cell"><%= stock.ticker %></div>
+        <div class="cell"><%= stock.ticker.upcase %></div>
         <div class="cell"><%= stock.sector(stock.ticker) %></div>
         <div class="cell"><%= number_with_delimiter(stock.shares) %></div>
         <div class="cell"><%= number_with_delimiter("%.2f" % stock.price.to_f) %></div>
