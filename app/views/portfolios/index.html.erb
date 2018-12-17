@@ -29,7 +29,7 @@
         <div class="cell"><%= portfolio.profit_pct %> (<%= portfolio.profit_amount %>)</div>
         <div class="cell"><%= portfolio.inception %></div>
         <div class="cell">
-          <a href="/portfolio_<%= portfolio.name %>.csv"><i class="fas fa-download"></i></a>
+          <a href="#"><i class="fas fa-download"></i></a>
           <%= link_to edit_portfolio_path(portfolio) do %><i class="fas fa-cog"></i><% end %>
           <%= link_to portfolio_path(portfolio), method: :delete, data: { confirm: "Are you sure you want to delete this portfolio?"} do %><i class="fas fa-trash-alt"></i><% end %>
         </div>
