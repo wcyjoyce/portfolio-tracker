@@ -1,12 +1,39 @@
-.stock-transaction {
-  background: white;
-  display: none;
+/* -------------------------------------
+ * Portfolio: Holdings
+* ------------------------------------- */
 
-  // &:first-child {
-  //   display: block;
-  // }
-}
+.holdings {
+  width: 100%;
+  margin: 15px 0px;
 
-.red {
-  background: red;
+  .header {
+    font-weight: bold;
+    padding: 5px;
+    margin-bottom: 5px;
+    background-color: $hover;
+  }
+
+  .cell {
+    display: inline-block;
+    // margin-right: 5px;
+    text-decoration: none;
+    color: $gray;
+
+    a {
+      padding-right: 5px;
+      color: $gray;
+
+      &:last-child {
+        padding-right: none;
+      }
+    }
+  }
+
+  .collapse {
+    background-color: $hover;
+  }
+
+  .total {
+    font-weight: bold;
+  }
 }
