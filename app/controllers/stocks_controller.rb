@@ -5,6 +5,9 @@ class StocksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:search, :result]
   before_action :set_stock, only: [:show, :edit, :update, :destroy]
 
+  def search
+  end
+
   def result
     @query = params[:stock]
 
@@ -73,9 +76,6 @@ class StocksController < ApplicationController
       comps_url = "https://api.iextrading.com/1.0/stock/#{@query}/peers"
         @comps = JSON.parse(open(comps_url).read)
     end
-  end
-
-  def search
   end
 
   def new
@@ -188,7 +188,8 @@ class StocksController < ApplicationController
   private
 
   def stock_params
-    params.require(:stock).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
+    # params.require(:stock).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
+    params.require(:stock).permit(:name, :ticker, :portfolio_id)
   end
 
   def set_stock
