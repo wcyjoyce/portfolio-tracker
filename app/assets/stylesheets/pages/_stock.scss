@@ -1,0 +1,20 @@
+.market-status {
+  display: flex;
+  align-items: center;
+
+  .status {
+    margin: 0px 15px;
+    text-transform: uppercase;
+    border-radius: 25%;
+  }
+
+  .positive {
+    border: 1px solid $green;
+    background: $green;
+  }
+
+  .negative {
+    border: 1px solid $red;
+    background: $green;
+  }
+}
