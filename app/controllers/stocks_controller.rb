@@ -49,13 +49,14 @@ class StocksController < ApplicationController
         @chart_ytd = historical_ytd.collect { |historical| [historical['date'], historical['close']] }
 
       @library_options = {
+        chart: {backgroundColor: nil},
         xAxis: {
-          crosshair: true,
-          title: {text: "date"}
+          crosshair: false,
+          title: {text: "DATE"}
         },
         yAxis: {
-          crosshair: true,
-          title: {text: "price"},
+          crosshair: false,
+          title: {text: "PRICE"},
         }
       }
 
@@ -138,13 +139,14 @@ class StocksController < ApplicationController
       @chart_ytd = historical_ytd.collect { |historical| [historical['date'], historical['close']] }
 
       @library_options = {
+        chart: {backgroundColor: nil},
         xAxis: {
-          crosshair: true,
-          title: {text: "date"}
+          crosshair: false,
+          title: {text: "DATE"}
         },
         yAxis: {
-          crosshair: true,
-          title: {text: "price"},
+          crosshair: false,
+          title: {text: "PRICE"},
         }
       }
 
