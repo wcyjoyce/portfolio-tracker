@@ -1,6 +1,7 @@
 class Stock < ApplicationRecord
   belongs_to :portfolio
-  validates :ticker, :shares, :added, :price, presence: true
+  has_many :transactions
+  # validates :ticker, :shares, :added, :price, presence: true
 
   def name(ticker)
     StockQuote::Stock.company(ticker).company_name
@@ -8,6 +9,10 @@ class Stock < ApplicationRecord
 
   def sector(ticker) # only used for original holdings table
     StockQuote::Stock.company(ticker).sector
+  end
+
+  def exchange(ticker)
+    StockQuote::Stock.company(ticker).exchange
   end
 
   def current_price(ticker)
