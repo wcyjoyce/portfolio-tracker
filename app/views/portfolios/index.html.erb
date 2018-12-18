@@ -24,9 +24,9 @@
       <%= link_to portfolio_path(portfolio) do %>
         <div class="cell"><%= portfolio.name %></div>
         <div class="cell"><%= portfolio.stocks.length %></div>
-        <div class="cell"><%= number_with_delimiter(portfolio.market_value) %></div>
+        <div class="cell"><%= number_with_delimiter(portfolio.market_value.to_i) %></div>
         <div class="cell"><%= portfolio.ytd %></div>
-        <div class="cell"><%= portfolio.profit_pct %> (<%= portfolio.profit_amount %>)</div>
+        <div class="cell"><%= portfolio.profit_pct %> (<%= portfolio.profit_amount.to_i %>)</div>
         <div class="cell"><%= portfolio.inception %></div>
         <div class="cell">
           <a href="#"><i class="fas fa-download"></i></a>
