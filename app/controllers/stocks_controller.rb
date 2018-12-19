@@ -3,7 +3,7 @@ require "open-uri"
 
 class StocksController < ApplicationController
   skip_before_action :authenticate_user!, only: [:search, :result]
-  before_action :set_stock, only: [:show, :edit, :update, :destroy]
+  before_action :set_stock, only: [:show]
 
   def search
   end
@@ -78,22 +78,6 @@ class StocksController < ApplicationController
     end
   end
 
-  def new
-    @stock = Stock.new
-    # authorize @stock
-  end
-
-  def create
-    @stock = Stock.new(stock_params)
-    # authorize @stock
-    if @stock.save
-      redirect_to portfolio_path(@stock.portfolio),
-      notice: "#{@stock.shares} shares of #{@stock.ticker} added to #{@stock.portfolio.name}!"
-    else
-      render :new, alert: "something wrong!"
-    end
-  end
-
   def show
     # authorize @stock
     @user = @stock.portfolio.user
@@ -164,31 +148,9 @@ class StocksController < ApplicationController
       @comps = JSON.parse(open(comps_url).read)
   end
 
-  def edit
-    # authorize @stock
-  end
-
-  def update
-    # authorize @stock
-    if @stock.update(stock_params)
-      redirect_to portfolio_path(@stock.portfolio),
-      notice: "edited!"
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    # authorize @stock
-    @stock.destroy
-    redirect_to portfolio_path(@stock.portfolio),
-    notice: "#{@stock.shares} shares of #{@stock.ticker} removed from #{@stock.portfolio.name}!"
-  end
-
   private
 
   def stock_params
-    # params.require(:stock).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
     params.require(:stock).permit(:name, :ticker, :portfolio_id)
   end
 
