@@ -27,7 +27,7 @@
     <p>There are no stocks in <%= @portfolio.name %>.</p>
   <% end %>
   <div class="action">
-    <%= link_to "Add Transaction", new_stock_path, class: "button" %>
+    <%= link_to "Add Transaction", new_transaction_path, class: "button" %>
     <a href="#" class="button">Export</a>
     <%= link_to "Edit", edit_portfolio_path(@portfolio), class: "button" %>
     <%= link_to "Delete", portfolio_path(@portfolio), class: "button", method: :delete, data: { confirm: "Are you sure you want to delete?" } %>

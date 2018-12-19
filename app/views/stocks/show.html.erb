@@ -14,7 +14,6 @@
     <th>P&L ($)</th>
     <th>Return (%)</th>
     <th>Date Added</th>
-    <th>Action</th>
   </tr>
   <tr>
     <td><%= number_with_delimiter(@stock.shares) %></td>
@@ -24,7 +23,6 @@
     <td><%= number_with_delimiter("%.2f" % @stock.profit_amount) %></td>
     <td><%= @stock.profit_pct.round(2) %>%</td>
     <td><%= @stock.created_at.strftime("%d %b %Y") %></td>
-    <td><%= link_to "Edit", edit_stock_path(@stock) %> | <%= link_to "Delete", stock_path(@stock), method: :delete, data: { confirm: "are you sure you want to delete?"} %></td>
   </tr>
 </table>
 

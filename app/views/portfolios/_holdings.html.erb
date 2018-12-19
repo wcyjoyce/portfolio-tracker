@@ -35,7 +35,7 @@
         <div class="cell"><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></div>
         <div class="cell"><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</div>
         <div class="cell"><%= stock.added.strftime("%d %b %Y") %></div>
-        <div class="cell"><%= link_to "edit", edit_stock_path(stock) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></div>
+        <div class="cell"><%= link_to "edit", edit_transaction_path(transaction) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></div>
       </div>
     <% end %>
   <% end %>
