@@ -13,29 +13,28 @@
     <div class="cell">Return (%)</div>
     <div class="cell"></div>
   </div>
-  <% @portfolio.duplicates.each do |stock| %>
+  <% @portfolio.duplicates.each do |transaction| %>
     <div class="portfolio-row">
-      <% stock.each do |detail| %>
+      <% transaction.each do |detail| %>
         <div class="cell"><%= detail %></div>
       <% end %>
-      <div class="cell"><a data-toggle="collapse" data-target=".<%= stock[1] %>" role="button" aria-expanded="false"><i class="fas fa-angle-down"></i></a></div>
+      <div class="cell"><a data-toggle="collapse" data-target=".<%= transaction[1] %>" role="button" aria-expanded="false"><i class="fas fa-angle-down"></i></a></div>
     </div>
-    <% selected_stocks = @portfolio.stocks.select { |x| x.ticker == stock[1] } %>
-    <% selected_stocks.each do |stock| %>
-      <div class="collapse <%= stock.ticker %>">
-        <div class="cell"><%= stock.name(stock.ticker) %></div>
-        <div class="cell"><%= stock.ticker.upcase %></div>
-        <div class="cell"><%= stock.sector(stock.ticker) %></div>
-        <div class="cell"><%= number_with_delimiter(stock.shares) %></div>
-        <div class="cell"><%= number_with_delimiter("%.2f" % stock.price.to_f) %></div>
-        <div class="cell"><%= number_with_delimiter("%.2f" % stock.current_price(stock.ticker).to_f) %></div>
-        <div class="cell"><%= number_with_delimiter("%.2f" % stock.total_cost.to_f) %></div>
-        <div class="cell"><%= number_with_delimiter("%.2f" % stock.market_value.to_f) %></div>
-        <div class="cell"><%= number_with_delimiter("%.2f" % stock.ytd(stock.ticker)) %>%</div>
-        <div class="cell"><%= number_with_delimiter("%.2f" % stock.profit_amount.to_f) %></div>
-        <div class="cell"><%= number_with_delimiter("%.2f" % stock.profit_pct) %>%</div>
-        <div class="cell"><%= stock.added.strftime("%d %b %Y") %></div>
-        <div class="cell"><%= link_to "edit", edit_transaction_path(transaction) %> | <%= link_to "delete", stock_path(stock), method: :delete, data: { confirm: "Are you sure you want to delete?"} %> | <%= link_to "show", stock_path(stock) %></div>
+    <% selected_transactions = @portfolio.transactions.select { |x| x.ticker == transaction[1] } %>
+    <% selected_transactions.each do |transaction| %>
+      <div class="collapse <%= transaction.ticker %>">
+        <div class="cell"><%= transaction.name(transaction.ticker) %></div>
+        <div class="cell"><%= transaction.ticker.upcase %></div>
+        <div class="cell"><%= transaction.sector(transaction.ticker) %></div>
+        <div class="cell"><%= number_with_delimiter(transaction.shares) %></div>
+        <div class="cell"><%= number_with_delimiter("%.2f" % transaction.price.to_f) %></div>
+        <div class="cell"><%= number_with_delimiter("%.2f" % transaction.current_price(transaction.ticker).to_f) %></div>
+        <div class="cell"><%= number_with_delimiter("%.2f" % transaction.total_cost.to_f) %></div>
+        <div class="cell"><%= number_with_delimiter("%.2f" % transaction.market_value.to_f) %></div>
+        <div class="cell"><%= number_with_delimiter("%.2f" % transaction.profit_amount.to_f) %></div>
+        <div class="cell"><%= number_with_delimiter("%.2f" % transaction.profit_pct) %>%</div>
+        <div class="cell"><%= transaction.added.strftime("%d %b %Y") %></div>
+        <div class="cell">Edit | Delete | Show</div>
       </div>
     <% end %>
   <% end %>
