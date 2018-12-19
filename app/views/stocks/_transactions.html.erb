@@ -1,11 +1,11 @@
 <% if user_signed_in? %>
   <% @user = current_user %>
-  <% transactions = @user.stocks.select { |stock| stock.ticker == @symbol } %>
 
+  <% transactions = @user.transactions.select { |transaction| transaction.ticker == @symbol } %>
   <% portfolios = [] %>
-  <% transactions.each { |transaction| portfolios << transaction.portfolio.name } %>
+  <% transactions.each { |transaction| portfolios << transaction.portfolio } %>
   <% portfolios.uniq.each do |portfolio| %>
-    <%= link_to portfolio, portfolio_path(portfolio), class: "button" %>
+    <%= link_to portfolio.name, portfolio_path(portfolio), class: "button" %>
   <% end %>
 
   <div class="holdings">

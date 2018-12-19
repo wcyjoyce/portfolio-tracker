@@ -1,7 +1,7 @@
 <h1><%= @portfolio.name %></h1>
 
 <div class="stats">
-  <% unless @portfolio.stocks.empty? %>
+  <% unless @portfolio.transactions.empty? %>
     <div class="stat">
       <div class="stat-header"><h5>Market Value</h5></div>
       <div class="stat-content"><%= @portfolio.market_value.to_i %></div>
@@ -18,7 +18,7 @@
 </div>
 
 <div class="flex">
-  <% unless @portfolio.stocks.empty? %>
+  <% unless @portfolio.transactions.empty? %>
     <div>
       <h5>Inception Date: <%= @portfolio.inception %></h5>
       <h5>As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %>. Quotes are delayed by at least 15 minutes.</h5>
@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<% unless @portfolio.stocks.empty? %>
+<% unless @portfolio.transactions.empty? %>
   <%= render "holdings" %>
   <%= render "allocation" %>
 <% end %>
