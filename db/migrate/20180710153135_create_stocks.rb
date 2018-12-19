@@ -7,6 +7,7 @@ class CreateStocks < ActiveRecord::Migration[5.1]
       t.date :added
       t.decimal :price
       t.references :portfolio, foreign_key: true
+      t.references :transaction, foreign_key: true
       t.timestamps
     end
   end
