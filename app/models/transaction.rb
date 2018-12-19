@@ -1,5 +1,6 @@
 class Transaction < ApplicationRecord
   belongs_to :portfolio
+  belongs_to :stock
   validates :ticker, :shares, :added, :price, presence: true
 
   def name(ticker)

@@ -1,6 +1,6 @@
 class Stock < ApplicationRecord
-  belongs_to :portfolio
-  # validates :ticker, :shares, :added, :price, presence: true
+  has_many :transactions
+  # validates :ticker, presence: true
 
   # def name(ticker)
   #   StockQuote::Stock.company(ticker).company_name
