@@ -39,7 +39,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:stock).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
+    params.require(:transaction).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
   end
 
   def set_portfolio
@@ -47,5 +47,6 @@ class TransactionsController < ApplicationController
   end
 
   def set_transaction
+    @transaction = Transaction.find(params[:id])
   end
 end
