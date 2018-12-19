@@ -1,0 +1,34 @@
+<% if user_signed_in? %>
+  <% @user = current_user %>
+  <% transactions = @user.stocks.select { |stock| stock.ticker == @symbol } %>
+
+  <% portfolios = [] %>
+  <% transactions.each { |transaction| portfolios << transaction.portfolio.name } %>
+  <% portfolios.uniq.each do |portfolio| %>
+    <%= link_to portfolio, portfolio_path(portfolio), class: "button" %>
+  <% end %>
+
+  <div class="holdings">
+    <div class="header">
+      <div class="cell">Portfolio</div>
+      <div class="cell">No. of Shares</div>
+      <div class="cell">Current Price</div>
+      <div class="cell">Market Value</div>
+      <div class="cell">Total Cost</div>
+      <div class="cell">P&L ($)</div>
+      <div class="cell">Return (%)</div>
+      <div class="cell">Date Added</div>
+    </div>
+
+      <div class="portfolio-row">
+        <div class="cell"><%#= stock.shares %></div>
+        <div class="cell"><%#= stock.current_price(stock.ticker) %></div>
+        <div class="cell"><%#= stock.market_value %></div>
+        <div class="cell"><%#= stock.total_cost %></div>
+        <div class="cell"><%#= stock.profit_amount %></div>
+        <div class="cell"><%#= stock.profit_pct.round(2) %></div>
+        <div class="cell"><%#= stock.created_at.strftime("%d %b %Y") %></div>
+      </div>
+
+  </div>
+<% end %>
