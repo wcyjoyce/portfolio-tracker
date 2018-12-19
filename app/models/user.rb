@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :portfolios, dependent: :destroy
   has_many :stocks, through: :portfolios
+  has_many :transactions, through: :portfolios
 
   # validates :first_name, :last_name, presence: true
   # validates :email, presence: true, uniqueness: true
