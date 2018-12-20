@@ -1,6 +1,6 @@
 class Stock < ApplicationRecord
-  belongs_to :portfolio
-  # validates :ticker, :shares, :added, :price, presence: true
+  has_many :transactions
+  # validates :ticker, presence: true
 
   # def name(ticker)
   #   StockQuote::Stock.company(ticker).company_name
@@ -41,9 +41,5 @@ class Stock < ApplicationRecord
   def market_status(ticker)
     status = StockQuote::Stock.quote(ticker).latest_source
     status == "Close" ? "closed" : "open"
-  end
-
-  def transaction_summary(ticker)
-    stocks.select { |transaction| transaction.ticker == ticker }
   end
 end

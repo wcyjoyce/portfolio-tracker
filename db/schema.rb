@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181219063255) do
+ActiveRecord::Schema.define(version: 20181219112711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,19 +24,12 @@ ActiveRecord::Schema.define(version: 20181219063255) do
   end
 
   create_table "stocks", force: :cascade do |t|
-    t.string "name"
     t.string "ticker"
-    t.integer "shares"
-    t.date "added"
-    t.decimal "price"
-    t.bigint "portfolio_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["portfolio_id"], name: "index_stocks_on_portfolio_id"
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.string "name"
     t.string "ticker"
     t.integer "shares"
     t.date "added"
@@ -44,7 +37,9 @@ ActiveRecord::Schema.define(version: 20181219063255) do
     t.bigint "portfolio_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "stock_id"
     t.index ["portfolio_id"], name: "index_transactions_on_portfolio_id"
+    t.index ["stock_id"], name: "index_transactions_on_stock_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -75,6 +70,6 @@ ActiveRecord::Schema.define(version: 20181219063255) do
   end
 
   add_foreign_key "portfolios", "users"
-  add_foreign_key "stocks", "portfolios"
   add_foreign_key "transactions", "portfolios"
+  add_foreign_key "transactions", "stocks"
 end

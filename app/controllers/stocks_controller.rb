@@ -85,7 +85,7 @@ class StocksController < ApplicationController
 
   def create
     @stock = Stock.new(stock_params)
-    @stock.errors.full_messages unless @stock.save
+    puts @stock.errors.full_messages unless @stock.save
   end
 
   def destroy
