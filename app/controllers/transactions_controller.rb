@@ -8,6 +8,8 @@ class TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new(transaction_params)
+    @transaction.stock = Stock.find_or_create_by(ticker: @transaction.ticker)
+
     if @transaction.save
       redirect_to portfolio_path(@transaction.portfolio),
       notice: "#{@transaction.shares} shares of #{@transaction.ticker} has been added to #{@transaction.portfolio.name}!"
@@ -39,7 +41,7 @@ class TransactionsController < ApplicationController
   private
 
   def transaction_params
-    params.require(:transaction).permit(:name, :ticker, :shares, :added, :price, :portfolio_id)
+    params.require(:transaction).permit(:name, :ticker, :shares, :added, :price, :stock_id, :portfolio_id)
   end
 
   def set_portfolio
