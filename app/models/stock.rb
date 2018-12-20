@@ -11,7 +11,15 @@ class Stock < ApplicationRecord
   # end
 
   def exchange(ticker)
-    StockQuote::Stock.company(ticker).exchange
+    exchange = StockQuote::Stock.company(ticker).exchange
+
+    if exchange == "Nasdaq Global Select"
+      "NSQ"
+    elsif exchange == "New York Stock Exchange"
+      "NYSE"
+    else
+      exchange
+    end
   end
 
   # def current_price(ticker)
