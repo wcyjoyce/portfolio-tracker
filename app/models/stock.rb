@@ -42,8 +42,4 @@ class Stock < ApplicationRecord
     status = StockQuote::Stock.quote(ticker).latest_source
     status == "Close" ? "closed" : "open"
   end
-
-  def transaction_summary(ticker)
-    stocks.select { |transaction| transaction.ticker == ticker }
-  end
 end
