@@ -53,7 +53,9 @@ class StocksController < ApplicationController
         @chart_ytd = historical_ytd.collect { |historical| [historical['date'], historical['close']] }
 
       @library_options = {
-        message: {empty: "Data unavailable"}
+        message: {empty: "Data unavailable"},
+        points: false,
+        min: nil,
         chart: {backgroundColor: nil},
         xAxis: {
           crosshair: false,
