@@ -25,6 +25,11 @@
   <!-- Holdings Allocation -->
   <div class="col-xs-12 col-sm-4 col-md-4">
     <h5>Holdings Allocation</h5>
-    <div class="chart"><%= bar_chart @portfolio.holdings_allocation, messages: {empty: "No data"}, library: { chart: { backgroundColor: nil } } %></div>
+    <div class="chart"><%= bar_chart @portfolio.holdings_allocation, library:
+    {
+      messages: {empty: "Data unavailable"},
+      chart: { backgroundColor: nil },
+    }
+    %></div>
   </div>
 </div>
