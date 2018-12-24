@@ -8,23 +8,25 @@
     <%= link_to portfolio.name, portfolio_path(portfolio), class: "button" %>
   <% end %>
 
-  <div class="holdings">
-    <div class="header">
-      <div class="cell">Portfolio</div>
-      <div class="cell">No. of Shares</div>
-      <div class="cell">Market Value</div>
-      <div class="cell">Average Cost</div>
-      <div class="cell">P&L ($)</div>
-      <div class="cell">Return (%)</div>
-    </div>
-
-    <% @selected_portfolios.each do |portfolio| %>
-      <div class="portfolio-row">
-        <%= portfolio.name %>
-        <% portfolio.transaction_summary(@symbol).each do |detail| %>
-          <div class="cell"><%= detail %></div>
-        <% end %>
+  <% unless @selected_portfolios.empty? %>
+    <div class="holdings">
+      <div class="header">
+        <div class="cell">Portfolio</div>
+        <div class="cell">No. of Shares</div>
+        <div class="cell">Market Value</div>
+        <div class="cell">Average Cost</div>
+        <div class="cell">P&L ($)</div>
+        <div class="cell">Return (%)</div>
       </div>
-    <% end %>
-  </div>
+
+      <% @selected_portfolios.each do |portfolio| %>
+        <div class="portfolio-row">
+          <%= portfolio.name %>
+          <% portfolio.transaction_summary(@symbol).each do |detail| %>
+            <div class="cell"><%= detail %></div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
