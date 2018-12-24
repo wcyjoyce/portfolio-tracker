@@ -1,0 +1,21 @@
+.chart-tab {
+  border: 1px solid $headers;
+  border-radius: 5px;
+  padding: 2.5px 5px;
+  text-decoration: none;
+  background-color: $headers;
+  color: $gray;
+  font-family: Lato, sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin-right: 2.5px;
+  letter-spacing: 0.5px;
+
+  &:hover {
+    border: 1px solid $green;
+    text-decoration: none;
+    background-color: $green;
+    color: white;
+    transition: all 0.3s ease;
+  }
+}
