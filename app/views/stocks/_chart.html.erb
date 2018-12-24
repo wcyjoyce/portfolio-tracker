@@ -8,19 +8,19 @@
 
 <div class="performance-charts">
   <div class="performance-chart" id="chart-5y">
-  <%= line_chart @chart_5y, library: @library_options %>
+  <%= line_chart @chart_5y, library: @library_options, points: false, min: nil %>
   </div>
   <div class="performance-chart hidden" id="chart-1y">
-  <%= line_chart @chart_1y, library: @library_options %>
+  <%= line_chart @chart_1y, library: @library_options, points: false, min: nil %>
   </div>
   <div class="performance-chart hidden" id="chart-ytd">
-  <%= line_chart @chart_ytd, library: @library_options %>
+  <%= line_chart @chart_ytd, library: @library_options, points: false, min: nil %>
   </div>
   <div class="performance-chart hidden" id="chart-6m">
-  <%= line_chart @chart_6m, library: @library_options %>
+  <%= line_chart @chart_6m, library: @library_options, points: false, min: nil %>
   </div>
   <div class="performance-chart hidden" id="chart-1m">
-  <%= line_chart @chart_1m, library: @library_options %>
+  <%= line_chart @chart_1m, library: @library_options, points: false, min: nil %>
   </div>
 </div>
 
