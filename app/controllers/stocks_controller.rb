@@ -20,6 +20,7 @@ class StocksController < ApplicationController
         @exchange = "#{company['exchange']}"
         @sector = "#{company['sector']}"
         @description = "#{company['description']}"
+        @website = "#{company['website']}"
 
       book_url = "https://api.iextrading.com/1.0/stock/#{@query}/book"
         book = JSON.parse(open(book_url).read)
@@ -29,8 +30,11 @@ class StocksController < ApplicationController
         @close = "#{book['quote']['close']}"
         @high = "#{book['quote']['high']}"
         @low = "#{book['quote']['low']}"
+        @change_amount_day = "#{book['quote']['change']}"
+        @change_pct_day = "#{book['quote']['changePercent']}"
         @market_cap = "#{book['quote']['marketCap']}"
         @pe_ratio = "#{book['quote']['peRatio']}"
+        @avg_volume = "#{book['quote']['avgTotalVolume']}"
 
       historical_5y_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/5y"
         historical_5y = JSON.parse(open(historical_5y_url).read)
@@ -54,8 +58,6 @@ class StocksController < ApplicationController
 
       @library_options = {
         message: {empty: "Data unavailable"},
-        points: false,
-        min: nil,
         chart: {backgroundColor: nil},
         xAxis: {
           crosshair: false,
