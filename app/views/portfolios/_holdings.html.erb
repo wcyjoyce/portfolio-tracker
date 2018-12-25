@@ -54,6 +54,70 @@
   </div>
 </div>
 
+<!--  -->
+<div class="table-responsive">
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Ticker</th>
+      <th>Sector</th>
+      <th>Quantity</th>
+      <th>Average Cost</th>
+      <th>Current Price</th>
+      <th>Total Cost</th>
+      <th>Market Value</th>
+      <th>YTD (%)</th>
+      <th>P&L (%)</th>
+      <th>Return (%)</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @portfolio.duplicates.each do |transaction| %>
+        <tr>
+          <% transaction.each do |detail| %>
+            <td><%= detail %></td>
+          <% end %>
+          <td><a data-toggle="collapse" data-target=".<%= transaction[1] %>" role="button" aria-expanded="false"><i class="fas fa-angle-down"></i></a></td>
+        </tr>
+        <% selected_transactions = @portfolio.transactions.select { |x| x.ticker == transaction[1] } %>
+        <% selected_transactions.each do |transaction| %>
+          <div class="collapse <%= transaction.ticker %>">
+            <td><%= transaction.name(transaction.ticker) %></td>
+            <td><%= transaction.ticker.upcase %></td>
+            <td><%= transaction.sector(transaction.ticker) %></td>
+            <td><%= number_with_delimiter(transaction.shares) %></td>
+            <td><%= number_with_delimiter("%.2f" % transaction.price.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % transaction.current_price(transaction.ticker).to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % transaction.total_cost.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % transaction.market_value.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % transaction.profit_amount.to_f) %></td>
+            <td><%= number_with_delimiter("%.2f" % transaction.profit_pct) %>%</td>
+            <td><%= transaction.added.strftime("%d %b %Y") %></td>
+            <td>Show | <%= link_to "Edit", edit_transaction_path %> | <%= link_to "Delete", transaction_path, method: :delete, data: { confirm: "Are you sure you want to delete?" } %></td>
+          </div>
+        <% end %>
+      <% end %>
+    </tbody>
+    <tfoot class="total">
+      <tr>
+        <td>Total</td> <!-- Name -->
+        <td></td> <!-- Ticker -->
+        <td></td> <!-- Sector -->
+        <td></td> <!-- Quantity -->
+        <td></td> <!-- Average Cost -->
+        <td></td> <!-- Current Price -->
+        <td><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></td> <!-- Total Cost -->
+        <td><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></td> <!-- Market Value -->
+        <td></td> <!-- YTD (%) -->
+        <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P%L ($) -->
+        <td><%= @portfolio.profit_pct %></td> <!-- Return (%) -->
+        <td></td> <!-- More Details -->
+      </tr>
+    </tfoot>
+  </table>
+</div>
+<!--  -->
+
 <% content_for(:after_js) do %>
   <script>
     // Auto-refresh at 10-minute intervals

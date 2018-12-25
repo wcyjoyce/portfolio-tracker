@@ -1,4 +1,40 @@
 <h2>Comparisons</h2>
+<!--  -->
+<div class="table-responsive">
+  <table>
+    <thead class="header">
+      <th>Name</th>
+      <th>Ticker</th>
+      <th>Price</th>
+      <th>Market Cap</th>
+      <th>% Change</th>
+      <th>High / Low</th>
+      <th>YTD</th>
+      <th>PE Ratio</th>
+      <th>Beta</th>
+      <th>ROE</th>
+      <th>EPS</th>
+      <th>Dividend Yield</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= @name %></td>
+        <td><%= @symbol %></td>
+        <td><%= @price %></td>
+        <td><%= (@market_cap.to_f / 1000000).round(1) %>M</td>
+        <td><%= (StockQuote::Stock.quote(@query).change_percent * 100).round(2) %>%</td>
+        <td><%= @high %> / <%= @low %></td>
+        <td><%= (StockQuote::Stock.quote(@query).ytd_change * 100).round(2) %>%</td>
+        <td><%= @pe_ratio.to_f.round(2) %></td>
+        <td><%= @beta.to_f.round(2) %></td>
+        <td><%= @roe.to_f.round(2) %></td>
+        <td><%= @eps.to_f.round(2) %></td>
+        <td><%= @dividend_yield.to_f.round(2) %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!--  -->
 <div class="holdings">
   <div class="header">
     <div class="cell">Name</div>
@@ -16,18 +52,18 @@
   </div>
   <!-- query -->
   <div>
-    <td><%= @name %></td>
-    <td><%= @symbol %></td>
-    <td><%= @price %></td>
-    <td><%= (@market_cap.to_f / 1000000).round(1) %>M</td>
-    <td><%= (StockQuote::Stock.quote(@query).change_percent * 100).round(2) %>%</td>
-    <td><%= @high %> / <%= @low %></td>
-    <td><%= (StockQuote::Stock.quote(@query).ytd_change * 100).round(2) %>%</td>
-    <td><%= @pe_ratio.to_f.round(2) %></td>
-    <td><%= @beta.to_f.round(2) %></td>
-    <td><%= @roe.to_f.round(2) %></td>
-    <td><%= @eps.to_f.round(2) %></td>
-    <td><%= @dividend_yield.to_f.round(2) %></td>
+    <div class="cell"><%= @name %></div>
+    <div class="cell"><%= @symbol %></div>
+    <div class="cell"><%= @price %></div>
+    <div class="cell"><%= (@market_cap.to_f / 1000000).round(1) %>M</div>
+    <div class="cell"><%= (StockQuote::Stock.quote(@query).change_percent * 100).round(2) %>%</div>
+    <div class="cell"><%= @high %> / <%= @low %></div>
+    <div class="cell"><%= (StockQuote::Stock.quote(@query).ytd_change * 100).round(2) %>%</div>
+    <div class="cell"><%= @pe_ratio.to_f.round(2) %></div>
+    <div class="cell"><%= @beta.to_f.round(2) %></div>
+    <div class="cell"><%= @roe.to_f.round(2) %></div>
+    <div class="cell"><%= @eps.to_f.round(2) %></div>
+    <div class="cell"><%= @dividend_yield.to_f.round(2) %></div>
   </div>
   <!-- comps -->
   <% @comps.first(5).each do |comp| %>
@@ -49,7 +85,7 @@
   <!-- benchmark -->
   <strong>Benchmark</strong>
   <% benchmark = @comps.last %>
-  <% unless benchmark.nil? %>
+  <% unless benchmark.nil? || @comps.first(5).include?(benchmark) %>
     <div class="portfolio-row">
       <div class="cell"><%= StockQuote::Stock.quote(benchmark).company_name %></div>
       <div class="cell"><%= benchmark %></div>
