@@ -4,7 +4,7 @@
 
 <div>
   Latest Price: <%= number_with_delimiter(@price) %>
-  Day Change: <%= @change_amount_day %> (<%= number_to_percentage(@change_pct_day) %>)
+  Day Change: <%= @change_amount_day.round(2) %> (<%= number_to_percentage(@change_pct_day) %>)
 </div>
 
 <%= render "transactions" %>
