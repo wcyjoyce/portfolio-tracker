@@ -1,1 +1,6 @@
 "Portfolio","Name","Ticker","Sector","Quantity","Average Cost","Current Price","Total Cost","Market Value","YTD (%)","P&L (%)","Return (%)"
+"First Portfolio","Alphabet Inc.","GOOGL","Technology","200","1,000.00","1075.92","200000.00","215184.00","2.01%","15,184.00","7.59%"
+"First Portfolio","Facebook Inc.","FB","Technology","150","140.00","138.05","21000.00","20707.50","1.75%","-292.50","-1.39%"
+"First Portfolio","Halliburton Company","HAL","Energy","3000","78.00","28.82","234000.00","86460.00","5.57%","-147,540.00","-63.05%"
+"First Portfolio","JP Morgan Chase & Co.","JPM","Financial Services","300","83.33","100.76","25000.00","30228.00","2.28%","5,228.00","20.91%"
+"Portfolio #2","Facebook Inc.","FB","Technology","50","150.00","138.05","7500.00","6902.50","1.75%","-597.50","-7.97%"
