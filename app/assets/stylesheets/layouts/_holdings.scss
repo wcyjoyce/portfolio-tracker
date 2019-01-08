@@ -1,6 +1,6 @@
 /* -------------------------------------
  * Portfolio: Holdings
-* ------------------------------------- */
+ * ------------------------------------- */
 
 .holdings {
   width: 100%;
@@ -8,26 +8,27 @@
 
   .header {
     font-weight: bold;
-    padding: 5px;
+    padding: 5px !important;
     margin-bottom: 5px;
     background-color: $headers;
   }
+}
 
-  .cell {
-    display: inline-block;
-    // margin-right: 5px;
-    text-decoration: none;
-    color: $gray;
+  // .cell {
+  //   display: inline-block;
+  //   // margin-right: 5px;
+  //   text-decoration: none;
+  //   color: $gray;
 
-    a {
-      padding-right: 5px;
-      color: $gray;
+  //   a {
+  //     padding-right: 5px;
+  //     color: $gray;
 
-      &:last-child {
-        padding-right: none;
-      }
-    }
-  }
+  //     &:last-child {
+  //       padding-right: none;
+  //     }
+  //   }
+  // }
 
   .collapse {
     background-color: $hover;
@@ -36,4 +37,4 @@
   .total {
     font-weight: bold;
   }
-}
+// }
