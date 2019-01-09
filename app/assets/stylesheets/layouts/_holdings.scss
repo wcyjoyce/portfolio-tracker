@@ -1,17 +1,25 @@
 /* -------------------------------------
- * Portfolio: Holdings
+ * Portfolio: Holdings Table
  * ------------------------------------- */
 
 .holdings {
   width: 100%;
   margin: 15px 0px;
+}
 
-  .header {
-    font-weight: bold;
-    padding: 5px !important;
-    margin-bottom: 5px;
-    background-color: $headers;
+.table-responsive {
+  margin: 10px 0px;
+
+  th, td {
+    padding-right: 10px;
   }
+}
+
+.header {
+  font-weight: bold;
+  padding: 5px !important;
+  margin-bottom: 5px;
+  background-color: $headers;
 }
 
   // .cell {
@@ -30,9 +38,9 @@
   //   }
   // }
 
-  .collapse {
-    background-color: $hover;
-  }
+  // .collapse {
+  //   background-color: $hover;
+  // }
 
   .total {
     font-weight: bold;
