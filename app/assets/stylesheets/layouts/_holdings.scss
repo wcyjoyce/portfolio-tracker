@@ -10,39 +10,18 @@
 .table-responsive {
   margin: 10px 0px;
 
+  thead, .header {
+    font-weight: bold;
+    padding: 5px !important;
+    margin-bottom: 5px;
+    background-color: $headers;
+  }
+
   th, td {
     padding-right: 10px;
   }
 }
 
-.header {
+.total {
   font-weight: bold;
-  padding: 5px !important;
-  margin-bottom: 5px;
-  background-color: $headers;
 }
-
-  // .cell {
-  //   display: inline-block;
-  //   // margin-right: 5px;
-  //   text-decoration: none;
-  //   color: $gray;
-
-  //   a {
-  //     padding-right: 5px;
-  //     color: $gray;
-
-  //     &:last-child {
-  //       padding-right: none;
-  //     }
-  //   }
-  // }
-
-  // .collapse {
-  //   background-color: $hover;
-  // }
-
-  .total {
-    font-weight: bold;
-  }
-// }
