@@ -31,7 +31,7 @@ class StocksController < ApplicationController
         @high = "#{book['quote']['high']}"
         @low = "#{book['quote']['low']}"
         @change_amount_day = @price.to_f - @open.to_f
-        @change_pct_day = @change_amount_day / @open.to_f
+        @change_pct_day = @change_amount_day / @open.to_f * 100
         @market_cap = "#{book['quote']['marketCap']}"
         @pe_ratio = "#{book['quote']['peRatio']}"
         @avg_volume = "#{book['quote']['avgTotalVolume']}"
