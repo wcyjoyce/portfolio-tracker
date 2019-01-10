@@ -16,11 +16,11 @@
   </thead>
   <tbody>
     <!-- query -->
-    <tr>
+    <tr class="portfolio-row query">
       <td><%= @name %></td>
       <td><%= @symbol %></td>
       <td><%= @price %></td>
-      <td><%= (@market_cap.to_f / 1000000).round(1) %>M</td>
+      <td><%= @market_cap.to_f >= 1000000000 ? (@market_cap.to_f / 1000000000).round(2).to_s + "B" : (@market_cap.to_f / 1000000).round(2).to_s + "M" %></td>
       <td><%= (StockQuote::Stock.quote(@query).change_percent * 100).round(2) %>%</td>
       <td><%= @high %> / <%= @low %></td>
       <td><%= (StockQuote::Stock.quote(@query).ytd_change * 100).round(2) %>%</td>
@@ -36,7 +36,7 @@
         <td><%= StockQuote::Stock.quote(comp).company_name %></td>
         <td><%= comp %></td>
         <td><%= StockQuote::Stock.quote(comp).latest_price %></td>
-        <td><%= (StockQuote::Stock.quote(comp).market_cap / 1000000).round(1) %>M</td>
+        <td><%= StockQuote::Stock.quote(comp).market_cap >= 1000000000 ? (StockQuote::Stock.quote(comp).market_cap / 1000000000).round(2).to_s + "B" : (StockQuote::Stock.quote(comp).market_cap / 1000000).round(2).to_s + "M" %></td>
         <td><%= (StockQuote::Stock.quote(comp).change_percent * 100).round(2) %>%</td>
         <td><%= StockQuote::Stock.quote(comp).high %> / <%= StockQuote::Stock.quote(comp).low %></td>
         <td><%= (StockQuote::Stock.quote(comp).ytd_change * 100).round(2) %>%</td>
@@ -50,11 +50,11 @@
     <!-- benchmark -->
     <% benchmark = @comps.last %>
     <% unless benchmark.nil? %>
-      <tr class="portfolio-row">
+      <tr class="portfolio-row benchmark">
         <td><%= StockQuote::Stock.quote(benchmark).company_name %></td>
         <td><%= benchmark %></td>
         <td><%= StockQuote::Stock.quote(benchmark).latest_price %></td>
-        <td><%= (StockQuote::Stock.quote(benchmark).market_cap / 1000000).round(1) %>M</td>
+        <td><%= StockQuote::Stock.quote(benchmark).market_cap >= 1000000000 ? (StockQuote::Stock.quote(benchmark).market_cap / 1000000000).round(2).to_s + "B" : (StockQuote::Stock.quote(benchmark).market_cap / 1000000).round(2).to_s + "M" %></td>
         <td><%= (StockQuote::Stock.quote(benchmark).change_percent * 100).round(2) %>%</td>
         <td><%= StockQuote::Stock.quote(benchmark).high %> / <%= StockQuote::Stock.quote(benchmark).low %></td>
         <td><%= (StockQuote::Stock.quote(benchmark).ytd_change * 100).round(2) %>%</td>

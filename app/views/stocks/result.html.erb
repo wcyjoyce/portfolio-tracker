@@ -1,13 +1,18 @@
-<h1><%= @name %></h1>
-<h5><%= @symbol %>:<%= @exchange %></h5>
-<h5><strong>As of:</strong> <%= @update %></h5>
+<% unless @query.nil? || @query.empty? %>
+  <h1><%= @name %></h1>
+  <h5><%= @symbol %>:<%= @exchange %></h5>
+  <h5><strong>As of:</strong> <%= @update %></h5>
 
-<div>
-  Latest Price: <%= number_with_delimiter(@price) %>
-  Day Change: <%= @change_amount_day.round(2) %> (<%= number_to_percentage(@change_pct_day) %>)
-</div>
+  <div>
+    Latest Price: <%= number_with_delimiter(@price) %>
+    Day Change: <%= @change_amount_day.round(2) %> (<%= number_to_percentage(@change_pct_day) %>)
+  </div>
 
-<%= render "transactions" %>
-<%= render "info" %>
+  <%= render "transactions" %>
+  <div class="result"><%= render "info" %></div>
+<% else %>
+  <h1>Search by entering a ticker:</h1>
+  <%= render "stocks/search" %>
+<% end %>
 
-<%= content_for(:title, @name) %>
+<%= @query.nil? || @query.empty? ? content_for(:title, "Search") : content_for(:title, @name) %>
