@@ -1,0 +1,11 @@
+<h2>News</h2>
+<div class="news">
+  <% @articles.first(5).each do |article| %>
+    <div class="article">
+      <a href="<%= article['url'] %>" target="_blank">
+        <div class="headline"><%= article["headline"] %></div>
+        <div class="source"><%= article["source"] %> | <%= article["datetime"].to_datetime.strftime("%d %b %Y") %></div>
+      </a>
+    </div>
+  <% end %>
+</div>

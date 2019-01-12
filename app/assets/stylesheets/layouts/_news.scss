@@ -1,0 +1,16 @@
+/* -------------------------------------
+ * News
+ * ------------------------------------- */
+
+ .article {
+  // background-color: $red;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  &:hover {
+    background-color: $red;
+  }
+ }
