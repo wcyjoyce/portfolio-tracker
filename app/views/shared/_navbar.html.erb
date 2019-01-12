@@ -1,15 +1,16 @@
 <div class="navbar">
-  <h5>
   <!-- Logo -->
   <%= link_to root_path, class: "navbar-logo" do %><i class="fas fa-piggy-bank"></i><% end %>
 
+  <h5>
   <!-- Right Navigation -->
   <div class="navbar-right hidden-xs hidden-sm">
 
     <% if user_signed_in? %>
       <!-- Links when logged in -->
-      <%= link_to "Portfolios", portfolios_path, class: "navbar-item navbar-link" %>
       <%= link_to "About", about_path, class: "navbar-item navbar-link" %>
+      <%= link_to "Portfolios", portfolios_path, class: "navbar-item navbar-link" %>
+      <%= link_to "Transactions", transactions_path, class: "navbar-item navbar-link" %>
       <%= render "stocks/search" %>
 
       <!-- Avatar with dropdown menu -->
