@@ -87,9 +87,7 @@ class StocksController < ApplicationController
       }
 
       @comps = Stock.comps(@query)
-
-      news_url = "https://api.iextrading.com/1.0/stock/#{@query}/news"
-        @articles = JSON.parse(open(news_url).read)
+      @articles = Stock.news(@query)
     end
   end
 

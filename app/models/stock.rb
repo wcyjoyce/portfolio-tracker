@@ -12,4 +12,9 @@ class Stock < ApplicationRecord
     comps_url = "https://api.iextrading.com/1.0/stock/#{stock}/peers"
     comps = JSON.parse(open(comps_url).read)
   end
+
+  def self.news(stock)
+    news_url = "https://api.iextrading.com/1.0/stock/#{stock}/news"
+    news = JSON.parse(open(news_url).read)
+  end
 end
