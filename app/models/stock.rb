@@ -22,29 +22,11 @@ class Stock < ApplicationRecord
     end
   end
 
-  # def current_price(ticker)
-  #   StockQuote::Stock.quote(ticker).latest_price
-  # end
-
-  # def total_cost
-  #   total_cost = shares * price
-  # end
-
-  # def market_value
-  #   market_value = shares * current_price(ticker)
-  # end
-
-  # def profit_amount
-  #   profit_amount = market_value - total_cost
-  # end
-
-  # def profit_pct
-  #   profit_amount / total_cost * 100
-  # end
-
-  # def ytd(ticker)
-  #   StockQuote::Stock.quote(ticker).ytd_change * 100
-  # end
+  def self.historical_prices(stock, range)
+    historical_url = "https://api.iextrading.com/1.0/stock/#{stock}/chart/#{range}"
+    historical = JSON.parse(open(historical_url).read)
+    chart = historical.collect { |historical| [historical['date'], historical['close']] }
+  end
 
   def market_status(ticker)
     status = StockQuote::Stock.quote(ticker).latest_source
