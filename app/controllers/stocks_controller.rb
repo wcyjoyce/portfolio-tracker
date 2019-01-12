@@ -36,6 +36,16 @@ class StocksController < ApplicationController
         @pe_ratio = "#{book['quote']['peRatio']}"
         @avg_volume = "#{book['quote']['avgTotalVolume']}"
 
+      stats_url = "https://api.iextrading.com/1.0/stock/#{@query}/stats"
+        stats = JSON.parse(open(stats_url).read)
+        @high_52 = "#{stats['week52high']}"
+        @low_52 = "#{stats['week52low']}"
+        @beta = "#{stats['beta']}"
+        @dividend_yield = "#{stats['dividendYield']}"
+        @eps = "#{stats['latestEPS']}"
+        @roe = "#{stats['returnOnEquity']}"
+        @eps_date = "#{stats['latestEPSDate']}"
+
 
       @chart_5y = Stock.historical_prices(@query, "5y")
       @chart_1y = Stock.historical_prices(@query, "1y")
@@ -76,18 +86,7 @@ class StocksController < ApplicationController
         }
       }
 
-      stats_url = "https://api.iextrading.com/1.0/stock/#{@query}/stats"
-        stats = JSON.parse(open(stats_url).read)
-        @high_52 = "#{stats['week52high']}"
-        @low_52 = "#{stats['week52low']}"
-        @beta = "#{stats['beta']}"
-        @dividend_yield = "#{stats['dividendYield']}"
-        @eps = "#{stats['latestEPS']}"
-        @roe = "#{stats['returnOnEquity']}"
-        @eps_date = "#{stats['latestEPSDate']}"
-
-      comps_url = "https://api.iextrading.com/1.0/stock/#{@query}/peers"
-        @comps = JSON.parse(open(comps_url).read)
+      @comps = Stock.comps(@query)
 
       news_url = "https://api.iextrading.com/1.0/stock/#{@query}/news"
         @articles = JSON.parse(open(news_url).read)
