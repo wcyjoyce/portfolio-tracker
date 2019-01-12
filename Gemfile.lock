@@ -53,6 +53,7 @@ GEM
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     builder (3.2.3)
+    business (1.15.0)
     byebug (10.0.2)
     chartkick (2.2.5)
     coderay (1.1.2)
@@ -112,6 +113,8 @@ GEM
     nokogiri (1.8.3)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
+    paranoia (2.4.1)
+      activerecord (>= 4.0, < 5.3)
     pg (0.21.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -236,6 +239,7 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-datepicker-rails
   bootstrap-sass (~> 3.3)
+  business
   chartkick
   devise
   figaro
@@ -245,6 +249,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   listen (~> 3.0.5)
+  paranoia
   pg (~> 0.21)
   pry-byebug
   pry-rails
