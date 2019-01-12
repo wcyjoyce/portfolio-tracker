@@ -50,7 +50,7 @@
     <!-- benchmark -->
     <% benchmark = @comps.last %>
     <% unless benchmark.nil? %>
-      <tr class="portfolio-row benchmark">
+      <tr class="portfolio-row benchmark hidden">
         <td><%= StockQuote::Stock.quote(benchmark).company_name %></td>
         <td><%= benchmark %></td>
         <td><%= StockQuote::Stock.quote(benchmark).latest_price %></td>
