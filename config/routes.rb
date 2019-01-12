@@ -2,9 +2,10 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :portfolios do
-    resources :transactions, only: [:index]
+    # resources :transactions, only: [:index]
   end
-  resources :transactions, except: [:index, :show]
+  # resources :transactions, except: [:index, :show]
+  resources :transactions, except: [:show]
   resources :stocks, only: [:search, :result]
 
   get "search", to: "stocks#search"
