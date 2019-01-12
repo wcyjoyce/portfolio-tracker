@@ -23,3 +23,16 @@
 .close {
   font-size: 25px;
 }
+
+.errors {
+  background: #FCCAC9;
+  border: 1px solid $red;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 10px 0px;
+
+  ul {
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+}

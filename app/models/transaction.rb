@@ -2,6 +2,11 @@ class Transaction < ApplicationRecord
   belongs_to :portfolio
   belongs_to :stock
   validates :ticker, :shares, :added, :price, presence: true
+  validate :not_in_future
+
+  def not_in_future
+    errors.add(:added, "Your transaction cannot be in the future") if added.present? && added > Date.today
+  end
 
   def name(ticker)
     StockQuote::Stock.company(ticker).company_name
