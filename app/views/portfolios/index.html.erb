@@ -1,6 +1,17 @@
 <h1>Your Portfolios</h1>
 
 <% unless @portfolios.empty? %>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-header"><h5>Market Value</h5></div>
+      <div class="stat-content"><%= @user.market_value %></div>
+    </div>
+    <div class="stat">
+      <div class="stat-header"><h5>Total Return</h5></div>
+      <div class="stat-content"><%= @user.profit_amount %> (<%= @user.profit_pct %>)</div>
+    </div>
+  </div>
+
   <div class="flex">
     <h5>As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %></h5>
     <div class="action">
@@ -10,34 +21,38 @@
     </div>
   </div>
 
-  <div class="portfolio">
-    <div class="header">
-      <div class="cell">Name</div>
-      <div class="cell">Holdings</div>
-      <div class="cell">Market Value</div>
-      <div class="cell">YTD</div>
-      <div class="cell">Return</div>
-      <div class="cell">Inception Date</div>
-      <div class="cell"></div>
-    </div>
-    <% @portfolios.order(created_at: :asc).each do |portfolio| %>
-      <div class="portfolio-row">
-        <%= link_to portfolio_path(portfolio) do %>
-          <div class="cell"><%= portfolio.name %></div>
-          <div class="cell"><%= portfolio.transactions.length %></div>
-          <div class="cell"><%= number_with_delimiter(portfolio.market_value.to_i) %></div>
-          <div class="cell"><%= portfolio.ytd %></div>
-          <div class="cell"><%= portfolio.profit_pct %> (<%= portfolio.profit_amount.to_i %>)</div>
-          <div class="cell"><%= portfolio.inception %></div>
-          <div class="cell">
-            <a href="#"><i class="fas fa-download"></i></a>
-            <%= link_to edit_portfolio_path(portfolio) do %><i class="fas fa-cog"></i><% end %>
-            <%= link_to portfolio_path(portfolio), method: :delete, data: { confirm: "Are you sure you want to delete this portfolio?"} do %><i class="fas fa-trash-alt"></i><% end %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  </div>
+  <table class="table-responsive">
+    <thead class="header">
+      <th>Name</th>
+      <th>Holdings</th>
+      <th>Market Value</th>
+      <th>Total Cost</th>
+      <th>YTD</th>
+      <th>Return</th>
+      <th>Inception Date</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @portfolios.order(created_at: :asc).each do |portfolio| %>
+        <tr class="portfolio-row">
+          <%= link_to portfolio_path(portfolio) do %>
+            <td><%= portfolio.name %></td>
+            <td><%= portfolio.transactions.length %></td>
+            <td><%= number_with_delimiter(portfolio.market_value) %></td>
+            <td><%= number_with_delimiter(portfolio.total_cost) %></td>
+            <td class="<%= portfolio.display %>"><%= portfolio.sign(portfolio.ytd) %></td>
+            <td class="<%= portfolio.display %>"><%= portfolio.profit_pct %> (<%= number_with_delimiter(portfolio.profit_amount) %>)</td>
+            <td><%= portfolio.inception %></td>
+            <td>
+              <a href="#"><i class="fas fa-download"></i></a>
+              <%= link_to edit_portfolio_path(portfolio) do %><i class="fas fa-cog"></i><% end %>
+              <%= link_to portfolio_path(portfolio), method: :delete, data: { confirm: "Are you sure you want to delete this portfolio?"} do %><i class="fas fa-trash-alt"></i><% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
   <div class="flex">
     <h5>You have not created any portfolios yet.</h5>
