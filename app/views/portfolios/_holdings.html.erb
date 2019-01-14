@@ -67,7 +67,6 @@
       <th></th> <!-- More Actions -->
     </thead>
     <tbody>
-      <tbody>
       <% @portfolio.duplicates.each do |transaction| %>
         <% selected_transactions = @portfolio.transactions.select { |x| x.ticker == transaction[1] } %>
         <% selected_transactions.each do |transaction| %>
@@ -97,7 +96,6 @@
           </tr>
         <% end %>
       <% end %>
-    </tbody>
     </tbody>
   </table>
 </div>

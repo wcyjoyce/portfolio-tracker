@@ -26,7 +26,7 @@ gem 'stock_quote'
 gem 'rapidapi'
 gem 'unirest'
 
-# Transactions
+# Transactions and Tracking
 gem 'paranoia'
 gem 'business'
 
