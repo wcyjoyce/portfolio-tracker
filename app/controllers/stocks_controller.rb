@@ -46,7 +46,6 @@ class StocksController < ApplicationController
         @roe = "#{stats['returnOnEquity']}"
         @eps_date = "#{stats['latestEPSDate']}"
 
-
       @chart_5y = Stock.historical_prices(@query, "5y")
       @chart_1y = Stock.historical_prices(@query, "1y")
       @chart_6m = Stock.historical_prices(@query, "6m")
