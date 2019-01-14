@@ -18,6 +18,11 @@
     background-color: $headers;
   }
 
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
   th, td {
     padding-right: 10px;
   }
