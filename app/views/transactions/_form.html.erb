@@ -2,6 +2,17 @@
   <strong><%= @transaction.name(@transaction.ticker) unless @transaction.ticker.nil? %></strong>
 </div>
 
+<% if @transaction.errors.any? %>
+  <div class="errors">
+    Sorry! Your transaction hasn't been added because of the following reasons, please try again:
+    <ul>
+    <% @transaction.errors.full_messages.each do |error| %>
+      <li><%= error %></li>
+    <% end %>
+  </ul>
+  </div>
+<% end %>
+
 <%= simple_form_for(@transaction) do |s| %>
   <%= s.input :ticker %>
   <%= s.input :shares %>
