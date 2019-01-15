@@ -7,34 +7,34 @@ class Portfolio < ApplicationRecord
   def total_cost
     total_cost = 0
     transactions.each { |transaction| total_cost += transaction.total_cost }
-    total_cost
+    total_cost.to_i
   end
 
   def market_value
     market_value = 0
     transactions.each { |transaction| market_value += transaction.market_value }
-    market_value
+    market_value.to_i
   end
 
   def profit_amount
     profit_amount = 0
     transactions.each { |transaction| profit_amount += transaction.profit_amount }
-    profit_amount
+    profit_amount.to_i
   end
 
   def profit_pct
-    "#{(profit_amount / total_cost * 100).round(2)}%"
+    sprintf("%g%", (profit_amount.to_f / total_cost.to_f * 100).round(2))
   end
 
   def inception
     transactions.order(added: :asc).first.added.strftime("%d %b %Y")
   end
 
-  def annualised
+  def annualised # currently not in use
     incepted_seconds = Date.today.to_time - inception.to_time
     incepted_days = incepted_seconds / 60 / 60 / 24
     annualised_return = ((100 + profit_pct) ** (365 / incepted_days)) - 100
-    annualised_return.round(2)
+    sprintf("%g%", annualised_return)
   end
 
   def ytd
@@ -45,7 +45,7 @@ class Portfolio < ApplicationRecord
       ytd_value = ytd_price * transaction.shares
       start_value += ytd_value
     end
-    "#{((market_value / start_value - 1) * 100).round(2)}%"
+    sprintf("%g%", ((market_value.to_f / start_value.to_f - 1) * 100).round(2))
   end
 
   def duplicates
@@ -142,5 +142,14 @@ class Portfolio < ApplicationRecord
         portfolio.duplicates.each { |duplicate| csv << [portfolio[:name], duplicate].flatten }
       end
     end
+  end
+
+  def display
+    profit_amount > 0 ? "positive" : "negative"
+  end
+
+  def sign(number)
+    number = number.to_f
+    number > 0 ? sprintf("+%g", number) : number
   end
 end
