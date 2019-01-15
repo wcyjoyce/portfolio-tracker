@@ -8,11 +8,11 @@
     </div>
     <div class="stat">
       <div class="stat-header"><h5>Total Return</h5></div>
-      <div class="stat-content"><%= @portfolio.profit_amount %> (<%= @portfolio.profit_pct %>)</div>
+      <div class="stat-content <%= @portfolio.display %>"><%= @portfolio.profit_amount %> (<%= @portfolio.profit_pct %>)</div>
     </div>
     <div class="stat">
       <div class="stat-header"><h5>YTD</h5></div>
-      <div class="stat-content"><%= @portfolio.ytd %></div>
+      <div class="stat-content <%= @portfolio.display %>"><%= @portfolio.ytd %></div>
     </div>
   <% end %>
 </div>
@@ -40,3 +40,12 @@
 <% end %>
 
 <%= content_for(:title, "Portfolio | " + @portfolio.name) %>
+
+<% content_for(:after_js) do %>
+  <script>
+    // Auto-refresh at 10-minute intervals
+    setInterval(function() {
+      location.reload();
+    }, 10 * 60 * 1000);
+  </script>
+<% end %>

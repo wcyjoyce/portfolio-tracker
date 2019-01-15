@@ -40,9 +40,9 @@
         <td></td> <!-- Current Price -->
         <td><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></td> <!-- Total Cost -->
         <td><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></td> <!-- Market Value -->
-        <td><%= @portfolio.ytd %></td> <!-- YTD -->
-        <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P%L ($) -->
-        <td><%= @portfolio.profit_pct %></td> <!-- Return (%) -->
+        <td><%= number_to_percentage(@portfolio.ytd) %></td> <!-- YTD -->
+        <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P&L ($) -->
+        <td><%= number_to_percentage(@portfolio.profit_pct) %></td> <!-- Return (%) -->
         <td></td> <!-- More Details -->
       </tr>
     </tfoot>
@@ -67,7 +67,6 @@
       <th></th> <!-- More Actions -->
     </thead>
     <tbody>
-      <tbody>
       <% @portfolio.duplicates.each do |transaction| %>
         <% selected_transactions = @portfolio.transactions.select { |x| x.ticker == transaction[1] } %>
         <% selected_transactions.each do |transaction| %>
@@ -90,14 +89,13 @@
                 <div class="dropdown-menu dropdown-menu-right">
                   <div class="dropdown-item"><a href="/result?stock=<%= transaction.ticker.upcase %>">Show</a></div>
                   <div class="dropdown-item"><%= link_to "Edit", edit_transaction_path %></div>
-                  <div class="dropdown-item"><%= link_to "Delete", transaction_path, method: :delete, data: { confirm: "Are you sure you want to delete?" } %></div>
+                  <div class="dropdown-item"><%= link_to "Delete", transaction_path(transaction), method: :delete, data: { confirm: "Are you sure you want to delete?" } %></div>
                 </div>
               </div>
             </td>
           </tr>
         <% end %>
       <% end %>
-    </tbody>
     </tbody>
   </table>
 </div>

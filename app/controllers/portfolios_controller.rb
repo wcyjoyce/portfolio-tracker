@@ -4,6 +4,7 @@ class PortfoliosController < ApplicationController
 
   def index
     @portfolios = Portfolio.all
+    @user = @portfolios.first.user
     # @portfolios = policy_scope(Portfolio).order(name: :asc)
     csv_options = {col_sep: ',', force_quotes: true, quote_char: '"' }
     filepath = "app/views/portfolios/investments.csv"

@@ -23,10 +23,12 @@ gem 'jquery-rails'
 
 # Stock Quotes
 gem 'stock_quote'
-
-# API
 gem 'rapidapi'
 gem 'unirest'
+
+# Transactions and Tracking
+gem 'paranoia'
+gem 'business'
 
 # Charts
 gem 'chartkick'

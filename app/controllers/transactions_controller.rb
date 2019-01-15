@@ -1,6 +1,10 @@
 class TransactionsController < ApplicationController
-  before_action :set_portfolio, only: [:index]
   before_action :set_transaction, only: [:edit, :update, :destroy]
+
+  def index
+    @user = current_user
+    @transactions = Transaction.all
+  end
 
   def new
     @transaction = Transaction.new

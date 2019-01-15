@@ -44,3 +44,7 @@ a {
   margin: 12.5px 0px;
   align-items: center;
 }
+
+input:focus {
+  outline: none;
+}

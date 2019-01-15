@@ -9,12 +9,18 @@
 
 .table-responsive {
   margin: 10px 0px;
+  width: 100%;
 
   thead, .header {
     font-weight: bold;
     padding: 5px !important;
     margin-bottom: 5px;
     background-color: $headers;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
   }
 
   th, td {

@@ -14,4 +14,22 @@ class User < ApplicationRecord
   # def full_name
   #   "#{first_name.capitalize} #{last_name.capitalize}"
   # end
+
+  def market_value
+    market_value = 0
+    portfolios.each { |portfolio| market_value += portfolio.market_value }
+    market_value
+  end
+
+  def profit_amount
+    profit_amount = 0
+    portfolios.each { |portfolio| profit_amount += portfolio.profit_amount }
+    profit_amount
+  end
+
+  def profit_pct
+    total_cost = 0
+    portfolios.each { |portfolio| total_cost += portfolio.total_cost }
+    sprintf("%g%", (profit_amount.to_f / total_cost.to_f * 100).round(2))
+  end
 end

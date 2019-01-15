@@ -1,0 +1,75 @@
+<div class="transactions">
+  <h1>Your Transactions</h1>
+
+  <% @user.portfolios.order(name: :asc).each do |portfolio| %>
+    <h3><%= link_to portfolio.name, portfolio_path(portfolio) %></h3>
+    <!-- Added Stocks -->
+    <% unless portfolio.transactions.empty? %>
+      <table class="table-responsive">
+        <thead class="header">
+          <th>Date</th>
+          <th>Action</th>
+          <th>Name</th>
+          <th>Ticker</th>
+          <th>Quantity</th>
+          <th>Cost</th>
+          <th>Current Price</th>
+          <th>P&L ($)</th>
+          <th>Return (%)</th>
+        </thead>
+        <tbody>
+          <!-- need to include edited transactions as well -->
+          <% portfolio.transactions.without_deleted.order(added: :desc).each do |transaction| %>
+          <tr class="portfolio-row">
+            <td><%= transaction.added.strftime("%b %e %Y") %></td>
+            <td><div class="negative">BOUGHT</div></td>
+            <td><%= transaction.name(transaction.ticker) %></td>
+            <td><%= transaction.ticker %></td>
+            <td><%= number_with_delimiter(transaction.shares) %></td>
+            <td><%= number_with_delimiter(transaction.price) %></td>
+            <td><%= transaction.current_price(transaction.stock.ticker) %></td>
+            <td><%= number_with_delimiter(transaction.profit_amount.round(2)) %></td>
+            <td><%= number_to_percentage(transaction.profit_pct.round(2), precision: 2) %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <!-- Deleted Stocks -->
+      <% unless portfolio.transactions.only_deleted.empty? %>
+        <table class="table-responsive">
+          <thead class="header">
+            <th>Date</th>
+            <th>Action</th>
+            <th>Name</th>
+            <th>Ticker</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Cost</th>
+            <th>P&L ($)</th>
+            <th>Return (%)</th>
+            <th>Inception Date</th>
+          </thead>
+          <tbody>
+            <% portfolio.transactions.only_deleted.each do |transaction| %>
+            <tr class="portfolio-row">
+              <td><%= transaction.deleted_at.strftime("%b %e %Y") %></td>
+              <td><div class="positive">SOLD</div></td>
+              <td><%= transaction.name(transaction.ticker) %></td>
+              <td><%= transaction.ticker %></td>
+              <td><%= number_with_delimiter(transaction.shares) %></td>
+              <td><%= number_with_delimiter(transaction.price) %></td>
+              <td><%#= Transaction.historical(transaction.ticker, transaction.deleted_at.strftime("%Y%m%e") ) %></td>
+              <td></td>
+              <td></td>
+              <td><%= transaction.added.strftime("%b %e %Y") %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    <% else %>
+      There are no transactions in this portfolio.
+    <% end %>
+  <% end %>
+</div>
+<%= content_for(:title, "Your Transactions") %>
