@@ -40,9 +40,9 @@
         <td></td> <!-- Current Price -->
         <td><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></td> <!-- Total Cost -->
         <td><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></td> <!-- Market Value -->
-        <td><%= @portfolio.ytd %></td> <!-- YTD -->
-        <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P%L ($) -->
-        <td><%= @portfolio.profit_pct %></td> <!-- Return (%) -->
+        <td><%= number_to_percentage(@portfolio.ytd) %></td> <!-- YTD -->
+        <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P&L ($) -->
+        <td><%= number_to_percentage(@portfolio.profit_pct) %></td> <!-- Return (%) -->
         <td></td> <!-- More Details -->
       </tr>
     </tfoot>
