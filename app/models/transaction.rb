@@ -3,7 +3,10 @@ class Transaction < ApplicationRecord
   belongs_to :stock
   validates :ticker, :shares, :added, :price, presence: true
   validate :weekday, :not_in_future
-  acts_as_paranoid
+
+  def not_in_future
+    errors.add(:added, "Your transaction cannot be in the future") if added.present? && added > Date.today
+  end
 
   def weekday
     errors.add(:added, "Trading is closed on weekends.") unless added.on_weekday?
