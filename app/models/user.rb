@@ -30,6 +30,6 @@ class User < ApplicationRecord
   def profit_pct
     total_cost = 0
     portfolios.each { |portfolio| total_cost += portfolio.total_cost }
-    "#{(profit_amount / total_cost * 100).round(2)}%"
+    sprintf("%g%", (profit_amount.to_f / total_cost.to_f * 100).round(2))
   end
 end
