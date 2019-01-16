@@ -10,7 +10,8 @@ class PortfoliosController < ApplicationController
     filepath = "app/views/portfolios/investments.csv"
 
     CSV.open(filepath, "wb", csv_options) do |csv|
-      csv << ["Portfolio", "Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+      headers = ["Portfolio", "Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
+      csv << headers
       @portfolios.each do |portfolio|
         portfolio.duplicates.each { |duplicate| csv << [portfolio[:name], duplicate].flatten }
       end
@@ -40,13 +41,27 @@ class PortfoliosController < ApplicationController
 
   def show
     # authorize @portfolio
-    # csv_options = {col_sep: ',', force_quotes: true, quote_char: '"' }
-    # filepath = "app/views/portfolios/portfolio_#{@portfolio.name}.csv"
+    csv_options = {col_sep: ',', force_quotes: true, quote_char: '"' }
+    filepath = "app/views/portfolios/portfolio_#{@portfolio.name}.csv"
 
-    # CSV.open(filepath, "wb", csv_options) do |csv|
-    #   csv << ["Name", "Ticker", "Sector", "Quantity", "Average Cost", "Current Price", "Total Cost", "Market Value", "YTD (%)", "P&L (%)", "Return (%)"]
-    #   @portfolio.duplicates.each { |duplicate| csv << duplicate }
-    # end
+    CSV.open(filepath, "wb", csv_options) do |csv|
+      headers = ["Name", "Ticker", "Sector", "Quantity", "Cost", "Current Price", "Total Cost", "Market Value", "P&L (%)", "Return (%)", "Date Added"]
+      csv << headers
+      @portfolio.transactions.each do |transaction|
+        csv << [
+          transaction.name(transaction.ticker),
+          transaction.ticker.upcase,
+          transaction.sector(transaction.ticker),
+          transaction.shares,
+          transaction.price,
+          transaction.current_price(transaction.ticker),
+          transaction.market_value,
+          transaction.profit_amount,
+          transaction.profit_pct,
+          transaction.added.strftime("%d %b %Y")
+        ]
+      end
+    end
 
     # respond_to do |format|
     #   format.html
