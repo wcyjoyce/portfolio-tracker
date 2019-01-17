@@ -1,22 +1,17 @@
 <div class="navbar">
   <!-- Logo -->
-  <%= link_to root_path, class: "navbar-logo" do %><i class="fas fa-piggy-bank"></i><% end %>
+  <div class="logo"><%= link_to image_tag("/icon.svg", alt: "logo"), root_path %></div>
 
   <h5>
-  <!-- Right Navigation -->
-  <div class="navbar-right hidden-xs hidden-sm">
-
-    <% if user_signed_in? %>
-      <!-- Links when logged in -->
-      <%= link_to "About", about_path, class: "navbar-item navbar-link" %>
-      <%= link_to "Portfolios", portfolios_path, class: "navbar-item navbar-link" %>
-      <%= link_to "Transactions", transactions_path, class: "navbar-item navbar-link" %>
-      <%= render "stocks/search" %>
-
-      <!-- Avatar with dropdown menu -->
-      <div class="navbar-item">
+    <% if user_signed_in? %> <!-- Links when logged in -->
+      <div class="navbar-links">
+        <%= link_to "About", about_path, class: "navbar-item navbar-link" %>
+        <%= link_to "Portfolios", portfolios_path, class: "navbar-item navbar-link" %>
+        <%= link_to "Transactions", transactions_path, class: "navbar-item navbar-link" %>
+        <%= render "stocks/search" %>
+      </div>
+      <div class="navbar-right"> <!-- right -->
         <div class="dropdown">
-          <%= image_tag "http://kitt.lewagon.com/placeholder/users/wcyjoyce", class: "avatar dropdown-toggle", id: "navbar-menu", "data-toggle" => "dropdown" %>
           <ul class="dropdown-menu dropdown-menu-right navbar-dropdown-menu">
             <li>
               <%= link_to "#" do %>
@@ -40,7 +35,7 @@
       <!-- Login link (when logged out) -->
       <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-item navbar-link" %>
     <% end %>
-  </div>
+  <!-- </div> -->
 
   <!-- Dropdown list appearing on mobile only -->
   <div class="navbar-item hidden-md hidden-lg">
