@@ -52,26 +52,6 @@ class StocksController < ApplicationController
       @chart_1m = Stock.historical_prices(@query, "1m")
       @chart_ytd = Stock.historical_prices(@query, "ytd")
 
-      # historical_5y_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/5y"
-      #   historical_5y = JSON.parse(open(historical_5y_url).read)
-      #   @chart_5y = historical_5y.collect { |historical| [historical['date'], historical['close']] }
-
-      # historical_1y_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/1y"
-      #   historical_1y = JSON.parse(open(historical_1y_url).read)
-      #   @chart_1y = historical_1y.collect { |historical| [historical['date'], historical['close']] }
-
-      # historical_6m_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/6m"
-      #   historical_6m = JSON.parse(open(historical_6m_url).read)
-      #   @chart_6m = historical_6m.collect { |historical| [historical['date'], historical['close']] }
-
-      # historical_1m_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/1m"
-      #   historical_1m = JSON.parse(open(historical_1m_url).read)
-      #   @chart_1m = historical_1m.collect { |historical| [historical['label'], historical['close']] }
-
-      # historical_ytd_url = "https://api.iextrading.com/1.0/stock/#{@query}/chart/ytd"
-      #   historical_ytd = JSON.parse(open(historical_ytd_url).read)
-      #   @chart_ytd = historical_ytd.collect { |historical| [historical['date'], historical['close']] }
-
       @library_options = {
         message: {empty: "Data unavailable"},
         chart: {backgroundColor: nil},
