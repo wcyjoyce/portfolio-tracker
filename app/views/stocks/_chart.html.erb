@@ -5,6 +5,7 @@
   <a href="#" class="toggle" id="toggle-ytd">YTD</a>
   <a href="#" class="toggle" id="toggle-6m">6M</a>
   <a href="#" class="toggle" id="toggle-1m">1M</a>
+  <a href="#" class="toggle" id="toggle-1d">1D</a>
 </div>
 
 <div class="performance-charts">
@@ -22,6 +23,9 @@
   </div>
   <div class="performance-chart hidden" id="chart-1m">
   <%= line_chart @chart_1m, library: @library_options, points: false, min: nil %>
+  </div>
+  <div class="performance-chart hidden" id="chart-1d">
+    <%= line_chart @chart_1d, library: @library_options, points: false, min: nil %>
   </div>
 </div>
 
@@ -60,6 +64,13 @@
       event.preventDefault();
       $(".performance-chart").addClass("hidden")
       $("#chart-1m").removeClass("hidden")
+    });
+
+    const chart1d = document.getElementById("toggle-1d");
+    chart1d.addEventListener("click", (event) => {
+      event.preventDefault();
+      $(".performance-chart").addClass("hidden")
+      $("#chart-1d").removeClass("hidden")
     });
   </script>
 <% end %>
