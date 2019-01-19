@@ -50,6 +50,7 @@ class StocksController < ApplicationController
       @chart_1y = Stock.historical_prices(@query, "1y")
       @chart_6m = Stock.historical_prices(@query, "6m")
       @chart_1m = Stock.historical_prices(@query, "1m")
+      @chart_1d = Stock.day_chart(@query)
       @chart_ytd = Stock.historical_prices(@query, "ytd")
 
       @library_options = {
