@@ -4,7 +4,18 @@
   <!-- Country Allocation -->
   <div class="col-xs-12 col-sm-4 col-md-4">
     <h5>Country Allocation</h5>
-    <div class="chart"></div>
+    <div class="chart"><%= pie_chart @portfolio.country_allocation, donut: true,
+    library: {
+      messages: {empty: "No data"},
+      chart: {backgroundColor: nil},
+      plotOptions: {
+        pie: {
+          dataLabels: {enabled: false},
+          showInLegend: true
+        }
+      }
+    }
+    %></div>
   </div>
 
   <!-- Sector Allocation -->

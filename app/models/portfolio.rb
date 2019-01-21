@@ -23,11 +23,16 @@ class Portfolio < ApplicationRecord
   end
 
   def profit_pct
-    sprintf("%g%", (profit_amount.to_f / total_cost.to_f * 100).round(2))
+    # total_cost.zero? ? "-" : sprintf("%g%", (profit_amount.to_f / total_cost.to_f * 100).round(2))
+    total_cost.zero? ? "-" : (profit_amount.to_f / total_cost.to_f * 100).round(2)
   end
 
   def inception
-    transactions.order(added: :asc).first.added.strftime("%d %b %Y")
+    if transactions.nil?
+      transactions.order(added: :asc).first.added.strftime("%d %b %Y")
+    else
+      created_at.strftime("%d %b %Y")
+    end
   end
 
   def annualised # currently not in use
@@ -45,7 +50,8 @@ class Portfolio < ApplicationRecord
       ytd_value = ytd_price * transaction.shares
       start_value += ytd_value
     end
-    sprintf("%g%", ((market_value.to_f / start_value.to_f - 1) * 100).round(2))
+    # start_value.zero? ? "-" : sprintf("%g%", ((market_value.to_f / start_value.to_f - 1) * 100).round(2)).to_i
+    start_value.zero? ? "-" : ((market_value.to_f / start_value.to_f - 1) * 100).round(2)
   end
 
   def duplicates
@@ -104,6 +110,21 @@ class Portfolio < ApplicationRecord
     summary_table.sort!.flatten
   end
 
+  def country_allocation
+    array = transactions.to_a
+    cache = Hash.new { |h,k| h[k] = { market_value: 0 } }
+
+    array.each do |transaction|
+      transaction_shares = transaction.shares
+      transaction_price = StockQuote::Stock.quote(transaction.ticker).latest_price
+      transaction_country = transaction.stock.country
+      cache[transaction_country][:market_value] += transaction_shares * transaction_price
+    end
+
+    country_table = cache.keys.map { |transaction_country| [ transaction_country, cache[transaction_country][:market_value].to_i ] }
+    country_table.sort!
+  end
+
   def sector_allocation
     array = transactions.to_a
     cache = Hash.new { |h,k| h[k] = { market_value: 0 } }
@@ -115,7 +136,7 @@ class Portfolio < ApplicationRecord
       cache[transaction_sector][:market_value] += transaction_shares * transaction_price
     end
 
-    sector_table = cache.keys.map { |transaction_sector| [ transaction_sector,cache[transaction_sector][:market_value].to_i ] }
+    sector_table = cache.keys.map { |transaction_sector| [ transaction_sector, cache[transaction_sector][:market_value].to_i ] }
     sector_table.sort!
   end
 
@@ -144,8 +165,30 @@ class Portfolio < ApplicationRecord
     end
   end
 
-  def display
-    profit_amount > 0 ? "positive" : "negative"
+  def self.to_show_csv
+    headers = ["Name", "Ticker", "Sector", "Quantity", "Cost", "Current Price", "Total Cost", "Market Value", "P&L (%)", "Return (%)", "Date Added"]
+    portfolio = transactions.first.portfolio
+    CSV.generate(headers: true) do |csv|
+      csv << headers
+      portfolio.each do |transaction|
+        csv << [
+          transaction.name(transaction.ticker),
+          transaction.ticker.upcase,
+          transaction.sector(transaction.ticker),
+          transaction.shares,
+          transaction.price,
+          transaction.current_price(transaction.ticker),
+          transaction.market_value,
+          transaction.profit_amount,
+          transaction.profit_pct,
+          transaction.added.strftime("%d %b %Y")
+        ]
+      end
+    end
+  end
+
+  def display(number)
+    number > 0 ? "positive" : "negative"
   end
 
   def sign(number)
