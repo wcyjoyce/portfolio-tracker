@@ -8,11 +8,11 @@
     </div>
     <div class="stat">
       <div class="stat-header"><h5>Total Return</h5></div>
-      <div class="stat-content <%= @portfolio.display %>"><%= @portfolio.profit_amount %> (<%= @portfolio.profit_pct %>)</div>
+      <div class="stat-content <%= @portfolio.display(@portfolio.profit_amount) %>"><%= @portfolio.profit_amount %> (<%= @portfolio.profit_pct %>)</div>
     </div>
     <div class="stat">
       <div class="stat-header"><h5>YTD</h5></div>
-      <div class="stat-content <%= @portfolio.display %>"><%= @portfolio.ytd %></div>
+      <div class="stat-content <%= @portfolio.display(@portfolio.ytd) %>"><%= @portfolio.ytd %></div>
     </div>
   <% end %>
 </div>
