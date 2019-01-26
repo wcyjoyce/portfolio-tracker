@@ -39,13 +39,7 @@
   <%= render "allocation" %>
 <% end %>
 
+<%= javascript_pack_tag "autorefresh.js" %>
 <%= content_for(:title, "Portfolio | " + @portfolio.name) %>
 
-<% content_for(:after_js) do %>
-  <script>
-    // Auto-refresh at 10-minute intervals
-    setInterval(function() {
-      location.reload();
-    }, 10 * 60 * 1000);
-  </script>
-<% end %>
+
