@@ -3,23 +3,16 @@ class Transaction < ApplicationRecord
   belongs_to :stock
   validates :ticker, :shares, :added, :price, presence: true
   validate :weekday, :not_in_future
-
-  def not_in_future
-    errors.add(:added, "Your transaction cannot be in the future") if added.present? && added > Date.today
-  end
+  acts_as_paranoid
 
   def weekday
     errors.add(:added, "Trading is closed on weekends.") unless added.on_weekday?
+    errors.add(:deleted_at, "Trading is closed on weekends.") unless deleted_at.on_weekday?
   end
 
   def not_in_future
     errors.add(:added, "Your transaction cannot be in the future") if added.present? && added > Date.today
-  end
-
-  def self.historical(stock, date)
-    historical_price_url = "https://api.iextrading.com/1.0/stock/#{stock}/chart/date/#{date}"
-    historical_price = JSON.parse(open(historical_price_url).read)
-    historical_price.detect { |historical| historical["marketClose"] }
+    errors.add(:deleted_at, "Your transaction cannot be in the future") if deleted_at.present? && deleted_at > Date.today
   end
 
   def name(ticker)
