@@ -1,53 +1,49 @@
-<div class="navbar">
-  <!-- Logo -->
+<div class="navbar-wrapper">
   <div class="logo"><%= link_to image_tag("/icon.svg", alt: "logo"), root_path %></div>
 
-  <h5>
-    <% if user_signed_in? %> <!-- Links when logged in -->
-      <div class="navbar-links">
-        <%= link_to "About", about_path, class: "navbar-item navbar-link" %>
-        <%= link_to "Portfolios", portfolios_path, class: "navbar-item navbar-link" %>
-        <%= link_to "Transactions", transactions_path, class: "navbar-item navbar-link" %>
-        <%= render "stocks/search" %>
-      </div>
-      <div class="navbar-right"> <!-- right -->
-        <div class="dropdown">
-          <ul class="dropdown-menu dropdown-menu-right navbar-dropdown-menu">
-            <li>
-              <%= link_to "#" do %>
-                <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to "#" do %>
-                <i class="fa fa-cog"></i>  <%= t(".settings", default: "Settings") %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to destroy_user_session_path, method: :delete do %>
-                <i class="fa fa-sign-out"></i>  <%= t(".sign_out", default: "Log out") %>
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </div>
-    <% else %>
-      <!-- Login link (when logged out) -->
-      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-item navbar-link" %>
-    <% end %>
-  <!-- </div> -->
-
-  <!-- Dropdown list appearing on mobile only -->
-  <div class="navbar-item hidden-md hidden-lg">
-    <div class="dropdown">
-      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
-      <ul class="dropdown-menu dropdown-menu-right navbar-dropdown-menu">
-        <li><a href="#">Some mobile link</a></li>
-        <li><a href="#">Other one</a></li>
-        <li><a href="#">Other one</a></li>
-      </ul>
-    </div>
+  <!-- Desktop -->
+  <div class="navbar-links hidden-xs hidden-sm">
+    <ul class="list-inline">
+      <% if user_signed_in? %> <!-- Links when logged in -->
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Portfolios", portfolios_path %></li>
+        <li><%= link_to "Transactions", transactions_path %></li>
+        <li><%= render "stocks/search" %></li>
+        <li><%= link_to dashboard_path(current_user) do %><i class="fas fa-user"></i><% end %></li>
+        <li><%= link_to destroy_user_session_path, method: :delete do %><i class="fas fa-power-off"></i><% end %></li>
+      <% else %> <!-- When logged out -->
+        <li><%= render "stocks/search" %></li>
+        <li><%= link_to "About", about_path %></li>
+        <li><%= link_to "Login", new_user_session_path %></li>
+      <% end %>
+    </ul>
   </div>
-  </h5>
+
+  <!-- Mobile: dropdown list -->
+  <div class="navbar-links hidden-md hidden-lg">
+    <% if user_signed_in? %>
+      <ul class="list-inline list-inline-mobile">
+        <li><%= render "stocks/search" %></li>
+        <li><%= link_to about_path do %><i class="far fa-chart-bar"></i><% end %></li>
+        <li>
+          <div class="dropdown show">
+            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars"></i></a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-item"><%= link_to "Portfolios", portfolios_path %></div>
+              <div class="dropdown-item"><%= link_to "Transactions", transactions_path %></div>
+              <div class="dropdown-item"><%= link_to "Dashboard", dashboard_path(current_user) %></div>
+              <div class="dropdown-item"><%= link_to "Sign Out", destroy_user_session_path, method: :delete %></div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="list-inline">
+        <li><%= render "stocks/search" %></li>
+        <li><%= link_to about_path do %><i class="far fa-chart-bar"></i><% end %></li>
+        <li><%= link_to new_user_session_path do %><i class="fas fa-user"></i><% end %></li>
+      </ul>
+    <% end %>
+  </div>
 </div>
 
