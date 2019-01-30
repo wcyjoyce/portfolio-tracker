@@ -21,4 +21,5 @@
   <%= render "stocks/search" %>
 <% end %>
 
+<%= javascript_pack_tag "autorefresh.js" %>
 <%= @query.nil? || @query.empty? ? content_for(:title, "Search") : content_for(:title, @name) %>
