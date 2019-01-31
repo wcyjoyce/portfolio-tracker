@@ -1,3 +1,6 @@
+require "open-uri"
+require "nokogiri"
+
 class Transaction < ApplicationRecord
   belongs_to :portfolio
   belongs_to :stock
@@ -13,6 +16,26 @@ class Transaction < ApplicationRecord
   def not_in_future
     errors.add(:added, "Your transaction cannot be in the future") if added.present? && added > Date.today
     errors.add(:deleted_at, "Your transaction cannot be in the future") if deleted_at.present? && deleted_at > Date.today
+  end
+
+  def historical_price
+    month = deleted_at.strftime("%b")
+    day = deleted_at.strftime("%d")
+    year = deleted_at.strftime("%Y")
+    url = "https://www.investopedia.com/markets/api/partial/historical/?Symbol=FB&Type=%20Historical+Prices&Timeframe=Daily&StartDate=Jan+11%2C+2019&EndDate=Jan+11%2C+2019"
+    # url = "https://www.investopedia.com/markets/api/partial/historical/?Symbol=#{stock}&Type=%20Historical+Prices&Timeframe=Daily&StartDate=#{month}+#{day}%2C+#{year}&EndDate=#{month}+#{day}%2C+#{year}"
+    html = Nokogiri::HTML(open(url).read)
+    historical_price = html.css(".in-the-money .num[2]").text.strip
+    return historical_price.to_f
+  end
+
+  def historical_profit_amount
+    profit_amount = (price.to_f - historical_price) * shares
+    profit_amount.to_f
+  end
+
+  def historical_profit_pct
+    (historical_profit_amount / (historical_price * shares) * 100).round(2)
   end
 
   def name(ticker)
