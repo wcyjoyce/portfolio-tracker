@@ -58,9 +58,9 @@
               <td><%= transaction.ticker %></td>
               <td><%= number_with_delimiter(transaction.shares) %></td>
               <td><%= number_with_delimiter(transaction.price) %></td>
-              <td><%#= Transaction.historical(transaction.ticker, transaction.deleted_at.strftime("%Y%m%e") ) %></td>
-              <td></td>
-              <td></td>
+              <td><%= transaction.historical_price %></td>
+              <td><%= number_with_delimiter(transaction.historical_profit_amount.round(2)) %></td> <!-- P&L ($) -->
+              <td><%= number_to_percentage(transaction.historical_profit_pct) %></td> <!-- Return (%) -->
               <td><%= transaction.added.strftime("%b %e %Y") %></td>
             </tr>
             <% end %>
