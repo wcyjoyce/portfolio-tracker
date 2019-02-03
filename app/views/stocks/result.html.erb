@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <%= render "transactions" %>
+  <div class="transactions"><%= render "transactions" %></div>
   <div class="result"><%= render "info" %></div>
 <% else %>
   <h1>Search by entering a ticker:</h1>
@@ -22,4 +22,4 @@
 <% end %>
 
 <%= javascript_pack_tag "autorefresh.js" %>
-<%= @query.nil? || @query.empty? ? content_for(:title, "Search") : content_for(:title, @name) %>
+<%= @query.nil? || @query.empty? ? content_for(:title, "Dough Trade – Search") : content_for(:title, @name) %>
