@@ -30,6 +30,9 @@ gem 'unirest'
 gem 'paranoia'
 gem 'business'
 
+# Browser
+gem 'browser'
+
 # Charts
 gem 'chartkick'
 gem 'highcharts-rails'
