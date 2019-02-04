@@ -45,6 +45,11 @@ a {
   align-items: center;
 }
 
+.mobile-flex {
+  display: flex;
+  align-items: center;
+}
+
 input:focus {
   outline: none;
 }
