@@ -59,7 +59,6 @@ class Portfolio < ApplicationRecord
     cache = Hash.new { |h,k| h[k] = { total_cost: 0, cumulative_shares: 0 } }
 
     array.each do |transaction|
-      # transaction_ticker = transaction.ticker
       transaction_shares = transaction.shares
       transaction_cost = transaction.price
       cache[transaction.ticker][:cumulative_shares] += transaction_shares
@@ -79,10 +78,31 @@ class Portfolio < ApplicationRecord
         ytd = sprintf("%.2f", sign((StockQuote::Stock.quote(transaction_ticker).ytd_change * 100).round(2))).to_s + "%",
         profit_amount = sign((market_value - total_cost).round(2)),
         profit_pct = sign((profit_amount.to_f / total_cost * 100).round(2))
-        # profit_pct = ((((cache[transaction_ticker][:cumulative_shares] * transaction_price.to_f) - cache[transaction_ticker][:total_cost]) / cache[transaction_ticker][:total_cost]) * 100).round(2).to_s + "%"
       ]
     end
     duplicates_table.sort!
+  end
+
+  def duplicates_mobile
+    array = transactions.to_a
+    cache = Hash.new { |h,k| h[k] = { total_cost: 0, cumulative_shares: 0 } }
+
+    array.each do |transaction|
+      transaction_shares = transaction.shares
+      transaction_cost = transaction.price
+      cache[transaction.ticker][:cumulative_shares] += transaction_shares
+      cache[transaction.ticker][:total_cost] += transaction_cost * transaction_shares
+    end
+
+    duplicables_mobile_table = cache.keys.map do |transaction_ticker|
+      [
+        # company = StockQuote::Stock.company(transaction_ticker).company_name,
+        ticker = transaction_ticker,
+        quantity = cache[transaction_ticker][:cumulative_shares],
+        transaction_price = sprintf("%.2f", StockQuote::Stock.quote(transaction_ticker).latest_price).to_f,
+        profit_pct = sign(((quantity * transaction_price - cache[transaction_ticker][:total_cost]).to_f / cache[transaction_ticker][:total_cost] * 100).round(2))
+      ]
+    end
   end
 
   def transaction_summary(ticker)
