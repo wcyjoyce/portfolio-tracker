@@ -1,6 +1,5 @@
 <%= simple_form_for(@portfolio) do |p| %>
   <%= p.input :name %>
-  <%= p.submit "Submit", class: "btn" %>
-  <!-- <a href="#" class="btn" onClick="history.go(-1);return true;">BACK</a> -->
-  <%= link_to "Back", :back %>
+  <%= p.submit "Submit", class: "button" %>
+  <%= link_to "Cancel", :back, class: "button" %>
 <% end %>
