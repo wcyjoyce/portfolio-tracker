@@ -1,48 +1,52 @@
-<div class="allocation">
-  <h2>Composition</h2>
+<h2>Composition</h2>
 
-  <!-- Country Allocation -->
-  <div class="col-xs-12 col-sm-4 col-md-4">
-    <h5>Country Allocation</h5>
-    <div class="chart"><%= pie_chart @portfolio.country_allocation, donut: true,
-    library: {
-      messages: {empty: "No data"},
-      chart: {backgroundColor: nil},
-      plotOptions: {
-        pie: {
-          dataLabels: {enabled: false},
-          showInLegend: true
+<!-- Country Allocation -->
+<div class="col-sm-4 col-md-4 col-lg-4 hidden-xs">
+  <h5>Country Allocation</h5>
+  <div class="chart">
+    <%= pie_chart @portfolio.country_allocation, donut: true, library:
+      {
+        messages: {empty: "Data unavailable"},
+        chart: {backgroundColor: nil},
+        plotOptions: {
+          pie: {
+            dataLabels: {enabled: false},
+            showInLegend: true
+          }
         }
       }
-    }
-    %></div>
+    %>
   </div>
+</div>
 
-  <!-- Sector Allocation -->
-  <div class="col-xs-12 col-sm-4 col-md-4">
-    <h5>Sector Allocation</h5>
-    <div class="chart"><%= pie_chart @portfolio.sector_allocation, donut: true,
-    library: {
-      messages: {empty: "No data"},
-      chart: {backgroundColor: nil},
-      plotOptions: {
-        pie: {
-          dataLabels: {enabled: false},
-          showInLegend: true
+<!-- Sector Allocation -->
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+  <h5>Sector Allocation</h5>
+  <div class="chart">
+    <%= pie_chart @portfolio.sector_allocation, donut: true, library:
+      {
+        messages: {empty: "Data unavailable"},
+        chart: {backgroundColor: nil},
+        plotOptions: {
+          pie: {
+            dataLabels: {enabled: false},
+            showInLegend: true
+          }
         }
       }
-    }
-    %></div>
+    %>
   </div>
+</div>
 
-  <!-- Holdings Allocation -->
-  <div class="col-xs-12 col-sm-4 col-md-4">
-    <h5>Holdings Allocation</h5>
-    <div class="chart"><%= bar_chart @portfolio.holdings_allocation, library:
-    {
-      messages: {empty: "Data unavailable"},
-      chart: { backgroundColor: nil },
-    }
-    %></div>
+<!-- Holdings Allocation -->
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+  <h5>Holdings Allocation</h5>
+  <div class="chart">
+    <%= bar_chart @portfolio.holdings_allocation, library:
+      {
+        messages: {empty: "Data unavailable"},
+        chart: { backgroundColor: nil },
+      }
+    %>
   </div>
 </div>
