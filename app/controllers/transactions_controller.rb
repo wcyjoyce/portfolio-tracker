@@ -1,6 +1,8 @@
 class TransactionsController < ApplicationController
   before_action :set_transaction, only: [:edit, :update, :destroy]
 
+  # TODO: check routes
+
   def index
     @user = current_user
     @transactions = Transaction.all
