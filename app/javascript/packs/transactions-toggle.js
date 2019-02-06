@@ -16,3 +16,5 @@ transactionsSimplified.addEventListener("click", (event) => {
   $("#transactions-mobile").removeClass("hidden-xs hidden-sm")
   $("#transactions-desktop").addClass("hidden-xs hidden-sm")
 });
+
+console.log("Transactions toggling enabled")
