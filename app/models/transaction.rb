@@ -10,7 +10,8 @@ class Transaction < ApplicationRecord
 
   def weekday
     errors.add(:added, "Trading is closed on weekends.") unless added.on_weekday?
-    errors.add(:deleted_at, "Trading is closed on weekends.") unless deleted_at.on_weekday?
+    # TODO: deleted_at should only take place on weekdays as well
+    # errors.add(:deleted_at, "Trading is closed on weekends.") unless deleted_at.present? && deleted_at.on_weekday?
   end
 
   def not_in_future
@@ -18,6 +19,7 @@ class Transaction < ApplicationRecord
     errors.add(:deleted_at, "Your transaction cannot be in the future") if deleted_at.present? && deleted_at > Date.today
   end
 
+  # TODO: historial price is not dynamic
   def historical_price
     month = deleted_at.strftime("%b")
     day = deleted_at.strftime("%d")
