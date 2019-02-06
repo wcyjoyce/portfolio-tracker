@@ -1,5 +1,5 @@
 .toggles {
-  padding-bottom: 10px;
+  padding-bottom: 15px;
 }
 
 .toggle {
@@ -21,5 +21,26 @@
     background-color: $green;
     color: white;
     transition: all 0.3s ease;
+  }
+}
+
+.toggle-mobile-consolidated, .toggle-mobile-simplified, .toggle-mobile-transactions {
+  font-family: Lato, sans-serif;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  padding-left: 15px;
+  // margin-bottom: 15px;
+}
+
+.mobile-flex {
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  h2 {
+    margin: 0px;
   }
 }
