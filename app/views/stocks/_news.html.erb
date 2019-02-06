@@ -1,10 +1,36 @@
 <h2>News</h2>
-<div class="news">
+
+<div class="hidden-xs hidden-sm"> <!-- Desktop-->
+  <div class="col-md-6 col-lg-6">
+    <% left = @articles.select.each_with_index { |article, index| index.even? } %>
+    <% left.each do |article| %>
+      <div class="article">
+      <a href="<%= article['url'] %>" target="_blank">
+        <div class="source"><strong><%= article["source"] %></strong> | <%= article["datetime"].to_datetime.strftime("%d %b %Y") %></div>
+        <div class="headline"><%= article["headline"] %></div>
+      </a>
+    </div>
+    <% end %>
+  </div>
+  <div class="col-md-6 col-lg-6">
+    <% right = @articles.select.each_with_index { |article, index| index.odd? } %>
+    <% right.each do |article| %>
+      <div class="article">
+        <a href="<%= article['url'] %>" target="_blank">
+          <div class="source"><strong><%= article["source"] %></strong> | <%= article["datetime"].to_datetime.strftime("%d %b %Y") %></div>
+          <div class="headline"><%= article["headline"] %></div>
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="hidden-md hidden-lg"> <!-- Mobile -->
   <% @articles.first(5).each do |article| %>
     <div class="article">
       <a href="<%= article['url'] %>" target="_blank">
+        <div class="source"><strong><%= article["source"] %></strong> | <%= article["datetime"].to_datetime.strftime("%d %b %Y") %></div>
         <div class="headline"><%= article["headline"] %></div>
-        <div class="source"><%= article["source"] %> | <%= article["datetime"].to_datetime.strftime("%d %b %Y") %></div>
       </a>
     </div>
   <% end %>
