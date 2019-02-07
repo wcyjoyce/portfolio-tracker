@@ -1,0 +1,16 @@
+.about {
+  a {
+    text-decoration: none;
+    color: $link;
+    font-weight: bold;
+
+    &:hover {
+      color: $hover;
+      transition: all 0.3s
+    }
+  }
+
+  p {
+    margin-bottom: 15px;
+  }
+}
