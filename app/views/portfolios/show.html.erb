@@ -2,17 +2,18 @@
 
 <div class="stats">
   <% unless @portfolio.transactions.empty? %>
-    <div class="stat">
+    <div class="stat col-xs-4 col-sm-3 col-lg-3">
       <div class="stat-header"><h5>Market Value</h5></div>
       <div class="stat-content"><%= @portfolio.market_value.to_i %></div>
     </div>
-    <div class="stat">
+    <div class="stat col-xs-4 col-sm-3 col-lg-3">
       <div class="stat-header"><h5>Total Return</h5></div>
-      <div class="stat-content <%= @portfolio.display(@portfolio.profit_amount) %>"><%= @portfolio.sign(@portfolio.profit_amount) %> (<%= number_to_percentage(@portfolio.sign(@portfolio.profit_pct)) %>) </div>
+      <div class="stat-content hidden-xs hidden-sm <%= @portfolio.display(@portfolio.profit_amount) %>"><%= @portfolio.sign(@portfolio.profit_amount) %> (<%= number_to_percentage(@portfolio.sign(@portfolio.profit_pct)) %>)</div>
+      <div class="stat-content hidden-md hidden-lg <%= @portfolio.display(@portfolio.profit_amount) %>"><%= number_to_percentage(@portfolio.sign(@portfolio.profit_pct)) %></div>
     </div>
-    <div class="stat">
+    <div class="stat col-xs-4 col-sm-3 col-lg-3">
       <div class="stat-header"><h5>YTD</h5></div>
-      <div class="stat-content <%= @portfolio.display(@portfolio.ytd) %>"><%= @portfolio.ytd %></div>
+      <div class="stat-content <%= @portfolio.display(@portfolio.ytd) %>"><%= @portfolio.sign(number_to_percentage(@portfolio.ytd)) %></div>
     </div>
   <% end %>
 </div>
@@ -26,17 +27,29 @@
   <% else %>
     <p>There are no stocks in <%= @portfolio.name %>.</p>
   <% end %>
-  <div class="action">
+  <div class="action hidden-xs hidden-sm">
     <%= link_to "Add Transaction", new_transaction_path, class: "button" %>
     <a href="#" class="button">Export</a>
     <%= link_to "Edit", edit_portfolio_path(@portfolio), class: "button" %>
-    <%= link_to "Delete", portfolio_path(@portfolio), class: "button", method: :delete, data: { confirm: "Are you sure you want to delete?" } %>
+    <%= link_to "Delete", portfolio_path(@portfolio), class: "button", method: :delete, data: { confirm: "Are you sure you want to delete <strong>#{@portfolio.name}</strong>?" } %>
   </div>
+  <div class="mobile-flex hidden-xs hidden-md hidden-lg">
+    <%= link_to new_transaction_path, class: "button" do %><i class="fas fa-plus"></i><% end %>
+    <a href="#" class="button"><i class="fas fa-download"></i></a>
+    <%= link_to edit_portfolio_path(@portfolio), class: "button" do %><i class="fas fa-pencil-alt"></i><% end %>
+    <%= link_to portfolio_path(@portfolio), class: "button", method: :delete, data: { confirm: "Are you sure you want to delete #{@portfolio.name}?" } do %><i class="fas fa-trash-alt"></i><% end %>
+  </div>
+</div>
+<div class="mobile-flex hidden-sm hidden-md hidden-lg">
+  <%= link_to new_transaction_path, class: "button" do %><i class="fas fa-plus"></i><% end %>
+  <a href="#" class="button"><i class="fas fa-download"></i></a>
+  <%= link_to edit_portfolio_path(@portfolio), class: "button" do %><i class="fas fa-pencil-alt"></i><% end %>
+  <%= link_to portfolio_path(@portfolio), class: "button", method: :delete, data: { confirm: "Are you sure you want to delete #{@portfolio.name}?" } do %><i class="fas fa-trash-alt"></i><% end %>
 </div>
 
 <% unless @portfolio.transactions.empty? %>
-  <%= render "holdings" %>
-  <%= render "allocation" %>
+  <div class="holdings section"><%= render "holdings" %></div>
+  <div class="allocation section"><%= render "allocation" %></div>
 <% end %>
 
 <%= javascript_pack_tag "autorefresh.js" %>

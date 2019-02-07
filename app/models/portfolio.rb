@@ -23,7 +23,6 @@ class Portfolio < ApplicationRecord
   end
 
   def profit_pct
-    # total_cost.zero? ? "-" : sprintf("%g%", (profit_amount.to_f / total_cost.to_f * 100).round(2))
     total_cost.zero? ? "-" : (profit_amount.to_f / total_cost.to_f * 100).round(2)
   end
 
@@ -80,29 +79,20 @@ class Portfolio < ApplicationRecord
         profit_pct = sign((profit_amount.to_f / total_cost * 100).round(2))
       ]
     end
-    duplicates_table.sort!
+    @duplicates_table = duplicates_table.sort_by { |stock| stock[2] }
   end
 
   def duplicates_mobile
-    array = transactions.to_a
-    cache = Hash.new { |h,k| h[k] = { total_cost: 0, cumulative_shares: 0 } }
-
-    array.each do |transaction|
-      transaction_shares = transaction.shares
-      transaction_cost = transaction.price
-      cache[transaction.ticker][:cumulative_shares] += transaction_shares
-      cache[transaction.ticker][:total_cost] += transaction_cost * transaction_shares
+    duplicates_mobile = []
+    @duplicates_table.each do |duplicate|
+      stock = []
+      stock << duplicate[1]
+      stock << duplicate[3]
+      stock << duplicate[5]
+      stock << duplicate[10]
+      duplicates_mobile << stock
     end
-
-    duplicables_mobile_table = cache.keys.map do |transaction_ticker|
-      [
-        # company = StockQuote::Stock.company(transaction_ticker).company_name,
-        ticker = transaction_ticker,
-        quantity = cache[transaction_ticker][:cumulative_shares],
-        transaction_price = sprintf("%.2f", StockQuote::Stock.quote(transaction_ticker).latest_price).to_f,
-        profit_pct = sign(((quantity * transaction_price - cache[transaction_ticker][:total_cost]).to_f / cache[transaction_ticker][:total_cost] * 100).round(2))
-      ]
-    end
+    duplicates_mobile
   end
 
   def transaction_summary(ticker)
@@ -119,15 +109,33 @@ class Portfolio < ApplicationRecord
     end
 
     summary_table = cache.keys.map do |transaction_ticker|
-      # [
-        quantity = cache[transaction_ticker][:cumulative_shares],
-        market_value = sprintf("%.2f", cache[transaction_ticker][:cumulative_shares] * @latest_price.to_f),
-        avg_cost = sprintf("%.2f", cache[transaction_ticker][:total_cost] / cache[transaction_ticker][:cumulative_shares]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
-        profit_amount = sprintf("%.2f", (cache[transaction_ticker][:cumulative_shares] * @latest_price.to_f) - cache[transaction_ticker][:total_cost]).to_s.reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse,
-        profit_pct = ((((cache[transaction_ticker][:cumulative_shares] * @latest_price.to_f) - cache[transaction_ticker][:total_cost]) / cache[transaction_ticker][:total_cost]) * 100).round(2).to_s + "%"
-      # ]
+      quantity = cache[transaction_ticker][:cumulative_shares],
+      market_value = (cache[transaction_ticker][:cumulative_shares] * @latest_price.to_f).round(2),
+      avg_cost = (cache[transaction_ticker][:total_cost] / cache[transaction_ticker][:cumulative_shares]).round(2),
+      profit_amount = market_value - cache[transaction_ticker][:total_cost],
+      profit_pct = (((market_value - cache[transaction_ticker][:total_cost]) / cache[transaction_ticker][:total_cost]) * 100).round(2)
     end
-    summary_table.sort!.flatten
+    summary_table = summary_table.sort!.flatten
+  end
+
+  def transaction_mobile(ticker)
+    array = transactions.to_a.select { |transaction| transaction.ticker == ticker}
+    cache = Hash.new { |h,k| h[k] = { total_cost: 0, cumulative_shares: 0 } }
+
+    array.each do |transaction|
+      transaction_ticker = transaction.ticker
+      @latest_price = StockQuote::Stock.quote(transaction_ticker).latest_price
+      transaction_shares = transaction.shares
+      transaction_cost = transaction.price
+      cache[transaction_ticker][:cumulative_shares] += transaction_shares
+      cache[transaction_ticker][:total_cost] += transaction_cost * transaction_shares
+    end
+
+    summary_table = cache.keys.map do |transaction_ticker|
+      market_value = (cache[transaction_ticker][:cumulative_shares] * @latest_price.to_f).round(2),
+      profit_pct = ((((cache[transaction_ticker][:cumulative_shares] * @latest_price.to_f) - cache[transaction_ticker][:total_cost]) / cache[transaction_ticker][:total_cost]) * 100).round(2)
+    end
+    @summary_table = summary_table.sort!.flatten
   end
 
   def country_allocation

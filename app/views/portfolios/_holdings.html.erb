@@ -3,100 +3,184 @@
   <a href="#detailed" class="toggle" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="#detailed">All</a>
 </div>
 
-<!-- Consolidated -->
+<!-- Consolidated Holdings -->
 <div class="collapse in multi-collapse" id="consolidated">
-  <h2>Consolidated Holdings</h2>
-  <table class="table-responsive">
-    <thead class="header">
-      <th>Name</th>
-      <th>Ticker</th>
-      <th>Sector</th>
-      <th>Quantity</th>
-      <th>Average Cost</th>
-      <th>Current Price</th>
-      <th>Total Cost</th>
-      <th>Market Value</th>
-      <th>YTD (%)</th>
-      <th>P&L ($)</th>
-      <th>Return (%)</th>
-      <th></th>
-    </thead>
-    <tbody>
-      <% @portfolio.duplicates.each do |transaction| %>
-        <tr>
-          <% transaction.each do |detail| %>
-            <td><%= detail %></td>
-          <% end %>
-        </tr>
-      <% end %>
-    </tbody>
-    <tfoot class="total">
-      <tr>
-        <td>Total</td> <!-- Name -->
-        <td></td> <!-- Ticker -->
-        <td></td> <!-- Sector -->
-        <td></td> <!-- Quantity -->
-        <td></td> <!-- Average Cost -->
-        <td></td> <!-- Current Price -->
-        <td><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></td> <!-- Total Cost -->
-        <td><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></td> <!-- Market Value -->
-        <td><%= number_to_percentage(@portfolio.ytd) %></td> <!-- YTD -->
-        <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P&L ($) -->
-        <td><%= number_to_percentage(@portfolio.profit_pct) %></td> <!-- Return (%) -->
-        <td></td> <!-- More Details -->
-      </tr>
-    </tfoot>
-  </table>
-</div>
+  <div class="mobile-flex">
+    <h2>Consolidated Holdings</h2>
+    <a href="#" class="toggle-mobile-consolidated hidden-lg hidden-md" id="consolidated-detailed"><i class="fas fa-search-plus"></i></a>
+    <a href="#" class="toggle-mobile-consolidated hidden-xs hidden-sm hidden-lg hidden-md" id="consolidated-simplified"><i class="fas fa-search-minus"></i></a>
+  </div>
 
-<div class="collapse multi-collapse" id="detailed">
-  <h2>All Holdings</h2>
-  <table class="table-responsive">
-    <thead class="header">
-      <th>Name</th>
-      <th>Ticker</th>
-      <th>Sector</th>
-      <th>Quantity</th>
-      <th>Cost</th>
-      <th>Price</th>
-      <th>Total Cost</th>
-      <th>Market Value</th>
-      <th>P&L ($)</th>
-      <th>Return (%)</th>
-      <th>Date Added</th>
-      <th></th> <!-- More Actions -->
-    </thead>
-    <tbody>
-      <% @portfolio.duplicates.each do |transaction| %>
-        <% selected_transactions = @portfolio.transactions.select { |x| x.ticker == transaction[1] } %>
-        <% selected_transactions.each do |transaction| %>
-          <tr class="portfolio-row">
-            <td><%= transaction.name(transaction.ticker) %></td>
-            <td><%= transaction.ticker.upcase %></td>
-            <td><%= transaction.sector(transaction.ticker) %></td>
-            <td><%= number_with_delimiter(transaction.shares) %></td>
-            <td><%= number_with_delimiter("%.2f" % transaction.price.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % transaction.current_price(transaction.ticker).to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % transaction.total_cost.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % transaction.market_value.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % transaction.profit_amount.to_f) %></td>
-            <td><%= number_with_delimiter("%.2f" % transaction.profit_pct) %>%</td>
-            <td><%= transaction.added.strftime("%d %b %Y") %></td>
-            <td>
-              <div class="dropdown show">
-                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-caret-down"></i></a>
-
-                <div class="dropdown-menu dropdown-menu-right">
-                  <div class="dropdown-item"><a href="/result?stock=<%= transaction.ticker.upcase %>">Show</a></div>
-                  <div class="dropdown-item"><%= link_to "Edit", edit_transaction_path %></div>
-                  <div class="dropdown-item"><%= link_to "Delete", transaction_path(transaction), method: :delete, data: { confirm: "Are you sure you want to delete?" } %></div>
-                </div>
-              </div>
-            </td>
+  <div class="table-responsive-sm">
+    <table class="hidden-xs hidden-sm" id="consolidated-desktop"> <!-- Consolidated: Desktop -->
+      <thead class="header">
+        <th>Name</th>
+        <th>Ticker</th>
+        <th>Sector</th>
+        <th>Quantity</th>
+        <th>Average Cost</th>
+        <th>Current Price</th>
+        <th>Total Cost</th>
+        <th>Market Value</th>
+        <th>YTD (%)</th>
+        <th>P&L ($)</th>
+        <th>Return (%)</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <% @portfolio.duplicates.each do |transaction| %>
+          <tr>
+            <% transaction.each do |detail| %>
+              <td><%= detail %></td>
+            <% end %>
           </tr>
         <% end %>
-      <% end %>
-    </tbody>
-  </table>
+      </tbody>
+      <tfoot class="total">
+        <tr>
+          <td>Total</td> <!-- Name -->
+          <td></td> <!-- Ticker -->
+          <td></td> <!-- Sector -->
+          <td></td> <!-- Quantity -->
+          <td></td> <!-- Average Cost -->
+          <td></td> <!-- Current Price -->
+          <td><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></td> <!-- Total Cost -->
+          <td><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></td> <!-- Market Value -->
+          <td><%= number_to_percentage(@portfolio.ytd) %></td> <!-- YTD -->
+          <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P&L ($) -->
+          <td><%= number_to_percentage(@portfolio.sign(@portfolio.profit_pct)) %></td> <!-- Return (%) -->
+          <td></td> <!-- More Details -->
+        </tr>
+      </tfoot>
+    </table>
+    <table class="hidden-lg hidden-md" id="consolidated-mobile"> <!-- Consolidated: Mobile -->
+      <thead class="header">
+        <th>Ticker</th>
+        <th>Quantity</th>
+        <th>Current Price</th>
+        <th>Return</th>
+      </thead>
+      <tbody>
+        <% @portfolio.duplicates_mobile.each do |transaction| %>
+          <tr>
+            <% transaction.each do |detail| %>
+              <td><%= detail %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot class="total">
+        <tr>
+          <td>Total</td> <!-- Ticker -->
+          <td></td> <!-- Quantity -->
+          <td></td> <!-- Current Price -->
+          <td><%= number_to_percentage(@portfolio.sign(@portfolio.profit_pct)) %></td> <!-- Return (%) -->
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 </div>
 
+<!-- All Holdings -->
+<div class="collapse multi-collapse" id="detailed">
+  <div class="mobile-flex">
+    <h2>All Holdings</h2>
+    <a href="#" class="toggle-mobile-simplified hidden-lg hidden-md" id="all-detailed"><i class="fas fa-search-plus"></i></a>
+    <a href="#" class="toggle-mobile-simplified hidden-xs hidden-sm hidden-lg hidden-md" id="all-simplified"><i class="fas fa-search-minus"></i></a>
+  </div>
+
+  <div class="table-responsive-sm">
+    <table class="hidden-xs hidden-sm" id="all-desktop"> <!-- All: Desktop -->
+      <thead class="header">
+        <th>Name</th>
+        <th>Ticker</th>
+        <th>Sector</th>
+        <th>Quantity</th>
+        <th>Cost</th>
+        <th>Price</th>
+        <th>Total Cost</th>
+        <th>Market Value</th>
+        <th>P&L ($)</th>
+        <th>Return (%)</th>
+        <th>Date Added</th>
+        <th></th> <!-- More Actions -->
+      </thead>
+      <tbody>
+        <% @portfolio.duplicates.each do |transaction| %>
+          <% selected_transactions = @portfolio.transactions.select { |x| x.ticker == transaction[1] } %>
+          <% selected_transactions.each do |transaction| %>
+            <tr class="portfolio-row">
+              <td><%= transaction.name(transaction.ticker) %></td>
+              <td><%= transaction.ticker.upcase %></td>
+              <td><%= transaction.sector(transaction.ticker) %></td>
+              <td><%= number_with_delimiter(transaction.shares) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.price.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.current_price(transaction.ticker).to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.total_cost.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.market_value.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.profit_amount.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.profit_pct) %>%</td>
+              <td><%= transaction.added.strftime("%d %b %Y") %></td>
+              <td>
+                <div class="dropdown show">
+                  <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-caret-down"></i></a>
+
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-item"><a href="/result?stock=<%= transaction.ticker.upcase %>">Show</a></div>
+                    <div class="dropdown-item"><%= link_to "Edit", edit_transaction_path %></div>
+                    <div class="dropdown-item"><%= link_to "Delete", transaction_path(transaction), method: :delete, data: { confirm: "Are you sure you want to delete?" } %></div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+      <tfoot class="total">
+        <tr>
+          <td>Total </td> <!-- Name -->
+          <td></td> <!-- Ticker -->
+          <td></td> <!-- Quantity -->
+          <td></td> <!-- Sector -->
+          <td></td> <!-- Cost -->
+          <td></td> <!-- Price -->
+          <td><%= number_with_delimiter("%.2f" % @portfolio.total_cost) %></td> <!-- Total Cost -->
+          <td><%= number_with_delimiter("%.2f" % @portfolio.market_value) %></td> <!-- Market Value -->
+          <td><%= number_with_delimiter("%.2f" % @portfolio.profit_amount) %></td> <!-- P&L ($) -->
+          <td><%= number_to_percentage(@portfolio.sign(@portfolio.profit_pct)) %></td> <!-- Return (%) -->
+        </tr>
+      </tfoot>
+    </table>
+    <table class="hidden-lg hidden-md" id="all-mobile"> <!-- All: Mobile -->
+      <thead class="header">
+        <th>Ticker</th>
+        <th>Quantity</th>
+        <th>Cost</th>
+        <th>Return (%)</th>
+      </thead>
+      <tbody>
+        <% @portfolio.duplicates.each do |transaction| %>
+          <% selected_transactions = @portfolio.transactions.select { |x| x.ticker == transaction[1] } %>
+          <% selected_transactions.each do |transaction| %>
+            <tr>
+              <td><%= transaction.ticker.upcase %></td>
+              <td><%= number_with_delimiter(transaction.shares) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.price.to_f) %></td>
+              <td><%= number_with_delimiter("%.2f" % transaction.profit_pct) %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+      <tfoot class="total">
+        <tr>
+          <td>Total</td> <!-- Ticker -->
+          <td></td> <!-- Quantity -->
+          <td></td> <!-- Price -->
+          <td><%= number_to_percentage(@portfolio.sign(@portfolio.profit_pct)) %></td> <!-- Return (%)-->
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+
+<%= javascript_pack_tag "holdings-toggle.js" %>

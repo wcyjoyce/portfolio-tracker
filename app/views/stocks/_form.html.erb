@@ -1,13 +1,11 @@
-<div>
-  <strong><%= @stock.name(@stock.ticker) unless @stock.ticker.nil? %></strong>
-</div>
+<!-- TODO: delete -->
 
-<%= simple_form_for(@stock) do |s| %>
-  <%= s.input :ticker %>
-  <%= s.input :shares %>
-  <%= s.input :price %>
-  <%= s.input :added %>
-  <%= s.association :portfolio, collection: Portfolio.order(:created_at), prompt: "Please select:" %>
-  <%= s.submit "Submit", class: "button" %>
-  <%= link_to "Cancel", :back, class: "button" %>
-<% end %>
+<%#= simple_form_for(@stock) do |s| %>
+  <%#= s.input :ticker %>
+  <%#= s.input :shares %>
+  <%#= s.input :price %>
+  <%#= s.input :added %>
+  <%#= s.association :portfolio, collection: Portfolio.order(:created_at), prompt: "Please select:" %>
+  <%#= s.submit "Submit", class: "button" %>
+  <%#= link_to "Cancel", :back, class: "button" %>
+<%# end %>

@@ -2,23 +2,27 @@
   <strong><%= @transaction.name(@transaction.ticker) unless @transaction.ticker.nil? %></strong>
 </div>
 
+<!-- Error messages -->
 <% if @transaction.errors.any? %>
   <div class="errors">
     Sorry! Your transaction hasn't been added because of the following reasons, please try again:
     <ul>
-    <% @transaction.errors.full_messages.each do |error| %>
-      <li><%= error %></li>
+    <% @transaction.errors.messages.values.each do |error| %>
+      <% error.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
     <% end %>
   </ul>
   </div>
 <% end %>
 
-<%= simple_form_for(@transaction) do |s| %>
-  <%= s.input :ticker %>
-  <%= s.input :shares %>
-  <%= s.input :price %>
-  <%= s.input :added %>
-  <%= s.association :portfolio, collection: Portfolio.order(:created_at), prompt: "Please select:" %>
-  <%= s.submit "Submit", class: "button" %>
+<!-- TODO: UIUX -->
+<%= simple_form_for(@transaction) do |t| %>
+  <%= t.input :ticker %>
+  <%= t.input :shares %>
+  <%= t.input :price %> <!-- TODO: calculation when price and shares have been added -->
+  <%= t.input :added %>
+  <%= t.association :portfolio, collection: Portfolio.order(:created_at), prompt: "Please select:" %>
+  <%= t.submit "Submit", class: "button" %>
   <%= link_to "Cancel", :back, class: "button" %>
 <% end %>

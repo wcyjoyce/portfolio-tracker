@@ -25,7 +25,6 @@ class StocksController < ApplicationController
 
       book_url = "https://api.iextrading.com/1.0/stock/#{@query}/book"
         book = JSON.parse(open(book_url).read)
-        # @update = Time.at("#{book['quote']['latestUpdate']}".to_i).to_datetime.strftime("%e %b %Y %H:%M:%S%p")
         @update = DateTime.strptime("#{book['quote']['latestUpdate']}", "%Q").to_datetime.strftime("%e %b %Y %H:%M:%S%p")
         @price = "#{book['quote']['latestPrice']}"
         @open = "#{book['quote']['open']}"
@@ -57,6 +56,7 @@ class StocksController < ApplicationController
 
       @library_options = {
         message: {empty: "Data unavailable"},
+        colors: ["#616668"],
         chart: {backgroundColor: nil},
         xAxis: {
           crosshair: false,

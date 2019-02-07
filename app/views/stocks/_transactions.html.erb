@@ -4,30 +4,57 @@
   <% transactions = @user.transactions.select { |transaction| transaction.ticker == @symbol } %>
   <% @selected_portfolios = [] %>
   <% transactions.each { |transaction| @selected_portfolios << transaction.portfolio } %>
-  <% @selected_portfolios.uniq.each do |portfolio| %>
-    <%= link_to portfolio.name, portfolio_path(portfolio), class: "button" %>
-  <% end %>
+  <% @selected_portfolios.uniq! %>
 
   <% unless @selected_portfolios.empty? %>
-    <table class="table-responsive holdings">
-      <thead class="header">
-        <th>Portfolio</th>
-        <th>No. of Shares</th>
-        <th>Market Value</th>
-        <th>Average Cost</th>
-        <th>P&L ($)</th>
-        <th>Return (%)</th>
-      </thead>
-      <tbody>
-        <% @selected_portfolios.each do |portfolio| %>
-          <tr class="portfolio-row">
-            <td><%= portfolio.name %></td>
-            <% portfolio.transaction_summary(@symbol).each do |detail| %>
-              <td><%= detail %></td>
-            <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div>
+      Portfolios holding <strong><%= @symbol %></strong>:
+      <a href="#" class="toggle-mobile-transactions hidden-lg hidden-md hidden-sm" id="transactions-detailed"><i class="fas fa-search-plus"></i></a>
+      <a href="#" class="toggle-mobile-transactions hidden-xs hidden-lg hidden-md hidden-sm" id="transactions-simplified"><i class="fas fa-search-minus"></i></a>
+    </div>
+
+    <div class="table-responsive-md hidden-xs" id="transactions-desktop">
+      <table>
+        <thead class="header">
+          <th>Portfolio</th>
+          <th>Quantity</th>
+          <th>Market Value</th>
+          <th>Average Cost</th>
+          <th>P&L ($)</th>
+          <th>Return (%)</th>
+        </thead>
+        <tbody>
+          <% @selected_portfolios.each do |portfolio| %>
+            <tr class="portfolio-row">
+              <td><%= portfolio.name %></td>
+              <% portfolio.transaction_summary(@symbol).each do |detail| %>
+                <td><%= detail %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="table-responsive-md hidden-lg hidden-md hidden-sm" id="transactions-mobile">
+      <table>
+        <thead class="header">
+          <th>Portfolio</th>
+          <th>Market Value</th>
+          <th>Return (%)</th>
+        </thead>
+        <tbody>
+          <% @selected_portfolios.each do |portfolio| %>
+            <tr class="portfolio-row">
+              <td><%= portfolio.name %></td>
+              <% portfolio.transaction_mobile(@symbol).each do |detail| %>
+                <td><%= detail %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   <% end %>
 <% end %>
+
+<%= javascript_pack_tag "transactions-toggle.js" %>

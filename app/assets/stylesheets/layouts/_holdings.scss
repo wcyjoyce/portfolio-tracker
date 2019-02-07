@@ -7,10 +7,9 @@
   // margin: 15px 0px;
 }
 
-.table-responsive, .table-responsive-sm, .table-responsive-xs, .table-responsive-md {
-  margin: 10px 0px;
+table, .table-responsive, .table-responsive-sm, .table-responsive-xs, .table-responsive-md {
+  // "table-responsive" class only used in transactions index
   width: 100%;
-  // min-width: 100%;
   border: none;
   overflow-x: auto;
   overflow-y: hidden;
@@ -33,6 +32,10 @@
   }
 }
 
+table {
+  margin: 10px 0px;
+}
+
 .total {
   font-weight: bold;
 }
@@ -40,3 +43,7 @@
 .fa-caret-down {
   padding-left: 15px;
 }
+
+// .action {
+//   height: 40px;
+// }

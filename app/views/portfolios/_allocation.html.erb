@@ -4,6 +4,7 @@
 <div class="col-sm-4 col-md-4 col-lg-4 hidden-xs">
   <h5>Country Allocation</h5>
   <div class="chart">
+    <!-- TODO: refactor library options -->
     <%= pie_chart @portfolio.country_allocation, donut: true, library:
       {
         messages: {empty: "Data unavailable"},
