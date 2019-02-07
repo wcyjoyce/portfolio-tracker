@@ -1,0 +1,40 @@
+<div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+  <h2>Description</h2>
+  <p><%= @description %></p>
+  <p><%= link_to @website, @website, target: :blank %></p>
+</div>
+
+<div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+  <table>
+    <h2>Stats</h2>
+    <!-- TODO: responsive view -->
+    <tr>
+      <td class="book-label"><h5>Open</h5></td>
+      <td class="book-value"><%= @open %></td> <!-- TODO: so far don't need close method -->
+    </tr>
+    <tr>
+      <td class="book-label"><h5>High</h5></td>
+      <td class="book-value"><%= @high %></td>
+    </tr>
+    <tr>
+      <td class="book-label"><h5>Low</h5></td>
+      <td class="book-value"><%= @low %></td>
+    </tr>
+    <tr>
+      <td class="book-label"><h5>52 wk high</h5></td>
+      <td class="book-value"><%= @high_52 %></td>
+    </tr>
+    <tr>
+      <td class="book-label"><h5>52 wk low</h5></td>
+      <td class="book-value"><%= @low_52 %></td>
+    </tr>
+    <tr>
+      <td class="book-label"><h5>Average Volume</h5></td>
+      <td class="book-value"><%= number_with_delimiter(@avg_volume) %></td>
+    </tr>
+    <tr>
+      <td class="book-label"><h5>P/E Ratio</h5></td>
+      <td class="book-value"><%= @pe_ratio %></td>
+    </tr>
+  </table>
+</div>
