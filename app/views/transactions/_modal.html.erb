@@ -5,28 +5,68 @@
         <h2 class="modal-title">Confirmation</h2>
       </div>
       <div class="modal-body">
-        <table>
-          <tr>
-            <td class="modal-label" id="label-company">Stock</td>
-            <td class="modal-value" id="value-company"></td>
-          </tr>
-          <tr>
-            <td class="modal-label" id="label-"></td>
-            <td class="modal-value" id="value-"></td>
-          </tr>
-          <tr>
-            <td class="modal-label" id="label-"></td>
-            <td class="modal-value" id="value-"></td>
-          </tr>
-          <tr>
-            <td class="modal-label" id="label-"></td>
-            <td class="modal-value" id="value-"></td>
-          </tr>
-          <tr>
-            <td class="modal-label" id="label-"></td>
-            <td class="modal-value" id="value-"></td>
-          </tr>
-        </table>
+        <div class="modal-section stock-details">
+          <div><%= @transaction.name(@transaction.ticker) unless @transaction.ticker.nil? %></div>
+          <div><%= @transaction.current_price(@transaction.ticker) unless @transaction.ticker.nil? %></div>
+        </div>
+        <!-- New Transaction Details -->
+        <div class="transaction-confirm modal-section">
+          Here is a summary of your transaction details:
+          <div class="table-responsive">
+            <!-- TODO: AJAX for new transaction details -->
+            <table>
+              <tr>
+                <td class="modal-label" id="label-shares">Quantity</td>
+                <td class="modal-value" id="value-shares">-</td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-cost">Cost</td>
+                <td class="modal-value" id="value-cost">-</td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-totalcost">Total Cost</td>
+                <td class="modal-value" id="value-totalcost">-</td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-marketvalue">Market Value</td>
+                <td class="modal-value" id="value-marketvalue">-</td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-allocation">Allocation</td>
+                <td class="modal-value" id="value-allocation">-</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <% unless @transaction.ticker.nil? %>
+          <div class="transaction-original modal-section">
+            This is a summary of your original transaction:
+            <div class="table-responsive">
+            <table>
+              <tr>
+                <td class="modal-label" id="label-shares">Quantity</td>
+                <td class="modal-value" id="value-shares"><%= number_with_delimiter(@transaction.shares) %> shares</td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-cost">Cost</td>
+                <td class="modal-value" id="value-cost"><%= number_with_delimiter(@transaction.price) %></td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-totalcost">Total Cost</td>
+                <td class="modal-value" id="value-totalcost"><%= number_with_delimiter(@transaction.total_cost.round(2)) %></td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-marketvalue">Market Value</td>
+                <td class="modal-value" id="value-marketvalue"><%= number_with_precision(@transaction.market_value, delimiter: ",", precision: 2) %></td>
+              </tr>
+              <tr>
+                <td class="modal-label" id="label-allocation">Allocation</td>
+                <td class="modal-value" id="value-allocation"><%= number_to_percentage(@transaction.allocation) %></td>
+              </tr>
+            </table>
+            </div>
+          </div>
+        <% end %>
       </div>
       <div class="modal-footer">
         <%= simple_form_for(@transaction) do |s| %>

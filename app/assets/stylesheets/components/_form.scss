@@ -1,6 +1,7 @@
 .form {
   h2 {
-    margin: 15px 0px;
+    margin-top: 15px;
+    margin-bottom: 5px;
   }
 
   .form-group {
@@ -8,7 +9,7 @@
   }
 
   .form-control-label, input, select {
-    font-family: "Lato", "sans-serif";
+    font-family: Lato, sans-serif;
     font-weight: normal;
     font-size: 14px;
     letter-spacing: 1px;

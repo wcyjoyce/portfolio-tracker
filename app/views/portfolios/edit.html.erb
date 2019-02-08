@@ -1,3 +1,6 @@
-<div>
+<div class="form">
+  <h2>Edit Portfolio</h2>
   <%= render "form", portfolio: @portfolio %>
 </div>
+
+<%= content_for(:title, @portfolio.name + " | Edit Portfolio") %>

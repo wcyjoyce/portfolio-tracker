@@ -1,2 +1,6 @@
-Edit Transaction
-<%= render "form", transaction: @transaction %>
+<div class="form">
+  <h2>Edit Transaction</h2>
+  <%= render "form", transaction: @transaction %>
+</div>
+
+<%= content_for(:title, "Edit Transaction | " + @transaction.portfolio.name) %>
