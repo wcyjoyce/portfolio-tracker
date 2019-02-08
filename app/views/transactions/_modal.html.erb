@@ -1,0 +1,39 @@
+<div class="modal fade" id="confirmation" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmation</h2>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tr>
+            <td class="modal-label" id="label-company">Stock</td>
+            <td class="modal-value" id="value-company"></td>
+          </tr>
+          <tr>
+            <td class="modal-label" id="label-"></td>
+            <td class="modal-value" id="value-"></td>
+          </tr>
+          <tr>
+            <td class="modal-label" id="label-"></td>
+            <td class="modal-value" id="value-"></td>
+          </tr>
+          <tr>
+            <td class="modal-label" id="label-"></td>
+            <td class="modal-value" id="value-"></td>
+          </tr>
+          <tr>
+            <td class="modal-label" id="label-"></td>
+            <td class="modal-value" id="value-"></td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <%= simple_form_for(@transaction) do |s| %>
+          <%= s.submit "Confirm", class: "button" %>
+          <button type="button" class="button" data-dismiss="modal">Edit</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

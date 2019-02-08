@@ -1,0 +1,56 @@
+.form {
+  h2 {
+    margin: 15px 0px;
+  }
+
+  .form-group {
+    height: 70px;
+  }
+
+  .form-control-label, input, select {
+    font-family: "Lato", "sans-serif";
+    font-weight: normal;
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .form-control {
+    background: transparent;
+    border: 1px solid $link;
+    border-radius: 5px;
+    color: $link;
+  }
+
+  #transaction_portfolio_id, #transaction_added_2i {
+    text-transform: none !important;
+  }
+
+  .form-flex {
+    display: flex;
+
+    .form-half {
+      width: 50%;
+
+      &:first-child {
+        padding-right: 10px;
+      }
+
+      &:last-child {
+        padding-left: 10px;
+      }
+    }
+  }
+
+  .col-xs-4 {
+    padding: 0px 5px;
+
+    &:first-child {
+      padding-left: 0px;
+    }
+
+    &:last-child {
+      padding-right: 0px;
+    }
+  }
+}

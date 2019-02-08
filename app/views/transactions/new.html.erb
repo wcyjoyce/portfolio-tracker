@@ -1,2 +1,6 @@
-Add New Transaction
-<%= render "form", transaction: @transaction %>
+<div class="form">
+  <h2>Add New Transaction</h2>
+  <%= render "form", transaction: @transaction %>
+</div>
+
+<%= content_for(:title, "New Transaction") %>
