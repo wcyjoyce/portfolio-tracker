@@ -9,11 +9,10 @@ class Stock < ApplicationRecord
   end
 
   def self.day_chart(stock)
-    # TODO: remove price values that are null
     historical_url = "https://api.iextrading.com/1.0/stock/#{stock}/chart/1d"
     historical = JSON.parse(open(historical_url).read)
     chart = historical.collect { |historical| [historical["minute"], historical["close"]] }
-    # chart.reject { |price| price[1].null? }
+    chart.reject { |price| price[1].nil? }
   end
 
   def self.comps(stock)
@@ -22,6 +21,7 @@ class Stock < ApplicationRecord
     comps.first(5).include?(comps.last) ? comps = comps.first(5).unshift(stock) : comps = comps.first(5).unshift(stock) << comps.last
     comps_table = []
 
+    comps.reject! { |comp| comp.nil? }
     comps.each do |comp|
       stats = JSON.parse(open("https://api.iextrading.com/1.0/stock/#{comp}/stats").read)
       book = JSON.parse(open("https://api.iextrading.com/1.0/stock/#{comp}/book").read)
@@ -68,9 +68,5 @@ class Stock < ApplicationRecord
 
   def country
     ticker.match(/^[a-zA-Z]/) ? "US" : "HK"
-  end
-
-  def market
-  # TODO: market status for stock
   end
 end
