@@ -3,27 +3,29 @@ class Portfolio < ApplicationRecord
   has_many :stocks, through: :transactions
   has_many :transactions, dependent: :destroy
   validates :name, presence: true
+  acts_as_paranoid
 
   def total_cost
     total_cost = 0
-    transactions.each { |transaction| total_cost += transaction.total_cost }
-    total_cost.to_i
+    transactions.each { |transaction| total_cost += transaction.total_cost.to_f }
+    total_cost.to_f.zero? ? "-" : total_cost.to_i
   end
 
   def market_value
     market_value = 0
-    transactions.each { |transaction| market_value += transaction.market_value }
-    market_value.to_i
+    transactions.each { |transaction| market_value += transaction.market_value.to_f }
+    market_value.to_f.zero? ? "-" : market_value.to_i
   end
 
   def profit_amount
     profit_amount = 0
-    transactions.each { |transaction| profit_amount += transaction.profit_amount }
-    profit_amount.to_i
+    transactions.each { |transaction| profit_amount += transaction.profit_amount.to_f }
+    profit_amount.to_f.zero? ? "-" : profit_amount.to_i
   end
 
   def profit_pct
-    total_cost.zero? ? "-" : (profit_amount.to_f / total_cost.to_f * 100).round(2)
+    # total_cost.to_f.zero? ? "-" : (profit_amount.to_f / total_cost.to_f * 100).round(2)
+    total_cost.to_f.zero? ? "" : (profit_amount.to_f / total_cost.to_f * 100).round(2)
   end
 
   def inception
@@ -216,11 +218,17 @@ class Portfolio < ApplicationRecord
   end
 
   def display(number)
-    number > 0 ? "positive" : "negative"
+    number.to_f > 0 ? "positive" : "negative"
   end
 
   def sign(number)
     number = number.to_f
-    number > 0 ? sprintf("+%g", number) : number
+    if number > 0
+      sprintf("+%g", number)
+    elsif number == 0
+      "-"
+    else
+      number
+    end
   end
 end
