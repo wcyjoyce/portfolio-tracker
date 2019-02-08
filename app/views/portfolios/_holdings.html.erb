@@ -126,8 +126,7 @@
                   <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-caret-down"></i></a>
 
                   <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-item"><a href="/result?stock=<%= transaction.ticker.upcase %>">Show</a></div>
-                    <div class="dropdown-item"><%= link_to "Edit", edit_transaction_path %></div>
+                    <div class="dropdown-item"><%= link_to "Edit", edit_transaction_path(transaction) %></div>
                     <div class="dropdown-item"><%= link_to "Delete", transaction_path(transaction), method: :delete, data: { confirm: "Are you sure you want to delete?" } %></div>
                   </div>
                 </div>
