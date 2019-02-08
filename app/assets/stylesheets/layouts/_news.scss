@@ -3,7 +3,12 @@
  * ------------------------------------- */
 
 .news {
-  min-height: 75px;
+
+  [class*="col-"] {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+  }
 
   .col-md-6, .col-lg-6 {
     &:first-child {
