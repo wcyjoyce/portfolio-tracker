@@ -1,0 +1,29 @@
+.market {
+  margin-left: 30px;
+  margin-right: 5px;
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+  opacity: 0.8;
+}
+
+.status {
+  display: flex;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-family: Lato, sans-serif;
+  letter-spacing: 0.5px;
+
+}
+
+.open {
+  background: $green;
+}
+
+.closed {
+  background: $red;
+}
+
+.result-header .mobile-flex > .status {
+  margin-left: 75px;
+}
