@@ -1,5 +1,5 @@
 <!-- TODO: AJAX -->
-<h3><%= @portfolio.name unless @portfolio.name.nil? %></h3>
+<h4><%= @portfolio.name unless @portfolio.name.nil? %></h4>
 <%= simple_form_for(@portfolio) do |p| %>
   <%= p.input :name %>
   <%= p.submit "Submit", class: "button" %>
