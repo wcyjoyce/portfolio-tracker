@@ -1,13 +1,12 @@
-<div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+<div class="col-xs-12 col-sm-6">
   <h2>Description</h2>
   <p><%= @description %></p>
-  <p><%= link_to @website, @website, target: :blank %></p>
+  <p><%= link_to @website, @website, target: :blank, class: "source" %></p>
 </div>
 
-<div class="col-xs-12 col-md-6 col-sm-6 col-lg-6">
+<div class="col-xs-12 col-sm-6">
   <table>
     <h2>Stats</h2>
-    <!-- TODO: responsive view -->
     <tr>
       <td class="book-label"><h5>Open</h5></td>
       <td class="book-value"><%= @open %></td> <!-- TODO: so far don't need close method -->
