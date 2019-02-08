@@ -69,4 +69,12 @@ class Stock < ApplicationRecord
   def country
     ticker.match(/^[a-zA-Z]/) ? "US" : "HK"
   end
+
+  def self.market(stock)
+    market_url = "https://api.iextrading.com/1.0/stock/#{stock}/quote"
+    market = JSON.parse(open(market_url).read)
+    market_open = market['openTime']
+    market_close = market['closeTime']
+    market_open > market_close ? "market open" : "market closed"
+  end
 end
