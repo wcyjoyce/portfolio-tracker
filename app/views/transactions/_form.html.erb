@@ -1,7 +1,4 @@
-<div>
-  <strong><%= @transaction.name(@transaction.ticker) unless @transaction.ticker.nil? %></strong>
-</div>
-
+<h3><%= @transaction.name(@transaction.ticker) unless @transaction.ticker.nil? %></h3>
 <!-- Error messages -->
 <% if @transaction.errors.any? %>
   <div class="errors">
