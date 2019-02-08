@@ -3,6 +3,8 @@
  * ------------------------------------- */
 
 .news {
+  min-height: 75px;
+
   .col-md-6, .col-lg-6 {
     &:first-child {
       padding-left: 0px;
