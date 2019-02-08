@@ -1,69 +1,74 @@
-<h2>Comparisons</h2>
-<table class="table-responsive holdings">
-  <thead class="header">
-    <th>Name</th>
-    <th>Ticker</th>
-    <th>Price</th>
-    <th>Market Cap</th>
-    <th>% Change</th>
-    <th>High / Low</th>
-    <th>YTD</th>
-    <th>PE Ratio</th>
-    <th>Beta</th>
-    <th>ROE</th>
-    <th>EPS</th>
-    <th>Dividend Yield</th>
-  </thead>
-  <tbody>
-    <!-- query -->
-    <tr class="portfolio-row query">
-      <td><%= @name %></td>
-      <td><%= @symbol %></td>
-      <td><%= @price %></td>
-      <td><%= @market_cap.to_f >= 1000000000 ? (@market_cap.to_f / 1000000000).round(2).to_s + "B" : (@market_cap.to_f / 1000000).round(2).to_s + "M" %></td>
-      <td><%= (StockQuote::Stock.quote(@query).change_percent * 100).round(2) %>%</td>
-      <td><%= @high %> / <%= @low %></td>
-      <td><%= (StockQuote::Stock.quote(@query).ytd_change * 100).round(2) %>%</td>
-      <td><%= @pe_ratio.to_f.round(2) %></td>
-      <td><%= @beta.to_f.round(2) %></td>
-      <td><%= @roe.to_f.round(2) %></td>
-      <td><%= @eps.to_f.round(2) %></td>
-      <td><%= @dividend_yield.to_f.round(2) %></td>
-    </tr>
-    <!-- comps -->
-    <% @comps.first(5).each do |comp| %>
-      <tr class="portfolio-row">
-        <td><%= StockQuote::Stock.quote(comp).company_name %></td>
-        <td><%= comp %></td>
-        <td><%= StockQuote::Stock.quote(comp).latest_price %></td>
-        <td><%= StockQuote::Stock.quote(comp).market_cap >= 1000000000 ? (StockQuote::Stock.quote(comp).market_cap / 1000000000).round(2).to_s + "B" : (StockQuote::Stock.quote(comp).market_cap / 1000000).round(2).to_s + "M" %></td>
-        <td><%= (StockQuote::Stock.quote(comp).change_percent * 100).round(2) %>%</td>
-        <td><%= StockQuote::Stock.quote(comp).high %> / <%= StockQuote::Stock.quote(comp).low %></td>
-        <td><%= (StockQuote::Stock.quote(comp).ytd_change * 100).round(2) %>%</td>
-        <td><%= StockQuote::Stock.quote(comp).pe_ratio %></td>
-        <td></td> <!-- beta -->
-        <td></td> <!-- ROE -->
-        <td></td> <!-- EPS -->
-        <td></td> <!-- dividend yield -->
-      </tr>
-    <% end %>
-    <!-- benchmark -->
-    <% benchmark = @comps.last %>
-    <% unless benchmark.nil? %>
-      <tr class="portfolio-row benchmark hidden">
-        <td><%= StockQuote::Stock.quote(benchmark).company_name %></td>
-        <td><%= benchmark %></td>
-        <td><%= StockQuote::Stock.quote(benchmark).latest_price %></td>
-        <td><%= StockQuote::Stock.quote(benchmark).market_cap >= 1000000000 ? (StockQuote::Stock.quote(benchmark).market_cap / 1000000000).round(2).to_s + "B" : (StockQuote::Stock.quote(benchmark).market_cap / 1000000).round(2).to_s + "M" %></td>
-        <td><%= (StockQuote::Stock.quote(benchmark).change_percent * 100).round(2) %>%</td>
-        <td><%= StockQuote::Stock.quote(benchmark).high %> / <%= StockQuote::Stock.quote(benchmark).low %></td>
-        <td><%= (StockQuote::Stock.quote(benchmark).ytd_change * 100).round(2) %>%</td>
-        <td><%= StockQuote::Stock.quote(benchmark).pe_ratio %></td>
-        <td></td> <!-- beta -->
-        <td></td> <!-- ROE -->
-        <td></td> <!-- EPS -->
-        <td></td> <!-- dividend yield -->
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<h2 class="hidden-xs hidden-sm">Comparisons</h2>
+<div class="mobile-flex hidden-md hidden-lg">
+  <a href="#" class="toggle-mobile-comps hidden-lg hidden-md" id="comps-detailed"><i class="fas fa-search-plus"></i></a>
+  <a href="#" class="toggle-mobile-comps hidden-xs hidden-lg hidden-md hidden-sm" id="comps-simplified"><i class="fas fa-search-minus"></i></a>
+</div>
+
+<div class="table-responsive-md hidden-xs hidden-sm" id="comps-desktop">
+  <table>
+    <thead class="header">
+      <th>Name</th>
+      <th>Ticker</th>
+      <th>Price</th>
+      <th>Market Cap</th>
+      <th>% Change</th>
+      <th>High / Low</th>
+      <th>YTD</th>
+      <th>PE Ratio</th>
+      <th>Beta</th>
+      <th>ROE</th>
+      <th>EPS</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @comps.each do |comp| %>
+        <tr class="portfolio-row">
+          <% comp.each do |detail| %>
+            <td><%= detail %></td>
+          <% end %>
+          <td>
+            <div class="dropdown show">
+              <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-caret-down"></i></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-item"><%= link_to "Add", new_transaction_path %></div>
+                <div class="dropdown-item"><a href="/result?stock=<%= comp[1] %>">Show</a></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="table-responsive-md hidden-lg hidden-md" id="comps-mobile">
+  <table>
+    <thead>
+      <th>Ticker</th>
+      <th>High / Low</th>
+      <th>Market Cap</th>
+      <th>YTD</th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @mobile_comps.each do |comp| %>
+        <tr class="portfolio-row">
+          <% comp.each do |detail| %>
+            <td><%= detail %></td>
+          <% end %>
+          <td>
+            <div class="dropdown show">
+              <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-caret-down"></i></a>
+              <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-item"><%= link_to "Add", new_transaction_path %></div>
+                <div class="dropdown-item"><a href="/result?stock=<%= comp[0] %>">Show</a></div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_pack_tag "comps-toggle.js" %>
