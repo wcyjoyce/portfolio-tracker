@@ -68,8 +68,9 @@ class StocksController < ApplicationController
         }
       }
 
-      @comps = Stock.comps(@query)
       @articles = Stock.news(@query)
+      @comps = Stock.comps(@query)
+      @mobile_comps = Stock.comps_mobile(@query)
     end
   end
 

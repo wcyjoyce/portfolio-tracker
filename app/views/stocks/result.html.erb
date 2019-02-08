@@ -4,22 +4,25 @@
   <h5><strong>As of:</strong> <%= @update %></h5>
 
   <div class="stats">
-    <div class="stat">
+    <div class="stat col-xs-6 col-sm-4 col-lg-4">
       <div class="stat-header"><h5>Latest Price</h5></div>
       <div class="stat-content"><%= number_with_delimiter(@price) %></div>
     </div>
-    <div class="stat">
+    <div class="stat col-xs-6 col-sm-4 col-lg-4">
       <div class="stat-header"><h5>Day Change</h5></div>
       <div class="stat-content"><%= @change_amount_day.round(2) %> (<%= number_to_percentage(@change_pct_day) %>)</div>
     </div>
   </div>
 
   <div class="transactions"><%= render "transactions" %></div>
-  <div class="result"><%= render "info" %></div>
+  <div class="overview section"><%= render "overview" %></div>
+  <div class="performance section"><%= render "chart" %></div>
+  <div class="news section"><%= render "news" %></div>
+  <div class="comps section"><%= render "comp" %></div>
 <% else %>
   <h1>Search by entering a ticker:</h1>
   <%= render "stocks/search" %>
 <% end %>
 
 <%= javascript_pack_tag "autorefresh.js" %>
-<%= @query.nil? || @query.empty? ? content_for(:title, "Dough Trade – Search") : content_for(:title, @name) %>
+<%= @query.nil? || @query.empty? ? content_for(:title, "Dough Trade – Search") : content_for(:title, @name + " – Dough Trade") %>
