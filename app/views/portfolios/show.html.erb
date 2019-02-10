@@ -22,7 +22,10 @@
   <% unless @portfolio.transactions.empty? %>
     <div>
       <h5>Inception Date: <%= @portfolio.inception %></h5>
-      <h5>As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %>. Quotes are delayed by at least 15 minutes.</h5>
+      <div class="mobile-flex">
+        <h5>As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %>. </h5>
+        <h5 class="hidden-xs">Quotes are delayed by at least 15 minutes.</h5>
+      </div>
     </div>
   <% else %>
     <p>There are no stocks in <%= @portfolio.name %>.</p>
