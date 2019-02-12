@@ -1,1 +1,85 @@
-// Specific CSS for your home-page
+/* -------------------------------------
+ * Homepage
+* ------------------------------------- */
+
+.splash {
+  padding: 48px 25px;
+  margin: 25px 0px;
+  background: $headers;
+
+  h1 {
+    font-size: 72px;
+    margin: 0px;
+    padding: 20px 0px;
+  }
+
+  p {
+    margin: 0px;
+    padding: 10px 0px;
+  }
+
+  .buttons {
+    padding: 20px 0px;
+  }
+}
+
+.features {
+  text-align: center;
+
+
+  h4 {
+    margin: 0px;
+    padding: 15px 0px;
+  }
+
+  p {
+    margin: 15px 0px;
+  }
+
+  .far {
+    padding: 15px 0px;
+    font-size: 70px;
+    font-weight: lighter;
+  }
+}
+
+@media(min-width: 576px) {
+  .features {
+    padding: 48px 0px;
+
+    [class*="col-"] {
+      float: none;
+      display: table-cell;
+      vertical-align: top;
+    }
+  }
+}
+
+.sectors {
+  padding: 48px 0px;
+
+  .tabs {
+    width: 35%;
+    padding-right: 20px;
+
+    .selected {
+      border-left: 4px solid $headers;
+    }
+  }
+
+  .tab {
+    display: flex;
+    justify-content: space-between;
+    padding: 2.5px 5px;
+    border-left: 4px solid $background;
+
+    &:hover {
+      border-left: 4px solid $headers;
+    }
+  }
+
+  .performance-charts {
+    width: 65%;
+    padding: 0px 5px;
+  }
+}
