@@ -1,4 +1,81 @@
-<h1>Dough Trade</h1>
-This will be a landing page.
+<div class="home">
+  <div class="splash">
+    <h1>Hello.</h1>
+    <p>This will be a description.</p>
+    <div class="buttons">
+      <%= link_to "Sign up", new_user_registration_path, class: "button" %>
+      <%= link_to "Log in", new_user_session_path, class: "button" %>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="col-xs-12 col-sm-4">
+      <i class="far fa-chart-bar"></i>
+      <h4>Your Money, Your Management</h4>
+      <p>Manage your finances comprehensively, intuitively</p>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <i class="far fa-chart-bar"></i>
+      <h4>Your Money, Your Management</h4>
+      <p></p>
+    </div>
+    <div class="col-xs-12 col-sm-4">
+      <i class="far fa-newspaper"></i>
+      <h4>News Analysis</h4>
+      <p></p>
+    </div>
+</div>
+
+  <div class="sectors">
+    <h2>Sectors</h2>
+    <div class="mobile-flex">
+      <div class="tabs">
+        <% @tab_details.each do |tab, detail| %>
+          <div>
+            <a href="#" class="tab" id="tab-<%= tab %>">
+              <div class="sector-name"><%= detail[0] %></div>
+              <span class="sector-performance"><%= detail[1].to_s + "%"  %></span>
+            </a>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="performance-charts hidden-xs">
+        <!-- TODO: format into loop -->
+        <div class="performance-chart" id="chart-spy">
+          <%= line_chart @chart_spy, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-communications">
+          <%= line_chart @chart_communications, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-technology">
+          <%= line_chart @chart_technology, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-utilities">
+          <%= line_chart @chart_utilities, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-healthcare">
+          <%= line_chart @chart_healthcare, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-realestate">
+          <%= line_chart @chart_realestate, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-materials">
+          <%= line_chart @chart_materials, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-consumer">
+          <%= line_chart @chart_consumer, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-energy">
+          <%= line_chart @chart_energy, library: @library_options, points: false, min: nil %>
+        </div>
+        <div class="performance-chart hidden" id="chart-financials">
+          <%= line_chart @chart_financials, library: @library_options, points: false, min: nil %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <%= content_for(:title, "Dough Trade – Home") %>
+<%= javascript_pack_tag "sector-toggle.js" %>
