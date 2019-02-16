@@ -1,3 +1,4 @@
+// Stock Results: Performance Charts
 const chart5y = document.getElementById("toggle-5y");
 chart5y.addEventListener("click", (event) => {
   event.preventDefault();
