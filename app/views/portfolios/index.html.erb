@@ -8,7 +8,7 @@
     </div>
     <div class="stat col-xs-6 col-sm-4 col-lg-4">
       <div class="stat-header"><h5>Total Return</h5></div>
-      <div class="stat-content <%= @user.display(@user.profit_amount) %>"><%= @user.sign(@user.profit_amount) %> (<%= @user.sign(number_to_percentage(@user.profit_pct)) %>)</div>
+      <div class="stat-content <%= @user.display(@user.profit_amount) %>"><%= @user.sign(@user.profit_amount.to_i) %> (<%= @user.sign(number_to_percentage(@user.profit_pct)) %>)</div>
     </div>
   </div>
 
@@ -16,9 +16,11 @@
     <h5>As of <%= Time.now.strftime("%d %b %Y %H:%M %p") %></h5>
     <div class="action">
       <!-- Desktop Buttons -->
+      <%= link_to "Add Portfolio", new_portfolio_path, class: "button hidden-xs" %>
       <%= link_to "Refresh", portfolios_path, class: "button hidden-xs" %>
       <a href="/portfolios.csv" class="button hidden-xs">Export</a>
       <!-- Mobile Buttons -->
+      <%= link_to new_portfolio_path, class: "button hidden-sm hidden-md hidden-lg" do %><i class="fas fa-plus"></i><% end %>
       <%= link_to portfolios_path, class: "button hidden-sm hidden-md hidden-lg" do %><i class="fas fa-sync-alt"></i><% end %>
       <a href="/portfolios.csv" class="button hidden-sm hidden-md hidden-lg"><i class="fas fa-download"></i></a>
     </div>
@@ -60,7 +62,6 @@
             </td>
           </tr>
         <% end %>
-        <tr class="portfolio-row"><td><%= link_to "+", new_portfolio_path, class: "button" %></td></tr>
       </tbody>
     </table>
   </div>
