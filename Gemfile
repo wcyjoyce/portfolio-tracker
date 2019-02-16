@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.5'
+ruby '2.6.0'
 
 
 gem 'devise'
@@ -20,6 +20,7 @@ gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
 gem 'jquery-rails'
+gem 'nokogiri', '~> 1.6', '>= 1.6.8'
 
 # Stock Quotes
 gem 'stock_quote'
