@@ -8,12 +8,12 @@ class User < ApplicationRecord
   has_many :stocks, through: :portfolios
   has_many :transactions, through: :portfolios
 
-  # validates :first_name, :last_name, presence: true
-  # validates :email, presence: true, uniqueness: true
+  validates :first_name, :last_name, presence: true
+  validates :email, presence: true, uniqueness: true
 
-  # def full_name
-  #   "#{first_name.capitalize} #{last_name.capitalize}"
-  # end
+  def full_name
+    "#{first_name.capitalize} #{last_name.capitalize}"
+  end
 
   def market_value
     market_value = 0
