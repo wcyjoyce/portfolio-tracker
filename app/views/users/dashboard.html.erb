@@ -1,2 +1,6 @@
 <h1>Dashboard</h1>
 <!-- TODO: add content -->
+<%= link_to "Edit Profile", edit_user_registration_path(@user) %>
+
+<%#= content_for(:title, "Dashboard | " + @user.full_name) %>
+<%= content_for(:title, "Dashboard") %>
