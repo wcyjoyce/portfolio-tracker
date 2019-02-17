@@ -63,10 +63,11 @@ class PortfoliosController < ApplicationController
       end
     end
 
-    # respond_to do |format|
-    #   format.html
-    #   format.csv { send_data Portfolio.to_csv, filename: "#{@portfolio.name}_#{Date.today}.csv"}
-    # end
+    # TODO: export individual portfolio CSV
+    respond_to do |format|
+      format.html
+      format.csv { send_data Portfolio.to_show_csv, filename: "#{@portfolio.name}_#{Date.today}.csv"}
+    end
   end
 
   def edit

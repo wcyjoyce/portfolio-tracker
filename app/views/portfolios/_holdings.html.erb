@@ -25,9 +25,12 @@
         <th>YTD (%)</th>
         <th>P&L ($)</th>
         <th>Return (%)</th>
+        <!-- <th>Allocation (%)</th> -->
         <th></th>
       </thead>
       <tbody>
+        <!-- TODO: add show path -->
+        <!-- TODO: add portfolio allocation -->
         <% @portfolio.duplicates.each do |transaction| %>
           <tr>
             <% transaction.each do |detail| %>
@@ -61,6 +64,7 @@
         <th>Return</th>
       </thead>
       <tbody>
+        <!-- TODO: add show path -->
         <% @portfolio.duplicates_mobile.each do |transaction| %>
           <tr>
             <% transaction.each do |detail| %>

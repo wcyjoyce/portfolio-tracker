@@ -9,6 +9,13 @@
     }
   }
 
+  // TODO: fix height of col-sm-6
+  // [class*="col-sm-"] {
+  //   float: none;
+  //   display: table-cell;
+  //   vertical-align: top;
+  // }
+
   td {
     padding: 0px;
   }

@@ -28,6 +28,11 @@ class Portfolio < ApplicationRecord
     total_cost.to_f.zero? ? "" : (profit_amount.to_f / total_cost.to_f * 100).round(2)
   end
 
+  # TODO: add allocation
+  # def allocation
+  #   (market_value / user.market_value * 100).round(2)
+  # end
+
   def inception
     if transactions.nil?
       transactions.order(added: :asc).first.added.strftime("%d %b %Y")
@@ -79,6 +84,7 @@ class Portfolio < ApplicationRecord
         ytd = sprintf("%.2f", sign((StockQuote::Stock.quote(transaction_ticker).ytd_change * 100).round(2))).to_s + "%",
         profit_amount = sign((market_value - total_cost).round(2)),
         profit_pct = sign((profit_amount.to_f / total_cost * 100).round(2))
+        # allocation = (market_value / @portfolio.market_value * 100).round(2)
       ]
     end
     @duplicates_table = duplicates_table.sort_by { |stock| stock[2] }
