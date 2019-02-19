@@ -32,7 +32,9 @@
             <div class="dropdown show">
               <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-caret-down"></i></a>
               <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-item"><%= link_to "Add", new_transaction_path %></div>
+                <% if user_signed_in? %>
+                  <div class="dropdown-item"><%= link_to "Add", new_transaction_path %></div>
+                <% end %>
                 <div class="dropdown-item"><a href="/result?stock=<%= comp[1] %>">Show</a></div>
               </div>
             </div>
